@@ -8,6 +8,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using SistabizApp.Authentication;
+using SistabizApp_New.IServices;
+using SistabizApp_New.Models;
+using SistabizApp_New.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,10 +35,33 @@ namespace SistabizApp_New
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnStr")));
 
+            services.AddDbContext<SistabizAppContext>(options =>options.UseSqlServer(Configuration.GetConnectionString("ConnStr")));
+
+            services.AddTransient<IMemberService, MemberService>();
+
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v2", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Title = "Place Info Service API",
+                    Version = "v2",
+                    Description = "Sample service for Learner",
+                });
+            });
+
+
             // For Identity  
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+            services.Configure<IdentityOptions>(opts =>
+            {
+                opts.User.RequireUniqueEmail = true;
+                opts.Password.RequiredLength = 8;
+
+                opts.SignIn.RequireConfirmedEmail = true;
+            });
 
             // Adding Authentication  
             services.AddAuthentication(options =>
@@ -44,6 +70,7 @@ namespace SistabizApp_New
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
             })
+
 
             // Adding Jwt Bearer  
             .AddJwtBearer(options =>
@@ -81,12 +108,15 @@ namespace SistabizApp_New
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-            });
+            app.UseSwagger();
+            app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v2/swagger.json", "PlaceInfo Services"));
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllerRoute(
+            //        name: "default",
+            //        pattern: "{controller=Home}/{action=Index}/{id?}");
+            //});
         }
     }
 }

@@ -22,6 +22,7 @@ namespace SistabizApp_New.Models
         public virtual DbSet<AspNetUserRoles> AspNetUserRoles { get; set; }
         public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<TblMember> TblMember { get; set; }
         public virtual DbSet<TblUserNew> TblUserNew { get; set; }
         public virtual DbSet<Tbluser> Tbluser { get; set; }
 
@@ -119,11 +120,44 @@ namespace SistabizApp_New.Models
 
                 entity.Property(e => e.Email).HasMaxLength(256);
 
+                entity.Property(e => e.FirstName).HasMaxLength(100);
+
+                entity.Property(e => e.LastName).HasMaxLength(100);
+
                 entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
 
                 entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
 
+                entity.Property(e => e.ProfileName).HasMaxLength(100);
+
                 entity.Property(e => e.UserName).HasMaxLength(256);
+            });
+
+            modelBuilder.Entity<TblMember>(entity =>
+            {
+                entity.HasKey(e => e.MemberId);
+
+                entity.ToTable("tblMember");
+
+                entity.Property(e => e.Address).HasMaxLength(200);
+
+                entity.Property(e => e.City).HasMaxLength(100);
+
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+
+                entity.Property(e => e.Email).HasMaxLength(20);
+
+                entity.Property(e => e.FirstName).HasMaxLength(100);
+
+                entity.Property(e => e.LastName).HasMaxLength(100);
+
+                entity.Property(e => e.Mobile).HasMaxLength(20);
+
+                entity.Property(e => e.Password).HasMaxLength(100);
+
+                entity.Property(e => e.ProfileImage).HasMaxLength(200);
+
+                entity.Property(e => e.ZipCode).HasMaxLength(30);
             });
 
             modelBuilder.Entity<TblUserNew>(entity =>
