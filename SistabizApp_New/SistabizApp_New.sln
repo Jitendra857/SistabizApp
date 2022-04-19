@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32407.337
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistabizApp_New", "SistabizApp_New.csproj", "{52C3B5DF-992F-4EA2-B1B6-D227A16C06BD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{52C3B5DF-992F-4EA2-B1B6-D227A16C06BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52C3B5DF-992F-4EA2-B1B6-D227A16C06BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52C3B5DF-992F-4EA2-B1B6-D227A16C06BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52C3B5DF-992F-4EA2-B1B6-D227A16C06BD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E2CFD97F-0E01-4308-964F-DF847E3EBFDF}
+	EndGlobalSection
+EndGlobal
