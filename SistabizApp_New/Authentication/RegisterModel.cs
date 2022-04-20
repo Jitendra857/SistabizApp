@@ -30,5 +30,6 @@ namespace SistabizApp.Authentication
         public string ZipCode { get; set; }
        
         public IFormFile Image { get; set; }
+        public string ProfileUrl { get; set; }
     }
 }

@@ -9,5 +9,11 @@ namespace SistabizApp_New.Helper
     {
         public const string Success = "Success";
         public const string Error = "Error";
+        public const string Pending = "Pending";
+        public const string Approved = "Approved";
+        public const string Reject = "Reject";
+        public const string Coch = "Coch";
+        public const string ServiceProvider = "Service Provider";
+
     }
 }

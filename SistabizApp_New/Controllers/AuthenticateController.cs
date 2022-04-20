@@ -74,7 +74,7 @@ namespace SistabizApp_New.Controllers
             }
             return Unauthorized();
         }
-      
+    
        
 
         [HttpPost]
@@ -145,10 +145,85 @@ namespace SistabizApp_New.Controllers
             }
             else
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
-            return Ok(new APIResponse(true, Constant.Success, "", "User created successfully!"));
-           // return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }
-     
+
+        [HttpGet]
+        [Route("profile")]
+        public async Task<IActionResult> getProfile(string email)
+        {
+            return Ok(new APIResponse(true, Constant.Success, "", memberService.GetEmployeeById(email)));
+        }
+
+        [HttpPost]
+        [Route("updateprofile")]
+        public async Task<IActionResult> UpdateProfile([FromForm] RegisterModel model)
+        {
+
+
+            // var CurrentRequestOfHttp = HttpContext.Current.Request;
+            var userExists = await userManager.FindByNameAsync(model.Username);
+            if (userExists != null)
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
+
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\Profiles", model.Image.FileName); ;
+            if (model.Image.Length > 0)
+            {
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+
+                    model.Image.CopyTo(fileStream);
+                }
+            }
+            ApplicationUser user = new ApplicationUser()
+            {
+                Email = model.Email,
+                SecurityStamp = Guid.NewGuid().ToString(),
+                UserName = model.Username,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                ProfileName = model.Image.FileName
+
+            };
+            TblMember member = new TblMember()
+            {
+                Email = model.Email,
+                Password = model.Password,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                ProfileImage = model.Image.FileName,
+                Mobile = model.Mobile,
+                StateId = model.StateId,
+                City = model.City,
+                Address = model.Address,
+                ZipCode = model.ZipCode,
+                CreatedOn = DateTime.Now,
+                IsActive = true,
+                IsDelete = false,
+
+
+            };
+            var result = await userManager.CreateAsync(user, model.Password);
+            if (result.Succeeded)
+            {
+                memberService.AddEmployee(member);
+                return Ok(new APIResponse(true, Constant.Success, "", "User created successfully!"));
+                //var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
+                //var confirmationLink = Url.Action("ConfirmEmail", "Email", new { token, email = user.Email }, Request.Scheme);
+                //EmailHelper emailHelper = new EmailHelper();
+                //bool emailResponse = emailHelper.SendEmail(user.Email, confirmationLink);
+
+                //if (emailResponse)
+                //    return Ok(new APIResponse(true, Constant.Success, "", "User created successfully!"));
+                //else
+                //{
+                //    // log email failed 
+                //}
+
+            }
+            else
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
+        }
+
 
         [HttpPost]
         [Route("register-admin")]

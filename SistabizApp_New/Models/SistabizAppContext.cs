@@ -23,6 +23,7 @@ namespace SistabizApp_New.Models
         public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<TblMember> TblMember { get; set; }
+        public virtual DbSet<TblServiceRequest> TblServiceRequest { get; set; }
         public virtual DbSet<TblUserNew> TblUserNew { get; set; }
         public virtual DbSet<Tbluser> Tbluser { get; set; }
 
@@ -158,6 +159,26 @@ namespace SistabizApp_New.Models
                 entity.Property(e => e.ProfileImage).HasMaxLength(200);
 
                 entity.Property(e => e.ZipCode).HasMaxLength(30);
+            });
+
+            modelBuilder.Entity<TblServiceRequest>(entity =>
+            {
+                entity.HasKey(e => e.RequestId);
+
+                entity.ToTable("tblServiceRequest");
+
+                entity.Property(e => e.Contributions).HasMaxLength(200);
+
+                entity.Property(e => e.RequestDate).HasColumnType("datetime");
+
+                entity.Property(e => e.ResumeLink)
+                    .HasMaxLength(500)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.Member)
+                    .WithMany(p => p.TblServiceRequest)
+                    .HasForeignKey(d => d.MemberId)
+                    .HasConstraintName("FK_tblServiceRequest_tblMember");
             });
 
             modelBuilder.Entity<TblUserNew>(entity =>

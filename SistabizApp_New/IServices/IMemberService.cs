@@ -1,4 +1,5 @@
-﻿using SistabizApp_New.Models;
+﻿using SistabizApp.Authentication;
+using SistabizApp_New.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,7 @@ namespace SistabizApp_New.IServices
   public  interface IMemberService
     {
         TblMember AddEmployee(TblMember employee);
+
+        RegisterModel GetEmployeeById(string email);
     }
 }

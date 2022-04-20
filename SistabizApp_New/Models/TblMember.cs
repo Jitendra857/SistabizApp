@@ -5,6 +5,11 @@ namespace SistabizApp_New.Models
 {
     public partial class TblMember
     {
+        public TblMember()
+        {
+            TblServiceRequest = new HashSet<TblServiceRequest>();
+        }
+
         public long MemberId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -19,5 +24,7 @@ namespace SistabizApp_New.Models
         public bool? IsActive { get; set; }
         public DateTime? CreatedOn { get; set; }
         public string ProfileImage { get; set; }
+
+        public virtual ICollection<TblServiceRequest> TblServiceRequest { get; set; }
     }
 }
