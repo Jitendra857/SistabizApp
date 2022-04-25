@@ -18,9 +18,9 @@ namespace SistabizApp_New.Controllers
     [ApiController]
     public class ServiceRequestController : ControllerBase
     {
-        private readonly IServiceRequestService serviceRequestService;
+        private readonly IBLLService serviceRequestService;
 
-        public ServiceRequestController(IServiceRequestService serviceRequest)
+        public ServiceRequestController(IBLLService serviceRequest)
         {
             serviceRequestService = serviceRequest;
         }

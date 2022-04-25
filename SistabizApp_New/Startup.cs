@@ -37,8 +37,10 @@ namespace SistabizApp_New
 
             services.AddDbContext<SistabizAppContext>(options =>options.UseSqlServer(Configuration.GetConnectionString("ConnStr")));
 
-            services.AddTransient<IMemberService, MemberService>();
-            services.AddTransient<IServiceRequestService, ServiceRequestService>();
+           // services.AddTransient<IMemberService, MemberService>();
+            //services.AddTransient<IServiceRequestService, ServiceRequestService>();
+
+            services.AddTransient<IBLLService, BLLService>();
 
             services.AddSwaggerGen(options =>
             {

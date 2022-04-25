@@ -22,7 +22,15 @@ namespace SistabizApp_New.Models
         public virtual DbSet<AspNetUserRoles> AspNetUserRoles { get; set; }
         public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<TblEvent> TblEvent { get; set; }
+        public virtual DbSet<TblEventAttachment> TblEventAttachment { get; set; }
+        public virtual DbSet<TblEventRegisterMember> TblEventRegisterMember { get; set; }
+        public virtual DbSet<TblFaq> TblFaq { get; set; }
+        public virtual DbSet<TblFaqCategory> TblFaqCategory { get; set; }
+        public virtual DbSet<TblFundingCategory> TblFundingCategory { get; set; }
+        public virtual DbSet<TblFundingResources> TblFundingResources { get; set; }
         public virtual DbSet<TblMember> TblMember { get; set; }
+        public virtual DbSet<TblPost> TblPost { get; set; }
         public virtual DbSet<TblServiceRequest> TblServiceRequest { get; set; }
         public virtual DbSet<TblUserNew> TblUserNew { get; set; }
         public virtual DbSet<Tbluser> Tbluser { get; set; }
@@ -134,6 +142,137 @@ namespace SistabizApp_New.Models
                 entity.Property(e => e.UserName).HasMaxLength(256);
             });
 
+            modelBuilder.Entity<TblEvent>(entity =>
+            {
+                entity.HasKey(e => e.EventId);
+
+                entity.ToTable("tblEvent");
+
+                entity.Property(e => e.Address).HasMaxLength(500);
+
+                entity.Property(e => e.City).HasMaxLength(500);
+
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+
+                entity.Property(e => e.EventDate).HasColumnType("datetime");
+
+                entity.Property(e => e.EventEndDate).HasColumnType("datetime");
+
+                entity.Property(e => e.EventName).HasMaxLength(500);
+
+                entity.Property(e => e.EventWebsite).HasMaxLength(500);
+
+                entity.Property(e => e.OrganizerEmail).HasMaxLength(30);
+
+                entity.Property(e => e.OrganizerName).HasMaxLength(500);
+
+                entity.Property(e => e.OrganizerPhone).HasMaxLength(20);
+
+                entity.Property(e => e.OrganizerWebsite).HasMaxLength(500);
+
+                entity.Property(e => e.Phone).HasMaxLength(20);
+
+                entity.Property(e => e.PostalCode).HasMaxLength(100);
+
+                entity.Property(e => e.Title).HasMaxLength(200);
+
+                entity.Property(e => e.VenueName).HasMaxLength(200);
+
+                entity.Property(e => e.Website).HasMaxLength(500);
+
+                entity.HasOne(d => d.CreatedByNavigation)
+                    .WithMany(p => p.TblEvent)
+                    .HasForeignKey(d => d.CreatedBy)
+                    .HasConstraintName("FK_tblEvent_tblMember");
+            });
+
+            modelBuilder.Entity<TblEventAttachment>(entity =>
+            {
+                entity.HasKey(e => e.EventAttachmentId);
+
+                entity.ToTable("tblEventAttachment");
+
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+
+                entity.Property(e => e.FileName).HasMaxLength(100);
+
+                entity.HasOne(d => d.Event)
+                    .WithMany(p => p.TblEventAttachment)
+                    .HasForeignKey(d => d.EventId)
+                    .HasConstraintName("FK_tblEventAttachment_tblEvent");
+            });
+
+            modelBuilder.Entity<TblEventRegisterMember>(entity =>
+            {
+                entity.ToTable("tblEventRegisterMember");
+
+                entity.HasOne(d => d.Event)
+                    .WithMany(p => p.TblEventRegisterMember)
+                    .HasForeignKey(d => d.EventId)
+                    .HasConstraintName("FK_tblEventRegisterMember_tblEvent");
+
+                entity.HasOne(d => d.RegisterMember)
+                    .WithMany(p => p.TblEventRegisterMember)
+                    .HasForeignKey(d => d.RegisterMemberId)
+                    .HasConstraintName("FK_tblEventRegisterMember_tblMember");
+            });
+
+            modelBuilder.Entity<TblFaq>(entity =>
+            {
+                entity.HasKey(e => e.QuestionId);
+
+                entity.ToTable("tblFaq");
+
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+
+                entity.Property(e => e.Question).HasMaxLength(500);
+
+                entity.HasOne(d => d.FaqCategory)
+                    .WithMany(p => p.TblFaq)
+                    .HasForeignKey(d => d.FaqCategoryId)
+                    .HasConstraintName("FK_tblFaq_tblFaqCategory");
+            });
+
+            modelBuilder.Entity<TblFaqCategory>(entity =>
+            {
+                entity.HasKey(e => e.FaqCategoryId);
+
+                entity.ToTable("tblFaqCategory");
+
+                entity.Property(e => e.CategoryName).HasMaxLength(500);
+            });
+
+            modelBuilder.Entity<TblFundingCategory>(entity =>
+            {
+                entity.HasKey(e => e.CategoryId);
+
+                entity.ToTable("tblFundingCategory");
+
+                entity.Property(e => e.CategoryName).HasMaxLength(200);
+            });
+
+            modelBuilder.Entity<TblFundingResources>(entity =>
+            {
+                entity.HasKey(e => e.FundingId);
+
+                entity.ToTable("tblFundingResources");
+
+                entity.Property(e => e.CreateOn).HasColumnType("datetime");
+
+                entity.Property(e => e.Deadline).HasMaxLength(200);
+
+                entity.Property(e => e.EndDate).HasColumnType("datetime");
+
+                entity.Property(e => e.StartDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Title).HasMaxLength(300);
+
+                entity.HasOne(d => d.Category)
+                    .WithMany(p => p.TblFundingResources)
+                    .HasForeignKey(d => d.CategoryId)
+                    .HasConstraintName("FK_tblFundingResources_tblFundingCategory");
+            });
+
             modelBuilder.Entity<TblMember>(entity =>
             {
                 entity.HasKey(e => e.MemberId);
@@ -141,6 +280,10 @@ namespace SistabizApp_New.Models
                 entity.ToTable("tblMember");
 
                 entity.Property(e => e.Address).HasMaxLength(200);
+
+                entity.Property(e => e.BusinessName).HasMaxLength(200);
+
+                entity.Property(e => e.BusinessState).HasMaxLength(100);
 
                 entity.Property(e => e.City).HasMaxLength(100);
 
@@ -150,15 +293,36 @@ namespace SistabizApp_New.Models
 
                 entity.Property(e => e.FirstName).HasMaxLength(100);
 
+                entity.Property(e => e.GovernmentCertifications).HasMaxLength(200);
+
+                entity.Property(e => e.GrowthGoals).HasMaxLength(400);
+
+                entity.Property(e => e.Industry).HasMaxLength(200);
+
                 entity.Property(e => e.LastName).HasMaxLength(100);
 
                 entity.Property(e => e.Mobile).HasMaxLength(20);
+
+                entity.Property(e => e.NickName).HasMaxLength(100);
 
                 entity.Property(e => e.Password).HasMaxLength(100);
 
                 entity.Property(e => e.ProfileImage).HasMaxLength(200);
 
+                entity.Property(e => e.SocialMedia).HasMaxLength(200);
+
+                entity.Property(e => e.WebsiteUrl).HasMaxLength(200);
+
                 entity.Property(e => e.ZipCode).HasMaxLength(30);
+            });
+
+            modelBuilder.Entity<TblPost>(entity =>
+            {
+                entity.HasKey(e => e.PostId);
+
+                entity.ToTable("tblPost");
+
+                entity.Property(e => e.CreateOn).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<TblServiceRequest>(entity =>

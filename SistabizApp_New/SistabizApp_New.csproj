@@ -19,6 +19,7 @@
   <ItemGroup>
     <Folder Include="SistabizApp_New\" />
     <Folder Include="wwwroot\images\" />
+    <Folder Include="wwwroot\Events\" />
     <Folder Include="wwwroot\Profiles\" />
   </ItemGroup>
 

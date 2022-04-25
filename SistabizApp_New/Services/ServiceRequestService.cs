@@ -9,20 +9,15 @@ using System.Threading.Tasks;
 
 namespace SistabizApp_New.Services
 {
-    public class ServiceRequestService: IServiceRequestService
+    public partial class BLLService:IBLLService
     {
-        SistabizAppContext dbContext;
-
-        public ServiceRequestService(SistabizAppContext _db)
-        {
-            dbContext = _db;
-        }
+        
         public ServiceRequestViewModel AddServiceRequest(ServiceRequestViewModel serviceRequest)
         {
             if (serviceRequest != null)
             {
-                dbContext.TblServiceRequest.Add(Convertor(serviceRequest));
-                dbContext.SaveChanges();
+                _entityDbContext.TblServiceRequest.Add(Convertor(serviceRequest));
+                _entityDbContext.SaveChanges();
                 return serviceRequest;
             }
             return null;
@@ -30,7 +25,7 @@ namespace SistabizApp_New.Services
 
         public List<ServiceRequestViewModel> GetServiceRequestList()
         {
-            var servicerequest = dbContext.TblServiceRequest.Select(e => new ServiceRequestViewModel
+            var servicerequest = _entityDbContext.TblServiceRequest.Select(e => new ServiceRequestViewModel
             {
                 RequestId = e.RequestId,
                 RequestType = e.RequestType,
@@ -51,16 +46,16 @@ namespace SistabizApp_New.Services
 
         public List<ServiceRequestViewModel> GetServiceRequestListByStatus(int Status)
         {
-            return ConvertToViewModel(dbContext.TblServiceRequest.Where(r => r.Status == Status).ToList());
+            return ConvertToViewModel(_entityDbContext.TblServiceRequest.Where(r => r.Status == Status).ToList());
         }
 
         public List<ServiceRequestViewModel> GetServiceRequestListByMember(int MemberId)
         {
-            return ConvertToViewModel(dbContext.TblServiceRequest.Where(r => r.MemberId == MemberId).ToList());
+            return ConvertToViewModel(_entityDbContext.TblServiceRequest.Where(r => r.MemberId == MemberId).ToList());
         }
         public TblServiceRequest GetServiceRequestById(int RequestId)
         {
-           return dbContext.TblServiceRequest.Where(e=>e.RequestId== RequestId).FirstOrDefault();
+           return _entityDbContext.TblServiceRequest.Where(e=>e.RequestId== RequestId).FirstOrDefault();
 
         }
 
@@ -102,8 +97,8 @@ namespace SistabizApp_New.Services
         }
         public void SaveChanges()
         {
-          
-                dbContext.SaveChanges();
+
+            _entityDbContext.SaveChanges();
         }
 
     }

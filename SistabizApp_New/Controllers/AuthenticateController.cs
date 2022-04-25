@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -25,9 +26,11 @@ namespace SistabizApp_New.Controllers
         private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly IConfiguration _configuration;
-        private readonly IMemberService  memberService;
+        private readonly IBLLService memberService;
+       
 
-        public AuthenticateController(IMemberService member,UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
+
+        public AuthenticateController(IBLLService member,UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
         {
             this.userManager = userManager;
             this.roleManager = roleManager;
@@ -146,13 +149,25 @@ namespace SistabizApp_New.Controllers
             else
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
         }
+       
+        //[HttpPost("revoke-token")]
+        //public IActionResult RevokeToken([FromBody] RevokeTokenRequest model)
+        //{
+        //    // accept token from request body or cookie
+        //    var token = model.Token ?? Request.Cookies["refreshToken"];
 
-        [HttpGet]
-        [Route("profile")]
-        public async Task<IActionResult> getProfile(string email)
-        {
-            return Ok(new APIResponse(true, Constant.Success, "", memberService.GetEmployeeById(email)));
-        }
+        //    if (string.IsNullOrEmpty(token))
+        //        return BadRequest(new { message = "Token is required" });
+
+        //    var response = _userService.RevokeToken(token, ipAddress());
+
+        //    if (!response)
+        //        return NotFound(new { message = "Token not found" });
+
+        //    return Ok(new { message = "Token revoked" });
+        //}
+
+       
 
         [HttpPost]
         [Route("updateprofile")]

@@ -32,4 +32,8 @@ namespace SistabizApp.Authentication
         public IFormFile Image { get; set; }
         public string ProfileUrl { get; set; }
     }
+    public class RevokeTokenRequest
+    {
+        public string Token { get; set; }
+    }
 }

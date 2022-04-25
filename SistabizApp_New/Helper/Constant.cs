@@ -9,11 +9,17 @@ namespace SistabizApp_New.Helper
     {
         public const string Success = "Success";
         public const string Error = "Error";
+
         public const string Pending = "Pending";
         public const string Approved = "Approved";
         public const string Reject = "Reject";
+        public const string Cancel = "Cancel";
+        public const string Attend = "Attend";
         public const string Coch = "Coch";
         public const string ServiceProvider = "Service Provider";
+        public const string BaseUrl = "http://localhost:58870/";
+        public const string ProfilePath = @"wwwroot\Profiles";
+        public const string Event = @"wwwroot\Events";
 
     }
 }

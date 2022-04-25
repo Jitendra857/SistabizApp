@@ -35,5 +35,22 @@ namespace SistabizApp_New.Helper
 
             }
         }
+
+        public static string GetEventStatus(int Status)
+        {
+            switch (Status)
+            {
+                case 0:
+                    return Constant.Pending;
+
+                case 1:
+                    return Constant.Reject;
+                case 2:
+                    return Constant.Cancel;
+                default:
+                    return "";
+
+            }
+        }
     }
 }
