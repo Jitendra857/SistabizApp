@@ -11,7 +11,7 @@ using SistabizApp_New.ViewModels;
 
 namespace SistabizApp_New.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PostController : ControllerBase

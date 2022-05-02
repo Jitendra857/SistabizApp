@@ -25,10 +25,12 @@ namespace SistabizApp_New.IServices
 
         //employee
 
+        List<MemberViewModel> MemberList();
         TblMember AddEmployee(TblMember employee);
         MemberViewModel Updateprofile(MemberViewModel model);
 
         MemberViewModel GetEmployeeById(int memberid);
+        MemberLoginResponseViewModel GetMemberByEmail(string email);
 
         //end employee
 
@@ -70,5 +72,13 @@ namespace SistabizApp_New.IServices
         List<PostViewModel> GetAllPost();
         string ManagePost(PostViewModel model);
         string DeletePost(int id);
+
+        //group
+        List<GroupViewModel> GetGroupList();
+        long ManageGroup(GroupViewModel model);
+        string UploadGroupAttachment(List<TblGroupAttachment> attchment);
+        GroupJoinMemberViewModel GroupJoinMembers(GroupJoinMemberViewModel model);
+
+        string RemoveGroup(int groupid);
     }
 }

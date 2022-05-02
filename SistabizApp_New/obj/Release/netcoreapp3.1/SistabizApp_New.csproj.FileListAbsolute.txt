@@ -58,7 +58,6 @@ F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Releas
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Release\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Release\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Release\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\SistabizApp_New.csproj.AssemblyReference.cache
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\SistabizApp_New.GeneratedMSBuildEditorConfig.editorconfig
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\SistabizApp_New.AssemblyInfoInputs.cache
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\SistabizApp_New.AssemblyInfo.cs
@@ -85,3 +84,7 @@ F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Releas
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\SistabizApp_New.dll
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\SistabizApp_New.pdb
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\SistabizApp_New.genruntimeconfig.cache
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Release\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Release\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Release\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\SistabizApp_New.csproj.AssemblyReference.cache

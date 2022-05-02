@@ -29,6 +29,9 @@ namespace SistabizApp_New.Models
         public virtual DbSet<TblFaqCategory> TblFaqCategory { get; set; }
         public virtual DbSet<TblFundingCategory> TblFundingCategory { get; set; }
         public virtual DbSet<TblFundingResources> TblFundingResources { get; set; }
+        public virtual DbSet<TblGroup> TblGroup { get; set; }
+        public virtual DbSet<TblGroupAttachment> TblGroupAttachment { get; set; }
+        public virtual DbSet<TblGroupJoinMember> TblGroupJoinMember { get; set; }
         public virtual DbSet<TblMember> TblMember { get; set; }
         public virtual DbSet<TblPost> TblPost { get; set; }
         public virtual DbSet<TblServiceRequest> TblServiceRequest { get; set; }
@@ -271,6 +274,57 @@ namespace SistabizApp_New.Models
                     .WithMany(p => p.TblFundingResources)
                     .HasForeignKey(d => d.CategoryId)
                     .HasConstraintName("FK_tblFundingResources_tblFundingCategory");
+            });
+
+            modelBuilder.Entity<TblGroup>(entity =>
+            {
+                entity.HasKey(e => e.GroupId);
+
+                entity.ToTable("tblGroup");
+
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+
+                entity.Property(e => e.GroupName).HasMaxLength(500);
+
+                entity.HasOne(d => d.CreatedByNavigation)
+                    .WithMany(p => p.TblGroup)
+                    .HasForeignKey(d => d.CreatedBy)
+                    .HasConstraintName("FK_tblGroup_tblMember");
+            });
+
+            modelBuilder.Entity<TblGroupAttachment>(entity =>
+            {
+                entity.HasKey(e => e.AttachmentId);
+
+                entity.ToTable("tblGroupAttachment");
+
+                entity.Property(e => e.Attachment).HasMaxLength(500);
+
+                entity.HasOne(d => d.Group)
+                    .WithMany(p => p.TblGroupAttachment)
+                    .HasForeignKey(d => d.GroupId)
+                    .HasConstraintName("FK_tblGroupAttachment_tblGroup");
+            });
+
+            modelBuilder.Entity<TblGroupJoinMember>(entity =>
+            {
+                entity.HasKey(e => e.JoinId);
+
+                entity.ToTable("tblGroupJoinMember");
+
+                entity.Property(e => e.JoinDate).HasColumnType("datetime");
+
+                entity.Property(e => e.LeavingDate).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Group)
+                    .WithMany(p => p.TblGroupJoinMember)
+                    .HasForeignKey(d => d.GroupId)
+                    .HasConstraintName("FK_tblGroupJoinMember_tblGroup");
+
+                entity.HasOne(d => d.JoinMember)
+                    .WithMany(p => p.TblGroupJoinMember)
+                    .HasForeignKey(d => d.JoinMemberId)
+                    .HasConstraintName("FK_tblGroupJoinMember_tblMember");
             });
 
             modelBuilder.Entity<TblMember>(entity =>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SistabizApp.Authentication;
@@ -13,7 +14,8 @@ using System.Threading.Tasks;
 
 namespace SistabizApp_New.Controllers
 {
-    [Authorize]
+    // [Authorize]
+   // [EnableCors("ApiCorsPolicy")]
     [Route("api/[controller]")]
     [ApiController]
     public class ServiceRequestController : ControllerBase
@@ -80,5 +82,7 @@ namespace SistabizApp_New.Controllers
             else
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Service request creation failed! Please check request details and try again." });
         }
+
+
     }
 }

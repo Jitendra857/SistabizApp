@@ -38,11 +38,11 @@ namespace SistabizApp_New.Services
                 Description = e.Description,
                 CreatedOn = e.CreatedOn,
                 CreatedBy = e.CreatedBy,
-                lstEventAttachment = e.TblEventAttachment.Count > 0 ? e.TblEventAttachment.Select(r => new EventAttachment {
-                    EventAttachmentId=r.EventAttachmentId,
-                    EventId=r.EventId,
-                    FileName=r.FileName
-                }).ToList():null,
+                //lstEventAttachment = e.TblEventAttachment.Count > 0 ? e.TblEventAttachment.Select(r => new EventAttachment {
+                //    EventAttachmentId=r.EventAttachmentId,
+                //    EventId=r.EventId,
+                //    FileName=r.FileName
+                //}).ToList():null,
                 Attendee=e.TblEventRegisterMember.Count,
                // CreatedByMember=e.TblEventRegisterMember!=null?e.t
 

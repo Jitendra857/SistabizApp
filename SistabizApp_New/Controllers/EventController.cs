@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace SistabizApp_New.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class EventController : ControllerBase

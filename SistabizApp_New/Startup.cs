@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using SistabizApp.Authentication;
 using SistabizApp_New.IServices;
 using SistabizApp_New.Models;
@@ -33,6 +34,11 @@ namespace SistabizApp_New
         {
             services.AddControllersWithViews();
 
+            services.AddMvc().AddNewtonsoftJson(o =>
+            {
+                o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
+
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnStr")));
 
             services.AddDbContext<SistabizAppContext>(options =>options.UseSqlServer(Configuration.GetConnectionString("ConnStr")));
@@ -51,7 +57,29 @@ namespace SistabizApp_New
                     Description = "Sample service for Learner",
                 });
             });
+            // services.AddCors();
 
+            services.AddCors(options => options.AddPolicy("ApiCorsPolicy", build =>
+            {
+                build.WithOrigins("http://20.89.157.180:8070", "http://20.89.157.180:8060", "http://localhost:3000")
+                     .AllowAnyMethod()
+                     .AllowAnyHeader();
+            }));
+            // ... other code is omitted for the brevity
+        
+
+        //services.AddCors(options =>
+        //    {
+        //        options.AddPolicy(name: "AllowOrigin",
+        //            builder =>
+        //            {
+        //                builder.WithOrigins("http://20.89.157.180:8070", "http://localhost:14223")
+        //                                    .AllowAnyHeader()
+        //                                    .AllowAnyMethod();
+        //            });
+                //http://localhost:3000
+                //http://localhost:14223/
+            //});
 
             // For Identity  
             services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -102,7 +130,7 @@ namespace SistabizApp_New
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
+            app.UseCors("ApiCorsPolicy");
             app.UseDefaultFiles();
             app.UseStaticFiles();
 

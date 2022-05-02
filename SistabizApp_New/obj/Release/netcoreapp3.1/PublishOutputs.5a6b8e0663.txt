@@ -50,6 +50,8 @@ F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Releas
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.AspNetCore.Cryptography.Internal.dll
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.AspNetCore.JsonPatch.dll
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.Bcl.AsyncInterfaces.dll
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.Bcl.HashCode.dll
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.Data.SqlClient.dll
@@ -78,6 +80,7 @@ F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Releas
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.IdentityModel.Tokens.dll
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.OpenApi.dll
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\Newtonsoft.Json.dll
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\Newtonsoft.Json.Bson.dll
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\Swashbuckle.AspNetCore.Swagger.dll
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerGen.dll
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerUI.dll

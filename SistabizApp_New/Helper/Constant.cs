@@ -20,6 +20,7 @@ namespace SistabizApp_New.Helper
         public const string BaseUrl = "http://localhost:58870/";
         public const string ProfilePath = @"wwwroot\Profiles";
         public const string Event = @"wwwroot\Events";
+        public const string Group = @"wwwroot\Groups";
 
     }
 }

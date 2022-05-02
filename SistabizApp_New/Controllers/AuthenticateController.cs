@@ -8,6 +8,7 @@ using SistabizApp.Authentication;
 using SistabizApp_New.Helper;
 using SistabizApp_New.IServices;
 using SistabizApp_New.Models;
+using SistabizApp_New.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -42,6 +43,8 @@ namespace SistabizApp_New.Controllers
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
+
+            MemberLoginResponseViewModel response = new MemberLoginResponseViewModel();
             var user = await userManager.FindByNameAsync(model.Username);
             if (user != null && await userManager.CheckPasswordAsync(user, model.Password))
             {
@@ -69,11 +72,19 @@ namespace SistabizApp_New.Controllers
                     signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                     );
 
-                return Ok(new
-                {
-                    token = new JwtSecurityTokenHandler().WriteToken(token),
-                    expiration = token.ValidTo
-                });
+                response = memberService.GetMemberByEmail(user.Email);
+                response.Token = new JwtSecurityTokenHandler().WriteToken(token);
+                response.TokenExpiration= token.ValidTo;
+
+                //return Ok(new
+                //{
+                //    token = new JwtSecurityTokenHandler().WriteToken(token),
+                //    expiration = token.ValidTo
+
+
+                //});
+
+                return Ok(new APIResponse(true, Constant.Success, "", response));
             }
             return Unauthorized();
         }
@@ -133,18 +144,18 @@ namespace SistabizApp_New.Controllers
             {
                 memberService.AddEmployee(member);
                 return Ok(new APIResponse(true, Constant.Success, "", "User created successfully!"));
-                //var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
-                //var confirmationLink = Url.Action("ConfirmEmail", "Email", new { token, email = user.Email }, Request.Scheme);
-                //EmailHelper emailHelper = new EmailHelper();
-                //bool emailResponse = emailHelper.SendEmail(user.Email, confirmationLink);
+                var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
+                var confirmationLink = Url.Action("ConfirmEmail", "Email", new { token, email = user.Email }, Request.Scheme);
+                EmailHelper emailHelper = new EmailHelper();
+                bool emailResponse = emailHelper.SendEmail(user.Email, confirmationLink);
 
-                //if (emailResponse)
-                //    return Ok(new APIResponse(true, Constant.Success, "", "User created successfully!"));
-                //else
-                //{
-                //    // log email failed 
-                //}
-               
+                if (emailResponse)
+                    return Ok(new APIResponse(true, Constant.Success, "", "User created successfully!"));
+                else
+                {
+                    // log email failed 
+                }
+
             }
             else
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });

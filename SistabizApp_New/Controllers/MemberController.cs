@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace SistabizApp_New.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class MemberController : ControllerBase
@@ -52,6 +52,19 @@ namespace SistabizApp_New.Controllers
 
 
             return Ok(new APIResponse(true, Constant.Success, "Profile updat sucessfully", "Profile updat sucessfully"));
+        }
+
+        [HttpGet]
+        [Route("deletemember")]
+        public async Task<IActionResult> DeleteMember(int memberid)
+        {
+            return Ok(new APIResponse(true, Constant.Success, "Member delete successfully", memberService.GetEmployeeById(memberid)));
+        }
+        [HttpGet]
+        [Route("getmemberlist")]
+        public async Task<IActionResult> GetMemberList()
+        {
+            return Ok(new APIResponse(true, Constant.Success, "", memberService.MemberList()));
         }
 
     }
