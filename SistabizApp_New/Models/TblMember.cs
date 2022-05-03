@@ -9,8 +9,10 @@ namespace SistabizApp_New.Models
         {
             TblEvent = new HashSet<TblEvent>();
             TblEventRegisterMember = new HashSet<TblEventRegisterMember>();
+            TblGoal = new HashSet<TblGoal>();
             TblGroup = new HashSet<TblGroup>();
             TblGroupJoinMember = new HashSet<TblGroupJoinMember>();
+            TblPostFeedback = new HashSet<TblPostFeedback>();
             TblServiceRequest = new HashSet<TblServiceRequest>();
         }
 
@@ -47,8 +49,10 @@ namespace SistabizApp_New.Models
 
         public virtual ICollection<TblEvent> TblEvent { get; set; }
         public virtual ICollection<TblEventRegisterMember> TblEventRegisterMember { get; set; }
+        public virtual ICollection<TblGoal> TblGoal { get; set; }
         public virtual ICollection<TblGroup> TblGroup { get; set; }
         public virtual ICollection<TblGroupJoinMember> TblGroupJoinMember { get; set; }
+        public virtual ICollection<TblPostFeedback> TblPostFeedback { get; set; }
         public virtual ICollection<TblServiceRequest> TblServiceRequest { get; set; }
     }
 }

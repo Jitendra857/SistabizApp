@@ -4,6 +4,8 @@ F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Releas
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Events\a98f391f-16bf-4be4-95d3-091f26e77adc_images1.jpg
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Events\b6d49f86-4576-49c1-8637-6c9967b7f31d_images.jpg
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\favicon.ico
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Groups\561d243a-1957-4f94-8911-cf1b92d5cdb6_images2.jpg
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Groups\a7674d55-93c8-454d-ae83-da210225f45f_images1.jpg
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\images\images1.jpg
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\js\site.js
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css

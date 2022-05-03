@@ -21,6 +21,7 @@ namespace SistabizApp_New.Helper
         public const string ProfilePath = @"wwwroot\Profiles";
         public const string Event = @"wwwroot\Events";
         public const string Group = @"wwwroot\Groups";
+        public const string Post = @"wwwroot\Post";
 
     }
 }

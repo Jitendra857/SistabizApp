@@ -29,11 +29,14 @@ namespace SistabizApp_New.Models
         public virtual DbSet<TblFaqCategory> TblFaqCategory { get; set; }
         public virtual DbSet<TblFundingCategory> TblFundingCategory { get; set; }
         public virtual DbSet<TblFundingResources> TblFundingResources { get; set; }
+        public virtual DbSet<TblGoal> TblGoal { get; set; }
         public virtual DbSet<TblGroup> TblGroup { get; set; }
         public virtual DbSet<TblGroupAttachment> TblGroupAttachment { get; set; }
         public virtual DbSet<TblGroupJoinMember> TblGroupJoinMember { get; set; }
         public virtual DbSet<TblMember> TblMember { get; set; }
         public virtual DbSet<TblPost> TblPost { get; set; }
+        public virtual DbSet<TblPostAttachment> TblPostAttachment { get; set; }
+        public virtual DbSet<TblPostFeedback> TblPostFeedback { get; set; }
         public virtual DbSet<TblServiceRequest> TblServiceRequest { get; set; }
         public virtual DbSet<TblUserNew> TblUserNew { get; set; }
         public virtual DbSet<Tbluser> Tbluser { get; set; }
@@ -276,6 +279,20 @@ namespace SistabizApp_New.Models
                     .HasConstraintName("FK_tblFundingResources_tblFundingCategory");
             });
 
+            modelBuilder.Entity<TblGoal>(entity =>
+            {
+                entity.HasKey(e => e.GoalId);
+
+                entity.ToTable("tblGoal");
+
+                entity.Property(e => e.StartDate).HasColumnType("datetime");
+
+                entity.HasOne(d => d.CreatedByNavigation)
+                    .WithMany(p => p.TblGoal)
+                    .HasForeignKey(d => d.CreatedBy)
+                    .HasConstraintName("FK_tblGoal_tblMember");
+            });
+
             modelBuilder.Entity<TblGroup>(entity =>
             {
                 entity.HasKey(e => e.GroupId);
@@ -377,6 +394,39 @@ namespace SistabizApp_New.Models
                 entity.ToTable("tblPost");
 
                 entity.Property(e => e.CreateOn).HasColumnType("datetime");
+            });
+
+            modelBuilder.Entity<TblPostAttachment>(entity =>
+            {
+                entity.HasKey(e => e.PostAttachmentId);
+
+                entity.ToTable("tblPostAttachment");
+
+                entity.Property(e => e.FileName).HasMaxLength(400);
+
+                entity.HasOne(d => d.Post)
+                    .WithMany(p => p.TblPostAttachment)
+                    .HasForeignKey(d => d.PostId)
+                    .HasConstraintName("FK_tblPostAttachment_tblPost");
+            });
+
+            modelBuilder.Entity<TblPostFeedback>(entity =>
+            {
+                entity.HasKey(e => e.PostFeedId);
+
+                entity.ToTable("tblPostFeedback");
+
+                entity.Property(e => e.CreateOn).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Member)
+                    .WithMany(p => p.TblPostFeedback)
+                    .HasForeignKey(d => d.MemberId)
+                    .HasConstraintName("FK_tblPostFeedback_tblMember");
+
+                entity.HasOne(d => d.Post)
+                    .WithMany(p => p.TblPostFeedback)
+                    .HasForeignKey(d => d.PostId)
+                    .HasConstraintName("FK_tblPostFeedback_tblPost");
             });
 
             modelBuilder.Entity<TblServiceRequest>(entity =>

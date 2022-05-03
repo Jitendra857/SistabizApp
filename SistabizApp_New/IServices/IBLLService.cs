@@ -70,8 +70,10 @@ namespace SistabizApp_New.IServices
 
         // post
         List<PostViewModel> GetAllPost();
-        string ManagePost(PostViewModel model);
+        long ManagePost(PostViewModel model);
         string DeletePost(int id);
+        string UploadPostAttachment(List<TblPostAttachment> attchment);
+        string PostLikeComments(PostLikeCommentsViewModel model);
 
         //group
         List<GroupViewModel> GetGroupList();
@@ -80,5 +82,10 @@ namespace SistabizApp_New.IServices
         GroupJoinMemberViewModel GroupJoinMembers(GroupJoinMemberViewModel model);
 
         string RemoveGroup(int groupid);
+
+        //goal and activity
+        List<GoalActivityViewModel> GetAllGoalAndActivity(int memberid);
+        string ManageGoalActivity(GoalActivityViewModel model);
+        string RemoveGoal(int goalid);
     }
 }
