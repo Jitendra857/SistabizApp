@@ -14,6 +14,7 @@ namespace SistabizApp_New.Services
         {
             return _entityDbContext.TblGoal.Where(e => e.CreatedBy == memberid && e.IsDeleted != true).Select(r => new GoalActivityViewModel
             {
+                Title=r.Title,
                 GoalId=r.GoalId,
                 What = r.What,
                 Start = r.Start,
@@ -21,6 +22,8 @@ namespace SistabizApp_New.Services
                 Who = r.Who,
                 How = r.How,
                 StartDate = r.StartDate,
+                EndDate = r.EndDate,
+                PostponeDate = r.PostponeDate,
                 Status = r.Status,
 
             }).ToList();
@@ -31,13 +34,15 @@ namespace SistabizApp_New.Services
             TblGoal goal = new TblGoal();
             if (model.GoalId > 0)
                 goal = GetGoalById((int)model.GoalId);
-
+            goal.Title = model.Title;
             goal.What = model.What;
             goal.Start = model.Start;
             goal.CreatedBy = model.CreatedBy;
             goal.Who = model.Who;
             goal.How = model.How;
             goal.StartDate = model.StartDate;
+            goal.EndDate = model.EndDate;
+            goal.PostponeDate = model.PostponeDate;
             goal.Status = model.Status;
             goal.IsActive = true;
             goal.IsDeleted = false;
@@ -47,6 +52,16 @@ namespace SistabizApp_New.Services
             if (model.GoalId == 0)
                 _entityDbContext.TblGoal.Add(goal);
 
+            _entityDbContext.SaveChanges();
+            return "Success";
+        }
+
+        public string GoalPostpone(GoalPostponeViewModel model)
+        {
+            TblGoal goal = new TblGoal();
+            if (model.GoalId > 0)
+                goal = GetGoalById((int)model.GoalId);
+            goal.PostponeDate = model.PostponeDate;
             _entityDbContext.SaveChanges();
             return "Success";
         }

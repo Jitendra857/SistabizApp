@@ -25,12 +25,14 @@ namespace SistabizApp_New.IServices
 
         //employee
 
-        List<MemberViewModel> MemberList();
+        List<MemberViewModel> MemberList(string search=null);
         TblMember AddEmployee(TblMember employee);
         MemberViewModel Updateprofile(MemberViewModel model);
 
         MemberViewModel GetEmployeeById(int memberid);
         MemberLoginResponseViewModel GetMemberByEmail(string email);
+
+        TblUserSubscription AddSubscription(TblUserSubscription subscription);
 
         //end employee
 
@@ -83,9 +85,17 @@ namespace SistabizApp_New.IServices
 
         string RemoveGroup(int groupid);
 
+        List<TblGroupJoinMember> AddGroupMembers(List<TblGroupJoinMember> model);
+
         //goal and activity
         List<GoalActivityViewModel> GetAllGoalAndActivity(int memberid);
         string ManageGoalActivity(GoalActivityViewModel model);
         string RemoveGoal(int goalid);
+        string GoalPostpone(GoalPostponeViewModel model);
+
+        //country/state
+        List<CountryViewModel> GetAllCountry();
+        List<StateViewModel> GetAllState();
+        List<StateViewModel> GetStateByCountry(int countryid);
     }
 }

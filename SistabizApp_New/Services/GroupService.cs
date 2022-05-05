@@ -22,13 +22,17 @@ namespace SistabizApp_New.Services
                 CreatedOn = e.CreatedOn,
                 IsActive = e.IsActive,
                 IsDeleted = e.IsDeleted,
-                CreateByName=e.CreatedByNavigation.FirstName+" "+e.CreatedByNavigation.LastName,
+                CreateByName = e.CreatedByNavigation.FirstName + " " + e.CreatedByNavigation.LastName,
+                Type = e.Type,
+                Grouptype =CommanHelper.GetGroupType(e.Type),
 
-                //lstEventAttachment = e.TblEventAttachment.Count > 0 ? e.TblEventAttachment.Select(r => new EventAttachment {
-                //    EventAttachmentId=r.EventAttachmentId,
-                //    EventId=r.EventId,
-                //    FileName=r.FileName
-                //}).ToList():null,
+                lstGroupAttachmentViewModel = e.TblGroupAttachment.Count > 0 ? e.TblGroupAttachment.Select(r => new GroupAttachmentViewModel
+                {
+                    AttachmentId = r.AttachmentId,
+                    Attachment = Constant.livebaseurl + "Groups/" + r.Attachment,
+                
+                    
+                }).ToList() : null,
                 JoiningTotalMembers = e.TblGroupJoinMember.Count,
                 // CreatedByMember=e.TblEventRegisterMember!=null?e.t
 
@@ -45,6 +49,7 @@ namespace SistabizApp_New.Services
 
             group.GroupName = model.GroupName;
             group.Description = model.Description;
+            group.Type = model.Type;
             group.CreatedBy = model.CreatedBy;
             group.CreatedOn = DateTime.Now;
             group.IsActive = true;
@@ -84,6 +89,28 @@ namespace SistabizApp_New.Services
             }
                 
             _entityDbContext.TblGroupJoinMember.Add(joinmember);
+
+            _entityDbContext.SaveChanges();
+            return model;
+        }
+
+        public List<TblGroupJoinMember> AddGroupMembers(List<TblGroupJoinMember> model)
+        {
+            TblGroupJoinMember joinmember = new TblGroupJoinMember();
+            //joinmember.GroupId = model.GroupId;
+            //joinmember.JoinMemberId = model.JoinMemberId;
+            //if (string.IsNullOrEmpty(model.LeavingDate.ToString()))
+            //{
+            //    joinmember.JoinDate = Convert.ToDateTime(model.JoinDate);
+            //    joinmember.IsActive = true;
+            //}
+            //else
+            //{
+            //    joinmember.LeavingDate = Convert.ToDateTime(model.LeavingDate);
+            //    joinmember.IsActive = false;
+            //}
+
+            _entityDbContext.TblGroupJoinMember.AddRange(model);
 
             _entityDbContext.SaveChanges();
             return model;

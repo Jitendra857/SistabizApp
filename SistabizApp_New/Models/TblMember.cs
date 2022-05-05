@@ -14,6 +14,7 @@ namespace SistabizApp_New.Models
             TblGroupJoinMember = new HashSet<TblGroupJoinMember>();
             TblPostFeedback = new HashSet<TblPostFeedback>();
             TblServiceRequest = new HashSet<TblServiceRequest>();
+            TblUserSubscription = new HashSet<TblUserSubscription>();
         }
 
         public long MemberId { get; set; }
@@ -54,5 +55,6 @@ namespace SistabizApp_New.Models
         public virtual ICollection<TblGroupJoinMember> TblGroupJoinMember { get; set; }
         public virtual ICollection<TblPostFeedback> TblPostFeedback { get; set; }
         public virtual ICollection<TblServiceRequest> TblServiceRequest { get; set; }
+        public virtual ICollection<TblUserSubscription> TblUserSubscription { get; set; }
     }
 }

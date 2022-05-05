@@ -14,6 +14,7 @@ namespace SistabizApp_New.Models
         public long GroupId { get; set; }
         public string GroupName { get; set; }
         public string Description { get; set; }
+        public int? Type { get; set; }
         public long? CreatedBy { get; set; }
         public DateTime? CreatedOn { get; set; }
         public bool? IsActive { get; set; }

@@ -40,6 +40,14 @@ namespace SistabizApp_New.Controllers
             return Ok(new APIResponse(true, Constant.Success, "goal and activity updated successfully", goalactivityService.ManageGoalActivity(model)));
         }
 
+        [HttpPost]
+        [Route("goalpostpone")]
+        public async Task<IActionResult> GoalPostpone(GoalPostponeViewModel model)
+        {
+
+            return Ok(new APIResponse(true, Constant.Success, "goal postpone successfully", goalactivityService.GoalPostpone(model)));
+        }
+
         [HttpGet]
         [Route("deletegoalactivity")]
         public async Task<IActionResult> DeleteGoalActivity(int goalid)

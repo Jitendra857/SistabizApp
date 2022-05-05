@@ -1,11 +1,12 @@
 ﻿using SistabizApp.Authentication;
+using SistabizApp_New.Helper;
 using SistabizApp_New.IServices;
 using SistabizApp_New.Models;
 using SistabizApp_New.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Metadata;
+
 using System.Threading.Tasks;
 
 namespace SistabizApp_New.Services
@@ -13,16 +14,22 @@ namespace SistabizApp_New.Services
     public partial class BLLService : IBLLService
     {
 
-        public List<MemberViewModel> MemberList()
+        public List<MemberViewModel> MemberList(string search=null)
         {
-            var employee = _entityDbContext.TblMember.Select(e => new MemberViewModel
+            List<TblMember> memberlist = new List<TblMember>();
+            if (!string.IsNullOrEmpty(search))
+                memberlist = _entityDbContext.TblMember.Where(r => r.FirstName.Contains(search) || r.LastName.Contains(search) || r.Mobile.Contains(search) || r.Email.Contains(search) || r.Mobile.Contains(search)).ToList();
+            else
+                memberlist = _entityDbContext.TblMember.ToList();
+            
+            var employee = memberlist.Select(e => new MemberViewModel
             {
-
+                MemberId=e.MemberId,
                 Email = e.Email,
                 Password = e.Password,
                 FirstName = e.FirstName,
                 LastName = e.LastName,
-                ProfileImage = e.ProfileImage,
+                ProfileImage = Constant.livebaseurl+ "images/"+ e.ProfileImage,
                 Mobile = e.Mobile,
                 StateId = (int)e.StateId,
                 City = e.City,
@@ -57,7 +64,18 @@ namespace SistabizApp_New.Services
                 _entityDbContext.SaveChanges();
                 return employee;
             }
-            return null;
+            return employee;
+        }
+
+        public TblUserSubscription AddSubscription(TblUserSubscription subscription)
+        {
+            if (subscription != null)
+            {
+                _entityDbContext.TblUserSubscription.Add(subscription);
+                _entityDbContext.SaveChanges();
+                return subscription;
+            }
+            return subscription;
         }
 
         public string RemoverMember(int memberid)
@@ -77,12 +95,12 @@ namespace SistabizApp_New.Services
         {
             var employee = _entityDbContext.TblMember.Where(x => x.MemberId == memberid).Select(e => new MemberViewModel
             {
-
+                MemberId=e.MemberId,
                 Email = e.Email,
                 Password = e.Password,
                 FirstName = e.FirstName,
                 LastName = e.LastName,
-                ProfileImage = e.ProfileImage,
+                ProfileImage = Constant.livebaseurl + "images/" + e.ProfileImage,
                 Mobile = e.Mobile,
                 StateId = (int)e.StateId,
                 City = e.City,
@@ -149,14 +167,12 @@ namespace SistabizApp_New.Services
 
             var employee = _entityDbContext.TblMember.Where(x => x.Email == email).Select(e => new MemberLoginResponseViewModel
             {
-
+                MemberId=e.MemberId,
                 Email = e.Email,
-               
                 FirstName = e.FirstName,
                 LastName = e.LastName,
-                ProfileImage = e.ProfileImage,
+                ProfileImage = Constant.livebaseurl + "images/" + e.ProfileImage,
                 Mobile = e.Mobile,
-               
                 City = e.City,
                 Address = e.Address,
                 ZipCode = e.ZipCode,

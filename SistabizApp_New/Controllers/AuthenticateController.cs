@@ -76,17 +76,11 @@ namespace SistabizApp_New.Controllers
                 response.Token = new JwtSecurityTokenHandler().WriteToken(token);
                 response.TokenExpiration= token.ValidTo;
 
-                //return Ok(new
-                //{
-                //    token = new JwtSecurityTokenHandler().WriteToken(token),
-                //    expiration = token.ValidTo
-
-
-                //});
-
-                return Ok(new APIResponse(true, Constant.Success, "", response));
+               
+                return Ok(new APIResponse(true, "Login Successfully.", "", response));
             }
-            return Unauthorized();
+            return Ok(new APIResponse(false, "Invalid username and password!", null,null));
+            //return Unauthorized();
         }
     
        
@@ -139,10 +133,31 @@ namespace SistabizApp_New.Controllers
 
 
             };
+
+          
             var result = await userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
-                memberService.AddEmployee(member);
+              var data=  memberService.AddEmployee(member);
+                if(data != null)
+                {
+                    TblUserSubscription subscription = new TblUserSubscription()
+                    {
+                        SubscriptionTypeId = 1,
+                        Userid = data.MemberId,
+                        TransactionId = Guid.NewGuid().ToString(),
+                        SubscriptionStartDate=DateTime.Now,
+                        SubscriptionEndDate=DateTime.Now.AddMonths(1),
+                        PaymentStatus=1,
+                        IsPayment=true,
+                        IsUpgrade=false,
+                        IsActive = true,
+                        IsDeleted =false,
+                        CreateOn=DateTime.Now,
+                    };
+                    var usersubscription = memberService.AddSubscription(subscription);
+                }
+
                 return Ok(new APIResponse(true, Constant.Success, "", "User created successfully!"));
                 var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
                 var confirmationLink = Url.Action("ConfirmEmail", "Email", new { token, email = user.Email }, Request.Scheme);

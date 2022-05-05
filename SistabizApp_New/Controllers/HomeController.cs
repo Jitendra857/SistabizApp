@@ -29,30 +29,24 @@ namespace SistabizApp_New.Controllers
         }
 
 
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
-
-        //public IActionResult Privacy()
-        //{
-        //    return View();
-        //}
-
-        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        //public IActionResult Error()
-        //{
-        //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        //}
-
         [HttpGet]
         [Route("gethomedata")]
         public async Task<IActionResult> GetServiceRequestByMember(int MemberId)
         {
             HomeViewModel model = new HomeViewModel();
             model.lstmemberlist = commanService.MemberList();
-            model.lsteventlist = commanService.GetEventList();
-            model.lstservicerequestlist = commanService.GetServiceRequestList();
+            model.lstGrouplist = commanService.GetGroupList();
+            model.lstGoalActivity = commanService.GetAllGoalAndActivity(MemberId);
+
+            return Ok(new APIResponse(true, Constant.Success, "", model));
+        }
+
+        [HttpGet]
+        [Route("searchmember")]
+        public async Task<IActionResult> SearchMember(string search)
+        {
+            HomeViewModel model = new HomeViewModel();
+            model.lstmemberlist = commanService.MemberList(search);
             return Ok(new APIResponse(true, Constant.Success, "", model));
         }
     }

@@ -10,7 +10,7 @@ namespace SistabizApp_New.Models
     {
         public List<MemberViewModel> lstmemberlist = new List<MemberViewModel>();
 
-        public List<EventResponseViewModel> lsteventlist = new List<EventResponseViewModel>();
-        public List<ServiceRequestViewModel> lstservicerequestlist = new List<ServiceRequestViewModel>();
+        public List<GroupViewModel> lstGrouplist { get; set; } = new List<GroupViewModel>();
+       public List<GoalActivityViewModel> lstGoalActivity { get; set; } = new List<GoalActivityViewModel>();
     }
 }

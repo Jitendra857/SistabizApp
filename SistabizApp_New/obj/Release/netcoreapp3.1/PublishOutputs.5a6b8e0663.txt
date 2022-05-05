@@ -4,8 +4,13 @@ F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Releas
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Events\a98f391f-16bf-4be4-95d3-091f26e77adc_images1.jpg
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Events\b6d49f86-4576-49c1-8637-6c9967b7f31d_images.jpg
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\favicon.ico
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Groups\4265d774-a27f-4ecf-aac9-9058dc516188_images1.jpg
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Groups\561d243a-1957-4f94-8911-cf1b92d5cdb6_images2.jpg
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Groups\7903d2a4-1903-4d58-a37c-c818318c0911_images2.jpg
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Groups\915b46b6-3b57-41f5-9536-2326150ec84f_images1.jpg
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Groups\91b438a6-fdb9-4944-bac9-d949f63ab00d_images1.jpg
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Groups\a7674d55-93c8-454d-ae83-da210225f45f_images1.jpg
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Groups\f35bd885-e36b-4a93-8cac-7c4820bdb5a0_images2.jpg
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\images\images1.jpg
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\js\site.js
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css

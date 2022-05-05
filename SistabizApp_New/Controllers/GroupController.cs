@@ -40,6 +40,8 @@ namespace SistabizApp_New.Controllers
 
             List<TblGroupAttachment> groupattachment = new List<TblGroupAttachment>();
 
+            return Ok(new APIResponse(true, Constant.Success, "", "Group Added successfully"));
+
             // add/update event
             long groupid = groupService.ManageGroup(model);
 
@@ -70,15 +72,26 @@ namespace SistabizApp_New.Controllers
             {
                 groupService.UploadGroupAttachment(groupattachment);
             }
+            //if (model.lstJoinMembers.Count > 0)
+            //{
+            //    List<TblGroupJoinMember> lstgroupjoinmembers = new List<TblGroupJoinMember>();
+            //    foreach (var item in model.lstJoinMembers)
+            //    {
+            //        lstgroupjoinmembers.Add(new TblGroupJoinMember { GroupId = groupid, JoinMemberId = item.JoinMemberId, JoinDate = Convert.ToDateTime(item.JoinDate),IsActive=true});
+
+            //    }
+
+            //    groupService.AddGroupMembers(lstgroupjoinmembers);
+            //}
 
 
 
-            return Ok(new APIResponse(true, Constant.Success, "", "Group Added sucessfully"));
+            return Ok(new APIResponse(true, Constant.Success, "", "Group Added successfully"));
         }
 
         [HttpPost]
         [Route("groupjoinmember")]
-        public async Task<IActionResult>GroupJoinMember(GroupJoinMemberViewModel model)
+        public async Task<IActionResult> GroupJoinMember(GroupJoinMemberViewModel model)
         {
             var result = groupService.GroupJoinMembers(model);
 

@@ -52,5 +52,20 @@ namespace SistabizApp_New.Helper
 
             }
         }
+
+        public static string GetGroupType(int? Status)
+        {
+            switch (Status)
+            {
+                case 1:
+                    return Constant.Public;
+
+                case 2:
+                    return Constant.Private;
+                default:
+                    return Constant.Public;
+
+            }
+        }
     }
 }

@@ -22,6 +22,7 @@ namespace SistabizApp_New.Models
         public virtual DbSet<AspNetUserRoles> AspNetUserRoles { get; set; }
         public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<TblCountry> TblCountry { get; set; }
         public virtual DbSet<TblEvent> TblEvent { get; set; }
         public virtual DbSet<TblEventAttachment> TblEventAttachment { get; set; }
         public virtual DbSet<TblEventRegisterMember> TblEventRegisterMember { get; set; }
@@ -38,7 +39,10 @@ namespace SistabizApp_New.Models
         public virtual DbSet<TblPostAttachment> TblPostAttachment { get; set; }
         public virtual DbSet<TblPostFeedback> TblPostFeedback { get; set; }
         public virtual DbSet<TblServiceRequest> TblServiceRequest { get; set; }
+        public virtual DbSet<TblState> TblState { get; set; }
+        public virtual DbSet<TblSubscriptionType> TblSubscriptionType { get; set; }
         public virtual DbSet<TblUserNew> TblUserNew { get; set; }
+        public virtual DbSet<TblUserSubscription> TblUserSubscription { get; set; }
         public virtual DbSet<Tbluser> Tbluser { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -146,6 +150,15 @@ namespace SistabizApp_New.Models
                 entity.Property(e => e.ProfileName).HasMaxLength(100);
 
                 entity.Property(e => e.UserName).HasMaxLength(256);
+            });
+
+            modelBuilder.Entity<TblCountry>(entity =>
+            {
+                entity.HasKey(e => e.CountryId);
+
+                entity.ToTable("tblCountry");
+
+                entity.Property(e => e.CountryName).HasMaxLength(200);
             });
 
             modelBuilder.Entity<TblEvent>(entity =>
@@ -284,6 +297,10 @@ namespace SistabizApp_New.Models
                 entity.HasKey(e => e.GoalId);
 
                 entity.ToTable("tblGoal");
+
+                entity.Property(e => e.EndDate).HasColumnType("datetime");
+
+                entity.Property(e => e.PostponeDate).HasColumnType("datetime");
 
                 entity.Property(e => e.StartDate).HasColumnType("datetime");
 
@@ -449,6 +466,31 @@ namespace SistabizApp_New.Models
                     .HasConstraintName("FK_tblServiceRequest_tblMember");
             });
 
+            modelBuilder.Entity<TblState>(entity =>
+            {
+                entity.HasKey(e => e.StateId);
+
+                entity.ToTable("tblState");
+
+                entity.Property(e => e.StateName).HasMaxLength(300);
+
+                entity.HasOne(d => d.Country)
+                    .WithMany(p => p.TblState)
+                    .HasForeignKey(d => d.CountryId)
+                    .HasConstraintName("FK_tblState_tblCountry");
+            });
+
+            modelBuilder.Entity<TblSubscriptionType>(entity =>
+            {
+                entity.HasKey(e => e.SubscriptionId);
+
+                entity.ToTable("tblSubscriptionType");
+
+                entity.Property(e => e.CreateOn).HasColumnType("datetime");
+
+                entity.Property(e => e.SubscriptionName).HasMaxLength(300);
+            });
+
             modelBuilder.Entity<TblUserNew>(entity =>
             {
                 entity.ToTable("tblUserNew");
@@ -456,6 +498,31 @@ namespace SistabizApp_New.Models
                 entity.Property(e => e.Email).HasMaxLength(50);
 
                 entity.Property(e => e.Password).HasMaxLength(100);
+            });
+
+            modelBuilder.Entity<TblUserSubscription>(entity =>
+            {
+                entity.HasKey(e => e.SubscriptionId);
+
+                entity.ToTable("tblUserSubscription");
+
+                entity.Property(e => e.CreateOn).HasColumnType("datetime");
+
+                entity.Property(e => e.SubscriptionEndDate).HasColumnType("datetime");
+
+                entity.Property(e => e.SubscriptionStartDate).HasColumnType("datetime");
+
+                entity.Property(e => e.TransactionId).HasMaxLength(500);
+
+                entity.HasOne(d => d.SubscriptionType)
+                    .WithMany(p => p.TblUserSubscription)
+                    .HasForeignKey(d => d.SubscriptionTypeId)
+                    .HasConstraintName("FK_tblUserSubscription_tblSubscriptionType");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.TblUserSubscription)
+                    .HasForeignKey(d => d.Userid)
+                    .HasConstraintName("FK_tblUserSubscription_tblMember");
             });
 
             modelBuilder.Entity<Tbluser>(entity =>
