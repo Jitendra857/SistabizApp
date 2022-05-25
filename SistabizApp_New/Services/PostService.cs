@@ -1,4 +1,5 @@
-﻿using SistabizApp_New.Helper;
+﻿using Microsoft.EntityFrameworkCore;
+using SistabizApp_New.Helper;
 using SistabizApp_New.Models;
 using SistabizApp_New.ViewModels;
 using System;
@@ -13,24 +14,44 @@ namespace SistabizApp_New.Services
 
         public List<PostViewModel> GetAllPost()
         {
-            return _entityDbContext.TblPost.Select(e => new PostViewModel
+
+            var result = _entityDbContext.TblPost
+               .Include(s => s.CreatedByNavigation)
+            .Include(s => s.TblPostBookMark)
+             .Include(s => s.TblPostAttachment)
+              .Include(s => s.TblPostFeedback)
+            .ToList();
+
+
+
+           return result.Select(e => new PostViewModel
             {
                 PostId = e.PostId,
                 Post = e.Post,
+                CreateByName=e.CreatedByNavigation!=null?e.CreatedByNavigation.FirstName+" "+e.CreatedByNavigation.LastName:null,
+                CreateByProfile= e.CreatedByNavigation != null ? Constant.livebaseurl + "Profiles/" + e.CreatedByNavigation.ProfileImage:null,
+                CreateOn=e.CreateOn,
+                WebsiteLink=e.WebsiteLink,
+                IsBookmark=e.TblPostBookMark.Count>0?true:false,
+                TotalLike= e.TblPostFeedback.Where(r=>r.LikeUnlike==1 && r.PostId==e.PostId).Count(),
+                TotalUnlike = e.TblPostFeedback.Where(r => r.LikeUnlike == 2 && r.PostId == e.PostId).Count(),
+                TotalComment = e.TblPostFeedback.Where(r => r.Commets!=null && r.PostId == e.PostId).Count(),
                 lstPostAttachment = e.TblPostAttachment.Count > 0 ? e.TblPostAttachment.Select(r => new PostAttachmentViewModel
                 {
                     PostAttachmentId=r.PostAttachmentId,
-                    FileName=r.FileName
+                    FileName= Constant.livebaseurl + "Post/" + r.FileName
                 }).ToList():null,
-                lstPostLikeComments = e.TblPostFeedback.Count > 0 ? e.TblPostFeedback.Select(r => new PostLikeCommentsViewModel
+                lstPostLikeComments = e.TblPostFeedback.Count > 0 ? e.TblPostFeedback.Where(r=>r.PostId==e.PostId).Select(r => new PostLikeCommentsViewModel
                 {
                     PostFeedId=r.PostFeedId,
                     LikeUnlike=r.LikeUnlike,
                     Commets=r.Commets,
-                    
+                    LikeCommentByName= r.Member != null ? r.Member.FirstName + " " + r.Member.LastName : null,
+                    LikeCommentByProfile = r.Member != null ? Constant.livebaseurl + "Profiles/" + r.Member.ProfileImage : null,
+                   
                 }).ToList() : null,
             }).ToList();
-        }
+            }
 
        
 
@@ -79,7 +100,31 @@ namespace SistabizApp_New.Services
                 _entityDbContext.TblPostFeedback.Add(postfeed);
             }
             _entityDbContext.SaveChanges();
-            return "Success";
+            return Constant.Success;
+
+        }
+
+        public string PostBookmark(PostBookmarkViewModel model)
+        {
+            TblPostBookMark bookmark = new TblPostBookMark();
+            if (model.BookmarkId > 0)
+                bookmark = _entityDbContext.TblPostBookMark.Where(r => r.BookmarkId == model.BookmarkId).FirstOrDefault();
+            if(bookmark!=null && model.BookmarkId > 0)
+            {
+                _entityDbContext.TblPostBookMark.Remove(bookmark);
+                _entityDbContext.SaveChanges();
+                return "Unbookmark";
+            }
+            else
+            {
+                bookmark.MemberId = model.MemberId;
+                bookmark.PostId = model.PostId;
+                _entityDbContext.TblPostBookMark.Add(bookmark);
+                _entityDbContext.SaveChanges();
+                return "Bookmark";
+            }
+              
+         
 
         }
 

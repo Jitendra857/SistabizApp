@@ -1,0 +1,28 @@
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace SistabizApp_New.Controllers
+{
+    [Route("api/broadcast")]
+    [ApiController]
+    public class BroadcastController : ControllerBase
+    {
+        //private readonly IHubContext<ChatHub> _hub;
+
+        //public BroadcastController(IHubContext<ChatHub> hub)
+        //{
+        //    _hub = hub;
+        //}
+
+        //[HttpGet]
+        //public async Task Get(string user, string message)
+        //{
+        //    await _hub.Clients.All.SendAsync("ReceiveMessage", user, message);
+        //}
+    }
+}

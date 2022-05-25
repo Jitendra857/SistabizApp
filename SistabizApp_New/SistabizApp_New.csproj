@@ -10,6 +10,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.8" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.10" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.8">
       <PrivateAssets>all</PrivateAssets>
@@ -23,6 +24,10 @@
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\Events\" />
     <Folder Include="wwwroot\Groups\" />
+    <Folder Include="wwwroot\DigitalLibrary\" />
+    <Folder Include="wwwroot\GroupIcon\" />
+    <Folder Include="wwwroot\MemberPost\" />
+    <Folder Include="wwwroot\Post\" />
     <Folder Include="wwwroot\Profiles\" />
   </ItemGroup>
 

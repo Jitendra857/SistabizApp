@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using SistabizApp.Authentication;
+using SistabizApp_New.Helper;
 using SistabizApp_New.IServices;
 using SistabizApp_New.Models;
 using SistabizApp_New.Services;
@@ -39,6 +40,11 @@ namespace SistabizApp_New
                 o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
 
+         //   var emailConfig = Configuration
+         //.GetSection("EmailConfiguration")
+         //.Get<EmailConfiguration>();
+         //   services.AddSingleton(emailConfig);
+
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnStr")));
 
             services.AddDbContext<SistabizAppContext>(options =>options.UseSqlServer(Configuration.GetConnectionString("ConnStr")));
@@ -61,25 +67,14 @@ namespace SistabizApp_New
 
             services.AddCors(options => options.AddPolicy("ApiCorsPolicy", build =>
             {
-                build.WithOrigins("http://20.89.157.180:8070", "http://20.89.157.180:8060", "http://localhost:3000")
+                build.WithOrigins("http://20.89.157.180:8070", "http://20.89.157.180:8060", "http://localhost:3000", "https://f81a-103-241-226-208.in.ngrok.io", "http://www.sis-temp.eagletechsolutions.uk.servepreview.net")
                      .AllowAnyMethod()
                      .AllowAnyHeader();
             }));
             // ... other code is omitted for the brevity
         
 
-        //services.AddCors(options =>
-        //    {
-        //        options.AddPolicy(name: "AllowOrigin",
-        //            builder =>
-        //            {
-        //                builder.WithOrigins("http://20.89.157.180:8070", "http://localhost:14223")
-        //                                    .AllowAnyHeader()
-        //                                    .AllowAnyMethod();
-        //            });
-                //http://localhost:3000
-                //http://localhost:14223/
-            //});
+        
 
             // For Identity  
             services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -117,9 +112,13 @@ namespace SistabizApp_New
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
                 };
             });
+
+            //signalR
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        [Obsolete]
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -138,10 +137,15 @@ namespace SistabizApp_New
 
             app.UseAuthentication();
             app.UseAuthorization();
-
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<NotifyHubService>("/notify");
+            });
             app.UseSwagger();
             app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v2/swagger.json", "PlaceInfo Services"));
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+
+           
             //app.UseEndpoints(endpoints =>
             //{
             //    endpoints.MapControllerRoute(

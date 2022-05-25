@@ -1,4 +1,6 @@
-﻿using SistabizApp_New.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using SistabizApp_New.Helper;
+using SistabizApp_New.Models;
 using SistabizApp_New.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -10,12 +12,104 @@ namespace SistabizApp_New.Services
     public partial class BLLService
     {
 
-        public List<GoalActivityViewModel> GetAllGoalAndActivity(int memberid)
+        public List<GoalActivityViewModel> GetAllGoalAndActivity(int memberid, string year=null)
         {
-            return _entityDbContext.TblGoal.Where(e => e.CreatedBy == memberid && e.IsDeleted != true).Select(r => new GoalActivityViewModel
+            if (!string.IsNullOrEmpty(year))
             {
-                Title=r.Title,
-                GoalId=r.GoalId,
+                int yearofnumber = Convert.ToInt32(year);
+                var result = _entityDbContext.TblGoal.Where(e => e.IsDeleted != true && e.CreatedBy == memberid)
+               .Include(s => s.TblGoalMaches)
+               .ThenInclude(s => s.Member)
+                .Include(s => s.TblGoalCategoryMapping)
+                .ThenInclude(s => s.Category)
+               .ToList();
+
+                return result.Where(e => Convert.ToDateTime(e.StartDate).Year == yearofnumber).Select(r => new GoalActivityViewModel
+                {
+                    Title = r.Title,
+                    GoalId = r.GoalId,
+                    What = r.What,
+                    Start = r.Start,
+                    CreatedBy = r.CreatedBy,
+                    Who = r.Who,
+                    How = r.How,
+                    StartDate = r.StartDate,
+                    EndDate = r.EndDate,
+                    PostponeDate = r.PostponeDate,
+                    Status = r.Status,
+                    StatusName = r.Status == 1 ? "Pending" : "Completed",
+                    lstGoalCategory = r.TblGoalCategoryMapping.Count > 0 ? r.TblGoalCategoryMapping.Select(t => new GoalCategoryViewModel
+                    {
+                        GoalMappingId = t.GoalMappingId,
+                        CategoryId = t.CategoryId,
+                        CategoryName = t.Category.CategoryName
+                    }).ToList() : null,
+                    lstGoalMaches = r.TblGoalMaches.Count > 0 ? r.TblGoalMaches.Select(y => new GoalMachesViewModel
+                    {
+                        MemberId = y.MemberId,
+                        Name = y.Member.FirstName + " " + y.Member.LastName,
+                        ProfileImage = y.Member != null ? Constant.livebaseurl + "Profiles/" + y.Member.ProfileImage : null,
+                    }).ToList() : null
+
+                }).ToList();
+            }
+            else
+            {
+                var result = _entityDbContext.TblGoal.Where(e => e.CreatedBy == memberid && e.IsDeleted != true)
+   .Include(s => s.TblGoalMaches)
+   .ThenInclude(s => s.Member)
+    .Include(s => s.TblGoalCategoryMapping)
+    .ThenInclude(s => s.Category)
+   .ToList();
+                return result.Select(r => new GoalActivityViewModel
+                {
+                    Title = r.Title,
+                    GoalId = r.GoalId,
+                    What = r.What,
+                    Start = r.Start,
+                    CreatedBy = r.CreatedBy,
+                    Who = r.Who,
+                    How = r.How,
+                    StartDate = r.StartDate,
+                    EndDate = r.EndDate,
+                    PostponeDate = r.PostponeDate,
+                    Status = r.Status,
+                    StatusName = r.Status == 1 ? "Pending" : "Completed",
+                    lstGoalCategory = r.TblGoalCategoryMapping.Count > 0 ? r.TblGoalCategoryMapping.Select(t => new GoalCategoryViewModel
+                    {
+                        GoalMappingId = t.GoalMappingId,
+                        CategoryId = t.CategoryId,
+                        CategoryName = t.Category.CategoryName
+                    }).ToList() : null,
+                    lstGoalMaches = r.TblGoalMaches.Count > 0 ? r.TblGoalMaches.Select(y => new GoalMachesViewModel
+                    {
+                        MemberId = y.MemberId,
+                        Name = y.Member.FirstName + " " + y.Member.LastName,
+                        ProfileImage = y.Member != null ? Constant.livebaseurl + "Profiles/" + y.Member.ProfileImage : null,
+                    }).ToList() : null
+
+                }).OrderByDescending(t => t.GoalId).ToList();
+            }
+           
+
+           
+        }
+
+        public List<GoalActivityViewModel> GetAllGoalAndActivityByDate(string year)
+        {
+            int yearofnumber = Convert.ToInt32(year);
+
+            var result = _entityDbContext.TblGoal.Where(e => e.IsDeleted != true)
+                .Include(s => s.TblGoalMaches)
+                .ThenInclude(s => s.Member)
+                 .Include(s => s.TblGoalCategoryMapping)
+                 .ThenInclude(s => s.Category)
+                .ToList();
+
+            return result.Where(e => Convert.ToDateTime(e.StartDate).Year == yearofnumber).Select(r => new GoalActivityViewModel
+            {
+                Title = r.Title,
+                GoalId = r.GoalId,
                 What = r.What,
                 Start = r.Start,
                 CreatedBy = r.CreatedBy,
@@ -25,6 +119,19 @@ namespace SistabizApp_New.Services
                 EndDate = r.EndDate,
                 PostponeDate = r.PostponeDate,
                 Status = r.Status,
+                StatusName = r.Status == 1 ? "Pending" : "Completed",
+                lstGoalCategory = r.TblGoalCategoryMapping.Count > 0 ? r.TblGoalCategoryMapping.Select(t => new GoalCategoryViewModel
+                {
+                    GoalMappingId = t.GoalMappingId,
+                    CategoryId = t.CategoryId,
+                    CategoryName = t.Category.CategoryName
+                }).ToList() : null,
+                lstGoalMaches = r.TblGoalMaches.Count > 0 ? r.TblGoalMaches.Select(y => new GoalMachesViewModel
+                {
+                    MemberId = y.MemberId,
+                    Name = y.Member.FirstName + " " + y.Member.LastName,
+                    ProfileImage = y.Member != null ? Constant.livebaseurl + "Profiles/" + y.Member.ProfileImage : null,
+                }).ToList() : null
 
             }).ToList();
         }
@@ -43,17 +150,32 @@ namespace SistabizApp_New.Services
             goal.StartDate = model.StartDate;
             goal.EndDate = model.EndDate;
             goal.PostponeDate = model.PostponeDate;
-            goal.Status = model.Status;
+            goal.Status = 1;
             goal.IsActive = true;
             goal.IsDeleted = false;
-
-
 
             if (model.GoalId == 0)
                 _entityDbContext.TblGoal.Add(goal);
 
             _entityDbContext.SaveChanges();
+            ManageGoalMaches((int)goal.CreatedBy, goal.Title);
             return "Success";
+        }
+
+
+        public string ManageGoalMaches(int? memberid, string message)
+        {
+            var checkgoalmach = _entityDbContext.TblGoal.Where(e => e.Title.ToLower().Contains(message.ToLower()) && e.CreatedBy != memberid).FirstOrDefault();
+            if (checkgoalmach != null)
+            {
+                TblGoalMaches mach = new TblGoalMaches();
+                mach.GoalId = checkgoalmach.GoalId;
+                mach.MemberId = memberid;
+                _entityDbContext.TblGoalMaches.Add(mach);
+                _entityDbContext.SaveChanges();
+            }
+
+            return Constant.Success;
         }
 
         public string GoalPostpone(GoalPostponeViewModel model)
@@ -62,6 +184,16 @@ namespace SistabizApp_New.Services
             if (model.GoalId > 0)
                 goal = GetGoalById((int)model.GoalId);
             goal.PostponeDate = model.PostponeDate;
+            _entityDbContext.SaveChanges();
+            return "Success";
+        }
+
+        public string GoalCompleted(GoalCompletedViewModel model)
+        {
+            TblGoal goal = new TblGoal();
+            if (model.GoalId > 0)
+                goal = GetGoalById((int)model.GoalId);
+            goal.Status = model.Status;
             _entityDbContext.SaveChanges();
             return "Success";
         }

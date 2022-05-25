@@ -31,6 +31,8 @@ namespace SistabizApp.Authentication
        
         public IFormFile Image { get; set; }
         public string ProfileUrl { get; set; }
+        public long? SubscriptionTypeId { get; set; }
+        public int SubscriptionType { get; set; }
     }
     public class RevokeTokenRequest
     {

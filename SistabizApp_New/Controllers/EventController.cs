@@ -16,6 +16,7 @@ namespace SistabizApp_New.Controllers
     //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
+    [ModulePermission(new[] { PermissionEnum.Modules.EVENTS })] //Check Permission for method
     public class EventController : ControllerBase
     {
 

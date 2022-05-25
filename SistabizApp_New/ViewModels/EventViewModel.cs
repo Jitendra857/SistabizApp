@@ -29,7 +29,9 @@ namespace SistabizApp_New.ViewModels
         public int? EventStatus { get; set; }
         public string EventStatusTrack { get; set; }
         public DateTime? EventDate { get; set; }
+        public TimeSpan? StartTime { get; set; }
         public DateTime? EventEndDate { get; set; }
+        public TimeSpan? EndTime { get; set; }
         public string Description { get; set; }
         public long? CreatedBy { get; set; }
         public DateTime? CreatedOn { get; set; }
@@ -63,7 +65,9 @@ namespace SistabizApp_New.ViewModels
         public int? EventStatus { get; set; }
         public string EventStatusTrack { get; set; }
         public DateTime? EventDate { get; set; }
+        public TimeSpan? StartTime { get; set; }
         public DateTime? EventEndDate { get; set; }
+        public TimeSpan? EndTime { get; set; }
         public string Description { get; set; }
         public long? CreatedBy { get; set; }
         public string CreatedByMember { get; set; }

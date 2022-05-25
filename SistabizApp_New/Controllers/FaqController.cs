@@ -12,6 +12,7 @@ namespace SistabizApp_New.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ModulePermission(new[] { PermissionEnum.Modules.Faq })]
     public class FaqController : ControllerBase
     {
 
@@ -24,10 +25,17 @@ namespace SistabizApp_New.Controllers
 
         [HttpGet]
         [Route("geallfaqdetails")]
-        public async Task<IActionResult> GetAllFaqList()
+        public async Task<IActionResult> GetAllFaqList(string search)
         {
 
-            return Ok(new APIResponse(true, Constant.Success, "funding list", faqService.GetAllFaq()));
+            return Ok(new APIResponse(true, Constant.Success, "faq list", faqService.GetAllFaq(search)));
+        }
+        [HttpGet]
+        [Route("gefaqlistbycategory")]
+        public async Task<IActionResult> GetFaqListByCategoryt()
+        {
+
+            return Ok(new APIResponse(true, Constant.Success, "faq list by category", faqService.GetAllFaqByCategory()));
         }
 
         [HttpGet]
@@ -51,7 +59,7 @@ namespace SistabizApp_New.Controllers
         public async Task<IActionResult> DeleteFaq(int fundingid)
         {
 
-            return Ok(new APIResponse(true, Constant.Success, "funding resources deleted", faqService.DeleteFaq(fundingid)));
+            return Ok(new APIResponse(true, Constant.Success, "faq deleted successfully.", faqService.DeleteFaq(fundingid)));
         }
     }
 }

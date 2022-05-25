@@ -12,6 +12,7 @@ namespace SistabizApp_New.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ModulePermission(new[] { PermissionEnum.Modules.GoalActivity })]
     public class GoalActivityController : ControllerBase
     {
 
@@ -24,13 +25,21 @@ namespace SistabizApp_New.Controllers
 
         [HttpGet]
         [Route("geallgoalactivity")]
-        public async Task<IActionResult> GetAllGoalActivityList(int memberid)
+        public async Task<IActionResult> GetAllGoalActivityList(int memberid, string year = null)
         {
 
-            return Ok(new APIResponse(true, Constant.Success, "goal and activity list", goalactivityService.GetAllGoalAndActivity(memberid)));
+            return Ok(new APIResponse(true, Constant.Success, "goal and activity list", goalactivityService.GetAllGoalAndActivity(memberid, year)));
         }
 
-       
+        //[HttpGet]
+        //[Route("geallgoalactivitybydate")]
+        //public async Task<IActionResult> GetAllGoalActivityListByDate(string year)
+        //{
+
+        //    return Ok(new APIResponse(true, Constant.Success, "goal and activity list", goalactivityService.GetAllGoalAndActivityByDate(year)));
+        //}
+
+
 
         [HttpPost]
         [Route("addupdategoalactivity")]
@@ -46,6 +55,14 @@ namespace SistabizApp_New.Controllers
         {
 
             return Ok(new APIResponse(true, Constant.Success, "goal postpone successfully", goalactivityService.GoalPostpone(model)));
+        }
+
+        [HttpPost]
+        [Route("goalactivitycompleted")]
+        public async Task<IActionResult> CompletedGoalAndActivity(GoalCompletedViewModel model)
+        {
+
+            return Ok(new APIResponse(true, Constant.Success, "goal completede successfully", goalactivityService.GoalCompleted(model)));
         }
 
         [HttpGet]

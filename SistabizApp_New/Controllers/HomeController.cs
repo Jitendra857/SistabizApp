@@ -37,6 +37,7 @@ namespace SistabizApp_New.Controllers
             model.lstmemberlist = commanService.MemberList();
             model.lstGrouplist = commanService.GetGroupList();
             model.lstGoalActivity = commanService.GetAllGoalAndActivity(MemberId);
+            model.lstDigitalLibrary = commanService.GetDigitalLibraryList();
 
             return Ok(new APIResponse(true, Constant.Success, "", model));
         }

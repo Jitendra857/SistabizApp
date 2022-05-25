@@ -28,10 +28,10 @@ namespace SistabizApp_New.Controllers
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly IConfiguration _configuration;
         private readonly IBLLService memberService;
-       
 
 
-        public AuthenticateController(IBLLService member,UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
+
+        public AuthenticateController(IBLLService member, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
         {
             this.userManager = userManager;
             this.roleManager = roleManager;
@@ -74,16 +74,16 @@ namespace SistabizApp_New.Controllers
 
                 response = memberService.GetMemberByEmail(user.Email);
                 response.Token = new JwtSecurityTokenHandler().WriteToken(token);
-                response.TokenExpiration= token.ValidTo;
+                response.TokenExpiration = token.ValidTo;
 
-               
+
                 return Ok(new APIResponse(true, "Login Successfully.", "", response));
             }
-            return Ok(new APIResponse(false, "Invalid username and password!", null,null));
+            return Ok(new APIResponse(false, "Invalid username and password!", null, null));
             //return Unauthorized();
         }
-    
-       
+
+
 
         [HttpPost]
         [Route("register")]
@@ -91,7 +91,7 @@ namespace SistabizApp_New.Controllers
         {
 
 
-           // var CurrentRequestOfHttp = HttpContext.Current.Request;
+            // var CurrentRequestOfHttp = HttpContext.Current.Request;
             var userExists = await userManager.FindByNameAsync(model.Username);
             if (userExists != null)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
@@ -110,50 +110,52 @@ namespace SistabizApp_New.Controllers
                 Email = model.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
                 UserName = model.Username,
-                FirstName=model.FirstName,
+                FirstName = model.FirstName,
                 LastName = model.LastName,
-                ProfileName= model.Image.FileName
+                ProfileName = model.Image.FileName
 
             };
             TblMember member = new TblMember()
             {
                 Email = model.Email,
-                Password=model.Password,
+                Password = model.Password,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 ProfileImage = model.Image.FileName,
-                Mobile=model.Mobile,
-                StateId=model.StateId,
-                City=model.City,
-                Address=model.Address,
-                ZipCode=model.ZipCode,
-                CreatedOn=DateTime.Now,
-                IsActive=true,
-                IsDelete=false,
+                Mobile = model.Mobile,
+                StateId = model.StateId,
+                City = model.City,
+                Address = model.Address,
+                ZipCode = model.ZipCode,
+                CreatedOn = DateTime.Now,
+                IsActive = true,
+                IsDelete = false,
+                RoleId = Role.Member,
 
 
             };
 
-          
+
             var result = await userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
-              var data=  memberService.AddEmployee(member);
-                if(data != null)
+                var data = memberService.AddEmployee(member);
+                if (data != null)
                 {
                     TblUserSubscription subscription = new TblUserSubscription()
                     {
-                        SubscriptionTypeId = 1,
+                        SubscriptionTypeId = model.SubscriptionTypeId,
                         Userid = data.MemberId,
                         TransactionId = Guid.NewGuid().ToString(),
-                        SubscriptionStartDate=DateTime.Now,
-                        SubscriptionEndDate=DateTime.Now.AddMonths(1),
-                        PaymentStatus=1,
-                        IsPayment=true,
-                        IsUpgrade=false,
+                        SubscriptionStartDate = DateTime.Now,
+                        SubscriptionEndDate = model.SubscriptionType == 1 ? DateTime.Now.AddMonths(1) : DateTime.Now.AddMonths(12),
+                        SubscriptionDuration = model.SubscriptionType,
+                        PaymentStatus = 1,
+                        IsPayment = true,
+                        IsUpgrade = false,
                         IsActive = true,
-                        IsDeleted =false,
-                        CreateOn=DateTime.Now,
+                        IsDeleted = false,
+                        CreateOn = DateTime.Now,
                     };
                     var usersubscription = memberService.AddSubscription(subscription);
                 }
@@ -173,9 +175,12 @@ namespace SistabizApp_New.Controllers
 
             }
             else
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
+            {
+                var errormessage = result.Errors.FirstOrDefault();//[0].de.ToString();
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = errormessage.Description });
+            }
         }
-       
+
         //[HttpPost("revoke-token")]
         //public IActionResult RevokeToken([FromBody] RevokeTokenRequest model)
         //{
@@ -193,7 +198,7 @@ namespace SistabizApp_New.Controllers
         //    return Ok(new { message = "Token revoked" });
         //}
 
-       
+
 
         [HttpPost]
         [Route("updateprofile")]

@@ -22,25 +22,58 @@ namespace SistabizApp_New.Models
         public virtual DbSet<AspNetUserRoles> AspNetUserRoles { get; set; }
         public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<TblAttachmentBookmark> TblAttachmentBookmark { get; set; }
+        public virtual DbSet<TblBookMark> TblBookMark { get; set; }
+        public virtual DbSet<TblConversationAnswer> TblConversationAnswer { get; set; }
+        public virtual DbSet<TblConversationQuestionAnswer> TblConversationQuestionAnswer { get; set; }
         public virtual DbSet<TblCountry> TblCountry { get; set; }
+        public virtual DbSet<TblDigitalLibaryAttachment> TblDigitalLibaryAttachment { get; set; }
+        public virtual DbSet<TblDigitalLibrary> TblDigitalLibrary { get; set; }
+        public virtual DbSet<TblDigitalLibraryBookmark> TblDigitalLibraryBookmark { get; set; }
+        public virtual DbSet<TblDigitalLibraryCategory> TblDigitalLibraryCategory { get; set; }
         public virtual DbSet<TblEvent> TblEvent { get; set; }
         public virtual DbSet<TblEventAttachment> TblEventAttachment { get; set; }
         public virtual DbSet<TblEventRegisterMember> TblEventRegisterMember { get; set; }
         public virtual DbSet<TblFaq> TblFaq { get; set; }
         public virtual DbSet<TblFaqCategory> TblFaqCategory { get; set; }
+        public virtual DbSet<TblFaqQuestion> TblFaqQuestion { get; set; }
+        public virtual DbSet<TblFundingBookmark> TblFundingBookmark { get; set; }
         public virtual DbSet<TblFundingCategory> TblFundingCategory { get; set; }
         public virtual DbSet<TblFundingResources> TblFundingResources { get; set; }
+        public virtual DbSet<TblFundingSection> TblFundingSection { get; set; }
         public virtual DbSet<TblGoal> TblGoal { get; set; }
+        public virtual DbSet<TblGoalCategory> TblGoalCategory { get; set; }
+        public virtual DbSet<TblGoalCategoryMapping> TblGoalCategoryMapping { get; set; }
+        public virtual DbSet<TblGoalMaches> TblGoalMaches { get; set; }
         public virtual DbSet<TblGroup> TblGroup { get; set; }
         public virtual DbSet<TblGroupAttachment> TblGroupAttachment { get; set; }
+        public virtual DbSet<TblGroupBookmarks> TblGroupBookmarks { get; set; }
+        public virtual DbSet<TblGroupCategory> TblGroupCategory { get; set; }
+        public virtual DbSet<TblGroupDiscussion> TblGroupDiscussion { get; set; }
         public virtual DbSet<TblGroupJoinMember> TblGroupJoinMember { get; set; }
+        public virtual DbSet<TblGroupMeeting> TblGroupMeeting { get; set; }
         public virtual DbSet<TblMember> TblMember { get; set; }
+        public virtual DbSet<TblMemberAttachment> TblMemberAttachment { get; set; }
+        public virtual DbSet<TblMemberDesignation> TblMemberDesignation { get; set; }
+        public virtual DbSet<TblMemberGoal> TblMemberGoal { get; set; }
+        public virtual DbSet<TblMemberPhotoLikeComment> TblMemberPhotoLikeComment { get; set; }
+        public virtual DbSet<TblMemberPostLikeComment> TblMemberPostLikeComment { get; set; }
+        public virtual DbSet<TblMemberRoles> TblMemberRoles { get; set; }
+        public virtual DbSet<TblMemberSkills> TblMemberSkills { get; set; }
+        public virtual DbSet<TblModule> TblModule { get; set; }
+        public virtual DbSet<TblModulePermission> TblModulePermission { get; set; }
+        public virtual DbSet<TblOnboardingConversation> TblOnboardingConversation { get; set; }
         public virtual DbSet<TblPost> TblPost { get; set; }
         public virtual DbSet<TblPostAttachment> TblPostAttachment { get; set; }
+        public virtual DbSet<TblPostBookMark> TblPostBookMark { get; set; }
         public virtual DbSet<TblPostFeedback> TblPostFeedback { get; set; }
+        public virtual DbSet<TblReddemPoints> TblReddemPoints { get; set; }
+        public virtual DbSet<TblReferralCode> TblReferralCode { get; set; }
         public virtual DbSet<TblServiceRequest> TblServiceRequest { get; set; }
         public virtual DbSet<TblState> TblState { get; set; }
         public virtual DbSet<TblSubscriptionType> TblSubscriptionType { get; set; }
+        public virtual DbSet<TblTeckHelp> TblTeckHelp { get; set; }
+        public virtual DbSet<TblTestimonials> TblTestimonials { get; set; }
         public virtual DbSet<TblUserNew> TblUserNew { get; set; }
         public virtual DbSet<TblUserSubscription> TblUserSubscription { get; set; }
         public virtual DbSet<Tbluser> Tbluser { get; set; }
@@ -152,6 +185,78 @@ namespace SistabizApp_New.Models
                 entity.Property(e => e.UserName).HasMaxLength(256);
             });
 
+            modelBuilder.Entity<TblAttachmentBookmark>(entity =>
+            {
+                entity.HasKey(e => e.BookmarkId);
+
+                entity.ToTable("tblAttachmentBookmark");
+
+                entity.HasOne(d => d.Attachment)
+                    .WithMany(p => p.TblAttachmentBookmark)
+                    .HasForeignKey(d => d.AttachmentId)
+                    .HasConstraintName("FK_tblAttachmentBookmark_tblAttachment");
+
+                entity.HasOne(d => d.Member)
+                    .WithMany(p => p.TblAttachmentBookmark)
+                    .HasForeignKey(d => d.MemberId)
+                    .HasConstraintName("FK_tblAttachmentBookmark_tblMember");
+            });
+
+            modelBuilder.Entity<TblBookMark>(entity =>
+            {
+                entity.HasKey(e => e.BookmarkId);
+
+                entity.ToTable("tblBookMark");
+
+                entity.Property(e => e.BookmarkDatet).HasColumnType("datetime");
+
+                entity.HasOne(d => d.BookmarkByNavigation)
+                    .WithMany(p => p.TblBookMarkBookmarkByNavigation)
+                    .HasForeignKey(d => d.BookmarkBy)
+                    .HasConstraintName("FK_tblBookMark_tblMember");
+
+                entity.HasOne(d => d.BookmarkToNavigation)
+                    .WithMany(p => p.TblBookMarkBookmarkToNavigation)
+                    .HasForeignKey(d => d.BookmarkTo)
+                    .HasConstraintName("FK_tblBookMark_tblBookmarkMemberTo");
+            });
+
+            modelBuilder.Entity<TblConversationAnswer>(entity =>
+            {
+                entity.HasKey(e => e.ConversationAnswerId);
+
+                entity.ToTable("tblConversationAnswer");
+
+                entity.HasOne(d => d.Question)
+                    .WithMany(p => p.TblConversationAnswer)
+                    .HasForeignKey(d => d.QuestionId)
+                    .HasConstraintName("FK_tblConversationAnswer_tblQuestion");
+            });
+
+            modelBuilder.Entity<TblConversationQuestionAnswer>(entity =>
+            {
+                entity.HasKey(e => e.QuestionAnswerId);
+
+                entity.ToTable("tblConversationQuestionAnswer");
+
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Answer)
+                    .WithMany(p => p.TblConversationQuestionAnswer)
+                    .HasForeignKey(d => d.AnswerId)
+                    .HasConstraintName("FK_tblConversationQuestionAnswer_tblConversationAnswer");
+
+                entity.HasOne(d => d.Member)
+                    .WithMany(p => p.TblConversationQuestionAnswer)
+                    .HasForeignKey(d => d.MemberId)
+                    .HasConstraintName("FK_tblConversationQuestionAnswer_tblMember");
+
+                entity.HasOne(d => d.Question)
+                    .WithMany(p => p.TblConversationQuestionAnswer)
+                    .HasForeignKey(d => d.QuestionId)
+                    .HasConstraintName("FK_tblConversationQuestionAnswer_tblConversationQuestion");
+            });
+
             modelBuilder.Entity<TblCountry>(entity =>
             {
                 entity.HasKey(e => e.CountryId);
@@ -159,6 +264,75 @@ namespace SistabizApp_New.Models
                 entity.ToTable("tblCountry");
 
                 entity.Property(e => e.CountryName).HasMaxLength(200);
+            });
+
+            modelBuilder.Entity<TblDigitalLibaryAttachment>(entity =>
+            {
+                entity.HasKey(e => e.LibraryAttachmentId);
+
+                entity.ToTable("tblDigitalLibaryAttachment");
+
+                entity.Property(e => e.FileName).HasMaxLength(300);
+
+                entity.HasOne(d => d.DigitalLibary)
+                    .WithMany(p => p.TblDigitalLibaryAttachment)
+                    .HasForeignKey(d => d.DigitalLibaryId)
+                    .HasConstraintName("FK_tblDigitalLibaryAttachment_tblDigitalLibary");
+            });
+
+            modelBuilder.Entity<TblDigitalLibrary>(entity =>
+            {
+                entity.HasKey(e => e.DigitalLibraryId);
+
+                entity.ToTable("tblDigitalLibrary");
+
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+
+                entity.Property(e => e.ProfileIcon).HasMaxLength(300);
+
+                entity.Property(e => e.Title).HasMaxLength(200);
+
+                entity.HasOne(d => d.Category)
+                    .WithMany(p => p.TblDigitalLibrary)
+                    .HasForeignKey(d => d.CategoryId)
+                    .HasConstraintName("FK_tblDigitalLibrary_tblDigitalLibraryCategory");
+
+                entity.HasOne(d => d.CreatedByNavigation)
+                    .WithMany(p => p.TblDigitalLibrary)
+                    .HasForeignKey(d => d.CreatedBy)
+                    .HasConstraintName("FK_tblDigitalLibrary_tblMember");
+            });
+
+            modelBuilder.Entity<TblDigitalLibraryBookmark>(entity =>
+            {
+                entity.HasKey(e => e.BookmarkId);
+
+                entity.ToTable("tblDigitalLibraryBookmark");
+
+                entity.HasOne(d => d.Category)
+                    .WithMany(p => p.TblDigitalLibraryBookmark)
+                    .HasForeignKey(d => d.CategoryId)
+                    .HasConstraintName("FK_tblDigitalLibraryBookmark_tblDigitalLibraryCategory");
+
+                entity.HasOne(d => d.DigitalLibrry)
+                    .WithMany(p => p.TblDigitalLibraryBookmark)
+                    .HasForeignKey(d => d.DigitalLibrryId)
+                    .HasConstraintName("FK_tblDigitalLibraryBookmark_tblDigitalLibrary");
+
+                entity.HasOne(d => d.Member)
+                    .WithMany(p => p.TblDigitalLibraryBookmark)
+                    .HasForeignKey(d => d.MemberId)
+                    .HasConstraintName("FK_tblDigitalLibraryBookmark_tblMember");
+            });
+
+            modelBuilder.Entity<TblDigitalLibraryCategory>(entity =>
+            {
+                entity.HasKey(e => e.CategoryId)
+                    .HasName("PK_tblDigittalLibraryCategory");
+
+                entity.ToTable("tblDigitalLibraryCategory");
+
+                entity.Property(e => e.CategoryName).HasMaxLength(300);
             });
 
             modelBuilder.Entity<TblEvent>(entity =>
@@ -261,6 +435,46 @@ namespace SistabizApp_New.Models
                 entity.Property(e => e.CategoryName).HasMaxLength(500);
             });
 
+            modelBuilder.Entity<TblFaqQuestion>(entity =>
+            {
+                entity.HasKey(e => e.FaqQuestionId);
+
+                entity.ToTable("tblFaqQuestion");
+
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+
+                entity.Property(e => e.Email).HasMaxLength(20);
+
+                entity.Property(e => e.Name).HasMaxLength(200);
+
+                entity.HasOne(d => d.Member)
+                    .WithMany(p => p.TblFaqQuestion)
+                    .HasForeignKey(d => d.MemberId)
+                    .HasConstraintName("FK_tblFaqQuestion_tblMember");
+            });
+
+            modelBuilder.Entity<TblFundingBookmark>(entity =>
+            {
+                entity.HasKey(e => e.BookmarkId);
+
+                entity.ToTable("tblFundingBookmark");
+
+                entity.HasOne(d => d.Category)
+                    .WithMany(p => p.TblFundingBookmark)
+                    .HasForeignKey(d => d.CategoryId)
+                    .HasConstraintName("FK_tblFundingBookmark_tblFundingCategory");
+
+                entity.HasOne(d => d.Funding)
+                    .WithMany(p => p.TblFundingBookmark)
+                    .HasForeignKey(d => d.FundingId)
+                    .HasConstraintName("FK_tblFundingBookmark_tblFundingResource");
+
+                entity.HasOne(d => d.Member)
+                    .WithMany(p => p.TblFundingBookmark)
+                    .HasForeignKey(d => d.MemberId)
+                    .HasConstraintName("FK_tblFundingBookmark_tblMember");
+            });
+
             modelBuilder.Entity<TblFundingCategory>(entity =>
             {
                 entity.HasKey(e => e.CategoryId);
@@ -290,6 +504,24 @@ namespace SistabizApp_New.Models
                     .WithMany(p => p.TblFundingResources)
                     .HasForeignKey(d => d.CategoryId)
                     .HasConstraintName("FK_tblFundingResources_tblFundingCategory");
+
+                entity.HasOne(d => d.CreatedByNavigation)
+                    .WithMany(p => p.TblFundingResources)
+                    .HasForeignKey(d => d.CreatedBy)
+                    .HasConstraintName("FK_tblFundingResources_tblMember");
+            });
+
+            modelBuilder.Entity<TblFundingSection>(entity =>
+            {
+                entity.HasKey(e => e.FundingSectionId);
+
+                entity.ToTable("tblFundingSection");
+
+                entity.Property(e => e.CreateOn).HasColumnType("datetime");
+
+                entity.Property(e => e.FileUrl).HasMaxLength(200);
+
+                entity.Property(e => e.Title).HasMaxLength(200);
             });
 
             modelBuilder.Entity<TblGoal>(entity =>
@@ -310,6 +542,49 @@ namespace SistabizApp_New.Models
                     .HasConstraintName("FK_tblGoal_tblMember");
             });
 
+            modelBuilder.Entity<TblGoalCategory>(entity =>
+            {
+                entity.HasKey(e => e.CategoryId);
+
+                entity.ToTable("tblGoalCategory");
+
+                entity.Property(e => e.CategoryName).HasMaxLength(200);
+            });
+
+            modelBuilder.Entity<TblGoalCategoryMapping>(entity =>
+            {
+                entity.HasKey(e => e.GoalMappingId);
+
+                entity.ToTable("tblGoalCategoryMapping");
+
+                entity.HasOne(d => d.Category)
+                    .WithMany(p => p.TblGoalCategoryMapping)
+                    .HasForeignKey(d => d.CategoryId)
+                    .HasConstraintName("FK_tblGoalCategoryMapping_tblGoalCategory");
+
+                entity.HasOne(d => d.Goal)
+                    .WithMany(p => p.TblGoalCategoryMapping)
+                    .HasForeignKey(d => d.GoalId)
+                    .HasConstraintName("FK_tblGoalCategoryMapping_tblGoal");
+            });
+
+            modelBuilder.Entity<TblGoalMaches>(entity =>
+            {
+                entity.HasKey(e => e.GoalMachId);
+
+                entity.ToTable("tblGoalMaches");
+
+                entity.HasOne(d => d.Goal)
+                    .WithMany(p => p.TblGoalMaches)
+                    .HasForeignKey(d => d.GoalId)
+                    .HasConstraintName("FK_tblGoalMaches_tblGoal");
+
+                entity.HasOne(d => d.Member)
+                    .WithMany(p => p.TblGoalMaches)
+                    .HasForeignKey(d => d.MemberId)
+                    .HasConstraintName("FK_tblGoalMaches_tblMember");
+            });
+
             modelBuilder.Entity<TblGroup>(entity =>
             {
                 entity.HasKey(e => e.GroupId);
@@ -318,7 +593,18 @@ namespace SistabizApp_New.Models
 
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
+                entity.Property(e => e.EndDate).HasColumnType("datetime");
+
+                entity.Property(e => e.GroupIcon).HasMaxLength(300);
+
                 entity.Property(e => e.GroupName).HasMaxLength(500);
+
+                entity.Property(e => e.StartDate).HasColumnType("datetime");
+
+                entity.HasOne(d => d.CategoryNavigation)
+                    .WithMany(p => p.TblGroup)
+                    .HasForeignKey(d => d.Category)
+                    .HasConstraintName("FK_tblGroup_tblGroupCategory");
 
                 entity.HasOne(d => d.CreatedByNavigation)
                     .WithMany(p => p.TblGroup)
@@ -334,10 +620,62 @@ namespace SistabizApp_New.Models
 
                 entity.Property(e => e.Attachment).HasMaxLength(500);
 
+                entity.Property(e => e.DocumnetType).HasMaxLength(200);
+
                 entity.HasOne(d => d.Group)
                     .WithMany(p => p.TblGroupAttachment)
                     .HasForeignKey(d => d.GroupId)
                     .HasConstraintName("FK_tblGroupAttachment_tblGroup");
+            });
+
+            modelBuilder.Entity<TblGroupBookmarks>(entity =>
+            {
+                entity.HasKey(e => e.BookmarkId);
+
+                entity.ToTable("tblGroupBookmarks");
+
+                entity.HasOne(d => d.Category)
+                    .WithMany(p => p.TblGroupBookmarks)
+                    .HasForeignKey(d => d.CategoryId)
+                    .HasConstraintName("FK_tblGroupBookmarks_tblGroupCategory");
+
+                entity.HasOne(d => d.Group)
+                    .WithMany(p => p.TblGroupBookmarks)
+                    .HasForeignKey(d => d.GroupId)
+                    .HasConstraintName("FK_tblGroupBookmarks_tblGroup");
+
+                entity.HasOne(d => d.Member)
+                    .WithMany(p => p.TblGroupBookmarks)
+                    .HasForeignKey(d => d.MemberId)
+                    .HasConstraintName("FK_tblGroupBookmarks_tblMember");
+            });
+
+            modelBuilder.Entity<TblGroupCategory>(entity =>
+            {
+                entity.HasKey(e => e.GroupCategoryId);
+
+                entity.ToTable("tblGroupCategory");
+
+                entity.Property(e => e.CategoryName).HasMaxLength(300);
+            });
+
+            modelBuilder.Entity<TblGroupDiscussion>(entity =>
+            {
+                entity.HasKey(e => e.DiscussionId);
+
+                entity.ToTable("tblGroupDiscussion");
+
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Group)
+                    .WithMany(p => p.TblGroupDiscussion)
+                    .HasForeignKey(d => d.GroupId)
+                    .HasConstraintName("FK_tblGroupDiscussion_tblGroup");
+
+                entity.HasOne(d => d.MessageByNavigation)
+                    .WithMany(p => p.TblGroupDiscussion)
+                    .HasForeignKey(d => d.MessageBy)
+                    .HasConstraintName("FK_tblGroupDiscussion_tblMember");
             });
 
             modelBuilder.Entity<TblGroupJoinMember>(entity =>
@@ -361,6 +699,35 @@ namespace SistabizApp_New.Models
                     .HasConstraintName("FK_tblGroupJoinMember_tblMember");
             });
 
+            modelBuilder.Entity<TblGroupMeeting>(entity =>
+            {
+                entity.HasKey(e => e.MeetingId);
+
+                entity.ToTable("tblGroupMeeting");
+
+                entity.Property(e => e.Agenda).HasMaxLength(300);
+
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+
+                entity.Property(e => e.EndDateTime).HasColumnType("datetime");
+
+                entity.Property(e => e.MeetingPlace).HasMaxLength(300);
+
+                entity.Property(e => e.StartDateTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Title).HasMaxLength(300);
+
+                entity.HasOne(d => d.CreatedByNavigation)
+                    .WithMany(p => p.TblGroupMeeting)
+                    .HasForeignKey(d => d.CreatedBy)
+                    .HasConstraintName("FK_tblGroupMeeting_tblMember");
+
+                entity.HasOne(d => d.Group)
+                    .WithMany(p => p.TblGroupMeeting)
+                    .HasForeignKey(d => d.GroupId)
+                    .HasConstraintName("FK_tblGroupMeeting_tblGroup");
+            });
+
             modelBuilder.Entity<TblMember>(entity =>
             {
                 entity.HasKey(e => e.MemberId);
@@ -381,6 +748,8 @@ namespace SistabizApp_New.Models
 
                 entity.Property(e => e.FirstName).HasMaxLength(100);
 
+                entity.Property(e => e.Founded).HasColumnType("date");
+
                 entity.Property(e => e.GovernmentCertifications).HasMaxLength(200);
 
                 entity.Property(e => e.GrowthGoals).HasMaxLength(400);
@@ -397,11 +766,168 @@ namespace SistabizApp_New.Models
 
                 entity.Property(e => e.ProfileImage).HasMaxLength(200);
 
+                entity.Property(e => e.ReferralCode).HasMaxLength(200);
+
+                entity.Property(e => e.Size).HasMaxLength(100);
+
                 entity.Property(e => e.SocialMedia).HasMaxLength(200);
+
+                entity.Property(e => e.Stage).HasMaxLength(200);
 
                 entity.Property(e => e.WebsiteUrl).HasMaxLength(200);
 
                 entity.Property(e => e.ZipCode).HasMaxLength(30);
+
+                entity.HasOne(d => d.Role)
+                    .WithMany(p => p.TblMember)
+                    .HasForeignKey(d => d.RoleId)
+                    .HasConstraintName("FK_tblMember_tblRole");
+            });
+
+            modelBuilder.Entity<TblMemberAttachment>(entity =>
+            {
+                entity.HasKey(e => e.AttachmentId);
+
+                entity.ToTable("tblMemberAttachment");
+
+                entity.Property(e => e.CreateOn).HasColumnType("datetime");
+
+                entity.Property(e => e.PhotoVideoUrl).HasMaxLength(300);
+
+                entity.HasOne(d => d.Member)
+                    .WithMany(p => p.TblMemberAttachment)
+                    .HasForeignKey(d => d.MemberId)
+                    .HasConstraintName("FK_tblMemberAttachment_tblMember");
+            });
+
+            modelBuilder.Entity<TblMemberDesignation>(entity =>
+            {
+                entity.HasKey(e => e.DesignationId);
+
+                entity.ToTable("tblMemberDesignation");
+
+                entity.Property(e => e.Designation).HasMaxLength(300);
+
+                entity.HasOne(d => d.Member)
+                    .WithMany(p => p.TblMemberDesignation)
+                    .HasForeignKey(d => d.MemberId)
+                    .HasConstraintName("FK_tblMemberDesignation_tblMember");
+            });
+
+            modelBuilder.Entity<TblMemberGoal>(entity =>
+            {
+                entity.HasKey(e => e.GoalId);
+
+                entity.ToTable("tblMemberGoal");
+
+                entity.HasOne(d => d.Member)
+                    .WithMany(p => p.TblMemberGoal)
+                    .HasForeignKey(d => d.MemberId)
+                    .HasConstraintName("FK_tblMemberGoal_tblMember");
+            });
+
+            modelBuilder.Entity<TblMemberPhotoLikeComment>(entity =>
+            {
+                entity.ToTable("tblMemberPhotoLikeComment");
+
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Attachment)
+                    .WithMany(p => p.TblMemberPhotoLikeComment)
+                    .HasForeignKey(d => d.AttachmentId)
+                    .HasConstraintName("FK_tblMemberPhotoLikeComment_tblMemberAttachment");
+
+                entity.HasOne(d => d.Member)
+                    .WithMany(p => p.TblMemberPhotoLikeComment)
+                    .HasForeignKey(d => d.MemberId)
+                    .HasConstraintName("FK_tblMemberPhotoLikeComment_tblMember");
+            });
+
+            modelBuilder.Entity<TblMemberPostLikeComment>(entity =>
+            {
+                entity.HasKey(e => e.AttachmentLikeId);
+
+                entity.ToTable("tblMemberPostLikeComment");
+
+                entity.Property(e => e.CreateOn).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Attachment)
+                    .WithMany(p => p.TblMemberPostLikeComment)
+                    .HasForeignKey(d => d.AttachmentId)
+                    .HasConstraintName("FK_tblMemberPostLikeComment_tblMemberAttachment");
+
+                entity.HasOne(d => d.Member)
+                    .WithMany(p => p.TblMemberPostLikeComment)
+                    .HasForeignKey(d => d.MemberId)
+                    .HasConstraintName("FK_tblMemberPostLikeComment_tblMember");
+            });
+
+            modelBuilder.Entity<TblMemberRoles>(entity =>
+            {
+                entity.HasKey(e => e.RoleId);
+
+                entity.ToTable("tblMemberRoles");
+
+                entity.Property(e => e.RoleName).HasMaxLength(200);
+            });
+
+            modelBuilder.Entity<TblMemberSkills>(entity =>
+            {
+                entity.HasKey(e => e.SkillId);
+
+                entity.ToTable("tblMemberSkills");
+
+                entity.HasOne(d => d.Member)
+                    .WithMany(p => p.TblMemberSkills)
+                    .HasForeignKey(d => d.MemberId)
+                    .HasConstraintName("FK_tblMemberSkills_tblMember");
+            });
+
+            modelBuilder.Entity<TblModule>(entity =>
+            {
+                entity.HasKey(e => e.ModuleId);
+
+                entity.ToTable("tblModule");
+
+                entity.Property(e => e.CreateOn).HasColumnType("datetime");
+
+                entity.Property(e => e.ModuleName).HasMaxLength(200);
+
+                entity.HasOne(d => d.CreatedByNavigation)
+                    .WithMany(p => p.TblModule)
+                    .HasForeignKey(d => d.CreatedBy)
+                    .HasConstraintName("FK_tblModule_tblMember");
+            });
+
+            modelBuilder.Entity<TblModulePermission>(entity =>
+            {
+                entity.HasKey(e => e.PermissionId);
+
+                entity.ToTable("tblModulePermission");
+
+                entity.HasOne(d => d.Module)
+                    .WithMany(p => p.TblModulePermission)
+                    .HasForeignKey(d => d.ModuleId)
+                    .HasConstraintName("FK_tblModulePermission_tblModule");
+
+                entity.HasOne(d => d.SubscriptionTypeNavigation)
+                    .WithMany(p => p.TblModulePermission)
+                    .HasForeignKey(d => d.SubscriptionType)
+                    .HasConstraintName("FK_tblModulePermission_tblSubscription");
+            });
+
+            modelBuilder.Entity<TblOnboardingConversation>(entity =>
+            {
+                entity.HasKey(e => e.QuestionId);
+
+                entity.ToTable("tblOnboardingConversation");
+
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+
+                entity.HasOne(d => d.CreatedByNavigation)
+                    .WithMany(p => p.TblOnboardingConversation)
+                    .HasForeignKey(d => d.CreatedBy)
+                    .HasConstraintName("FK_tblOnboardingConversation_tblMember");
             });
 
             modelBuilder.Entity<TblPost>(entity =>
@@ -411,6 +937,13 @@ namespace SistabizApp_New.Models
                 entity.ToTable("tblPost");
 
                 entity.Property(e => e.CreateOn).HasColumnType("datetime");
+
+                entity.Property(e => e.WebsiteLink).HasMaxLength(300);
+
+                entity.HasOne(d => d.CreatedByNavigation)
+                    .WithMany(p => p.TblPost)
+                    .HasForeignKey(d => d.CreatedBy)
+                    .HasConstraintName("FK_tblPost_tblMember");
             });
 
             modelBuilder.Entity<TblPostAttachment>(entity =>
@@ -425,6 +958,23 @@ namespace SistabizApp_New.Models
                     .WithMany(p => p.TblPostAttachment)
                     .HasForeignKey(d => d.PostId)
                     .HasConstraintName("FK_tblPostAttachment_tblPost");
+            });
+
+            modelBuilder.Entity<TblPostBookMark>(entity =>
+            {
+                entity.HasKey(e => e.BookmarkId);
+
+                entity.ToTable("tblPostBookMark");
+
+                entity.HasOne(d => d.Member)
+                    .WithMany(p => p.TblPostBookMark)
+                    .HasForeignKey(d => d.MemberId)
+                    .HasConstraintName("FK_tblPostBookMark_tblMember");
+
+                entity.HasOne(d => d.Post)
+                    .WithMany(p => p.TblPostBookMark)
+                    .HasForeignKey(d => d.PostId)
+                    .HasConstraintName("FK_tblPostBookMark_tblPost");
             });
 
             modelBuilder.Entity<TblPostFeedback>(entity =>
@@ -444,6 +994,32 @@ namespace SistabizApp_New.Models
                     .WithMany(p => p.TblPostFeedback)
                     .HasForeignKey(d => d.PostId)
                     .HasConstraintName("FK_tblPostFeedback_tblPost");
+            });
+
+            modelBuilder.Entity<TblReddemPoints>(entity =>
+            {
+                entity.HasKey(e => e.ReddemId);
+
+                entity.ToTable("tblReddemPoints");
+
+                entity.HasOne(d => d.Member)
+                    .WithMany(p => p.TblReddemPointsMember)
+                    .HasForeignKey(d => d.MemberId)
+                    .HasConstraintName("FK_tblReddemPoints_tblMember");
+
+                entity.HasOne(d => d.ReddemByNavigation)
+                    .WithMany(p => p.TblReddemPointsReddemByNavigation)
+                    .HasForeignKey(d => d.ReddemBy)
+                    .HasConstraintName("FK_tblReddemPoints_tblReddemBy");
+            });
+
+            modelBuilder.Entity<TblReferralCode>(entity =>
+            {
+                entity.HasKey(e => e.ReferralId);
+
+                entity.ToTable("tblReferralCode");
+
+                entity.Property(e => e.ReferralCode).HasMaxLength(200);
             });
 
             modelBuilder.Entity<TblServiceRequest>(entity =>
@@ -489,6 +1065,48 @@ namespace SistabizApp_New.Models
                 entity.Property(e => e.CreateOn).HasColumnType("datetime");
 
                 entity.Property(e => e.SubscriptionName).HasMaxLength(300);
+            });
+
+            modelBuilder.Entity<TblTeckHelp>(entity =>
+            {
+                entity.HasKey(e => e.TechHelpId);
+
+                entity.ToTable("tblTeckHelp");
+
+                entity.Property(e => e.BookingDate).HasColumnType("date");
+
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+
+                entity.Property(e => e.Title).HasMaxLength(200);
+
+                entity.HasOne(d => d.AssignByNavigation)
+                    .WithMany(p => p.TblTeckHelpAssignByNavigation)
+                    .HasForeignKey(d => d.AssignBy)
+                    .HasConstraintName("FK_tblTeckHelp_tblMember");
+
+                entity.HasOne(d => d.AssignToNavigation)
+                    .WithMany(p => p.TblTeckHelpAssignToNavigation)
+                    .HasForeignKey(d => d.AssignTo)
+                    .HasConstraintName("FK_tblTeckHelp_tblMemberAssignTo");
+
+                entity.HasOne(d => d.CreatedByNavigation)
+                    .WithMany(p => p.TblTeckHelpCreatedByNavigation)
+                    .HasForeignKey(d => d.CreatedBy)
+                    .HasConstraintName("FK_tblTeckHelp_tblMemberCreatedBy");
+            });
+
+            modelBuilder.Entity<TblTestimonials>(entity =>
+            {
+                entity.HasKey(e => e.TestimonialId);
+
+                entity.ToTable("tblTestimonials");
+
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Member)
+                    .WithMany(p => p.TblTestimonials)
+                    .HasForeignKey(d => d.MemberId)
+                    .HasConstraintName("FK_tblTestimonials_tblMember");
             });
 
             modelBuilder.Entity<TblUserNew>(entity =>

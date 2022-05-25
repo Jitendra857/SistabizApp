@@ -8,6 +8,7 @@ namespace SistabizApp_New.Models
         public long SubscriptionId { get; set; }
         public long? SubscriptionTypeId { get; set; }
         public long? Userid { get; set; }
+        public int? SubscriptionDuration { get; set; }
         public DateTime? SubscriptionStartDate { get; set; }
         public DateTime? SubscriptionEndDate { get; set; }
         public string TransactionId { get; set; }

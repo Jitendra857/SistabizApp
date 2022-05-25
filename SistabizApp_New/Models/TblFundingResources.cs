@@ -5,6 +5,11 @@ namespace SistabizApp_New.Models
 {
     public partial class TblFundingResources
     {
+        public TblFundingResources()
+        {
+            TblFundingBookmark = new HashSet<TblFundingBookmark>();
+        }
+
         public long FundingId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
@@ -17,5 +22,7 @@ namespace SistabizApp_New.Models
         public bool? IsDeleted { get; set; }
 
         public virtual TblFundingCategory Category { get; set; }
+        public virtual TblMember CreatedByNavigation { get; set; }
+        public virtual ICollection<TblFundingBookmark> TblFundingBookmark { get; set; }
     }
 }

@@ -54,7 +54,7 @@ namespace SistabizApp_New.Controllers
                     if (item.Length > 0)
                     {
                         var postfilename = Path.GetFileName(Guid.NewGuid() + "_" + item.FileName);
-                        var filePath = Path.Combine(Directory.GetCurrentDirectory(), Constant.Group, postfilename);
+                        var filePath = Path.Combine(Directory.GetCurrentDirectory(), Constant.Post, postfilename);
 
 
                         using (var fileStream = new FileStream(filePath, FileMode.Create))
@@ -83,6 +83,14 @@ namespace SistabizApp_New.Controllers
         {
             var postlikecomments = postService.PostLikeComments(model);
             return Ok(new APIResponse(true, Constant.Success, "post updated successfully", ""));
+        }
+
+        [HttpPost]
+        [Route("postbookmarks")]
+        public async Task<IActionResult> PostBookmark(PostBookmarkViewModel model)
+        {
+            var postlikecomments = postService.PostBookmark(model);
+            return Ok(new APIResponse(true, Constant.Success, "post "+ postlikecomments + " successfully", ""));
         }
 
         [HttpGet]

@@ -21,6 +21,21 @@ namespace SistabizApp_New.Helper
                    
             }
         }
+
+        public static string GetDigitalLibraryPaymentType(int type)
+        {
+            switch (type)
+            {
+                case 1:
+                    return Constant.Paid;
+
+                case 2:
+                    return Constant.Free;
+                default:
+                    return Constant.Reject;
+
+            }
+        }
         public static string GetServiceRequestFor(int RequestType)
         {
             switch (RequestType)
@@ -64,6 +79,21 @@ namespace SistabizApp_New.Helper
                     return Constant.Private;
                 default:
                     return Constant.Public;
+
+            }
+        }
+
+        public static string GetmeetingTypes(int? type)
+        {
+            switch (type)
+            {
+                case 1:
+                    return Constant.Virtual;
+
+                case 2:
+                    return Constant.Physical;
+                default:
+                    return Constant.Virtual;
 
             }
         }

@@ -7,6 +7,7 @@ namespace SistabizApp_New.Models
     {
         public TblSubscriptionType()
         {
+            TblModulePermission = new HashSet<TblModulePermission>();
             TblUserSubscription = new HashSet<TblUserSubscription>();
         }
 
@@ -18,6 +19,7 @@ namespace SistabizApp_New.Models
         public bool? IsDeleted { get; set; }
         public DateTime? CreateOn { get; set; }
 
+        public virtual ICollection<TblModulePermission> TblModulePermission { get; set; }
         public virtual ICollection<TblUserSubscription> TblUserSubscription { get; set; }
     }
 }

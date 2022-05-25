@@ -13,8 +13,9 @@ namespace SistabizApp_New.Services
 
         public List<EventResponseViewModel> GetEventList()
         {
-            var eventdetails = _entityDbContext.TblEvent.Select(e => new EventResponseViewModel
+            var eventdetails = _entityDbContext.TblEvent.OrderByDescending(r=>r.EventId).Select(e => new EventResponseViewModel
             {
+                EventId=e.EventId,
                 Title = e.Title,
                 EventName = e.EventName,
                 VenueName = e.VenueName,
@@ -34,7 +35,9 @@ namespace SistabizApp_New.Services
                 EventStatus = e.EventStatus,
                 EventStatusTrack = CommanHelper.GetEventStatus((int)e.EventStatus),
                 EventDate = e.EventDate,
+               StartTime=e.StartTime,
                 EventEndDate = e.EventEndDate,
+                EndTime=e.EndTime,
                 Description = e.Description,
                 CreatedOn = e.CreatedOn,
                 CreatedBy = e.CreatedBy,
@@ -77,7 +80,9 @@ namespace SistabizApp_New.Services
             evnt.EventCost = model.EventCost;
             evnt.EventStatus = model.EventStatus;
             evnt.EventDate = model.EventDate;
+            evnt.StartTime = model.StartTime;
             evnt.EventEndDate = model.EventEndDate;
+            evnt.EndTime = model.EndTime;
             evnt.Description = model.Description;
             evnt.CreatedOn = DateTime.Now;
             evnt.CreatedBy = model.CreatedBy;

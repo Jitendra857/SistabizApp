@@ -1,4 +1,5 @@
-﻿using SistabizApp_New.Models;
+﻿using SistabizApp_New.Helper;
+using SistabizApp_New.Models;
 using SistabizApp_New.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -18,18 +19,65 @@ namespace SistabizApp_New.Services
             }).ToList();
         }
 
-        public List<FaqViewModel> GetAllFaq()
+        public List<FaqViewModel> GetAllFaq(string search=null)
         {
-            return _entityDbContext.TblFaq.Select(e => new FaqViewModel
+            if (!string.IsNullOrEmpty(search))
             {
-                QuestionId=e.QuestionId,
-                Question=e.Question,
-                Answer=e.Answer,
-                FaqCategoryId=e.FaqCategoryId,
-                CategoryName=e.FaqCategory.CategoryName
-                
-                
-            }).ToList();
+                return _entityDbContext.TblFaq.Where(r => r.IsDeleted != true && r.Question.Contains(search)).Select(e => new FaqViewModel
+                {
+                    QuestionId = e.QuestionId,
+                    Question = e.Question,
+                    Answer = e.Answer,
+                    FaqCategoryId = e.FaqCategoryId,
+                    CategoryName = e.FaqCategory.CategoryName
+
+
+                }).ToList();
+            }
+            else
+            {
+                return _entityDbContext.TblFaq.Where(r => r.IsDeleted != true).Select(e => new FaqViewModel
+                {
+                    QuestionId = e.QuestionId,
+                    Question = e.Question,
+                    Answer = e.Answer,
+                    FaqCategoryId = e.FaqCategoryId,
+                    CategoryName = e.FaqCategory.CategoryName
+
+
+                }).ToList();
+            }
+           
+        }
+        public List<FaqCategoryViewModel> GetAllFaqByCategory()
+        {
+            var result= _entityDbContext.TblFaqCategory.Select(e => new FaqCategoryViewModel
+            {
+                FaqCategoryId = e.FaqCategoryId,
+                CategoryName = e.CategoryName,
+                lstfaq=e.TblFaq.Count>0?e.TblFaq.Where(r => r.IsDeleted != true ).Select(e => new FaqViewModel
+                {
+                    QuestionId = e.QuestionId,
+                    Question = e.Question,
+                    Answer = e.Answer,
+                    FaqCategoryId = e.FaqCategoryId,
+                    CategoryName = e.FaqCategory.CategoryName
+
+                }).ToList():null
+        }).ToList();
+
+            return result;
+
+            //return _entityDbContext.TblFaq.Where(r=>r.IsDeleted!=true && r.FaqCategoryId==categoryid).Select(e => new FaqViewModel
+            //{
+            //    QuestionId = e.QuestionId,
+            //    Question = e.Question,
+            //    Answer = e.Answer,
+            //    FaqCategoryId = e.FaqCategoryId,
+            //    CategoryName = e.FaqCategory.CategoryName
+
+
+            //}).ToList();
         }
 
         public string ManageFaq(FaqViewModel model)
@@ -41,13 +89,16 @@ namespace SistabizApp_New.Services
             faq.Question = model.Question;
             faq.Answer = model.Answer;
             faq.FaqCategoryId = model.FaqCategoryId;
+            faq.CreatedBy = model.CreatedBy;
+            faq.CreatedOn = DateTime.Now;
+            faq.IsDeleted =false;
 
-                if(model.QuestionId == 0)
+            if (model.QuestionId == 0)
                 _entityDbContext.TblFaq.Add(faq);
 
             _entityDbContext.SaveChanges();
 
-            return "Success";
+            return Constant.Success;
         }
 
         public string DeleteFaq(int id)
@@ -56,7 +107,7 @@ namespace SistabizApp_New.Services
             if (faq != null)
                 _entityDbContext.TblFaq.Remove(faq);
             _entityDbContext.SaveChanges();
-            return "Success";
+            return Constant.Success;
         }
 
         public TblFaq GetFeqById(int id)
