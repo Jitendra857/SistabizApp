@@ -35,6 +35,8 @@ namespace SistabizApp_New.ViewModels
         public string Description { get; set; }
         public long? CreatedBy { get; set; }
         public DateTime? CreatedOn { get; set; }
+        public int EventType { get; set; }
+        public string EventLink { get; set; }
         public List<IFormFile> Image { get; set; } = new List<IFormFile>();
         public bool IsUpdateAttachment { get; set; }
 
@@ -74,10 +76,34 @@ namespace SistabizApp_New.ViewModels
         public DateTime? CreatedOn { get; set; }
        public int Attendee { get; set; }
         public long EventAttachmentId { get; set; }
+        public bool IsBookmark { get; set; }
         public List<EventAttachment> lstEventAttachment { get; set; } = new List<EventAttachment>();
+        public List<EventJoinMemberViewModel> lstEventJoinMembers { get; set; } = new List<EventJoinMemberViewModel>();
 
     }
-
+    public class EventJoinMemberViewModel
+    {
+        public long JoinId { get; set; }
+        
+        public string MemberName { get; set; }
+        public long? JoinMemberId { get; set; }
+      
+        public string MemberProfile { get; set; }
+    }
+    public class EventFilterViewModel
+    {
+        public long? Type { get; set; }
+       
+        public int Ordering { get; set; } = 0;
+        public long? MemberiD { get; set; }
+    }
+    public class EventBookmarkViewModel
+    {
+        public long BookmarkId { get; set; }
+        public long? MemberId { get; set; }
+      
+        public long? EventId { get; set; }
+    }
 
     public class RegisterMemberEventViewModel
     {

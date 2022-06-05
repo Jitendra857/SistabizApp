@@ -36,7 +36,7 @@ namespace SistabizApp_New.Services
             fundingresource.Name = model.Name;
             fundingresource.Email = model.Email;
             fundingresource.Message = model.Message;
-            fundingresource.CreatedOn = model.CreatedOn;
+          // fundingresource.CreatedOn = model.CreatedOn;
             fundingresource.MemberId = model.MemberId;
             fundingresource.IsDeleted = false;
             fundingresource.CreatedOn = DateTime.Now;

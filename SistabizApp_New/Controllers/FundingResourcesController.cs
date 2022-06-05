@@ -44,10 +44,10 @@ namespace SistabizApp_New.Controllers
 
         [HttpGet]
         [Route("gefundinglistbycategory")]
-        public async Task<IActionResult> GetAllFundingListByCategory(int categoryid)
+        public async Task<IActionResult> GetAllFundingListByCategory(int categoryid, int ordering = 0)
         {
-
-            return Ok(new APIResponse(true, Constant.Success, "funding list by category", fundingService.GetAllFundingResourceByCategory(categoryid)));
+            var result = fundingService.GetAllFundingResourceByCategory(categoryid);
+            return Ok(new APIResponse(true, Constant.Success, "funding list by category", ordering == 2 ? result.OrderByDescending(r => r.CreateOn).ToList() : result));
         }
 
         [HttpGet]

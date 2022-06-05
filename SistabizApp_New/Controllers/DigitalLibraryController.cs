@@ -12,6 +12,9 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Mail;
+using System.Net.Mime;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace SistabizApp_New.Controllers
@@ -37,6 +40,14 @@ namespace SistabizApp_New.Controllers
         {
             var result = digitallibraryService.GetDigitalLibraryList();
             return Ok(new APIResponse(true, Constant.Success, "digital library list", ordering == 2 ? result.OrderByDescending(r => r.DigitalLibraryId).ToList() : result));
+        }
+
+        [HttpGet]
+        [Route("getdigitallibrarybyid")]
+        public async Task<IActionResult> GetDigitalLibraryById(int id)
+        {
+           
+            return Ok(new APIResponse(true, Constant.Success, "digital library by id", digitallibraryService.GetDigitalLibraryDetailsById(id)));
         }
 
         [HttpGet]
@@ -152,6 +163,42 @@ namespace SistabizApp_New.Controllers
             return Ok(new APIResponse(true, Constant.Success, "", "Digital library deleted sucessfully"));
         }
 
+        [HttpPost]
+        [Route("downloaddigitallibrary")]
+        public async Task<IActionResult> DownloadDigitalLibrary(SendFileModel model)
+        {
+
+      
+
+            var filename = model.FileName;
+            MailMessage mail = new MailMessage();
+
+            mail.BodyEncoding = Encoding.UTF8;
+            mail.Subject = "Digital Library";
+            mail.Body = "File Name:-" + model.FileName;
+
+            Attachment at = new Attachment(Path.Combine(Directory.GetCurrentDirectory(), Constant.DigitalLibrary, filename));
+            mail.Attachments.Add(at);
+            mail.Priority = MailPriority.High;
+            mail.IsBodyHtml = true;
+
+            mail.To.Add(model.Email);
+            mail.From = new MailAddress("jitendra.eglaf@gmail.com");
+
+            mail.IsBodyHtml = true;
+            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+            // smtp.Host = "smtp.gmail.com"; //Or Your SMTP Server Address
+            smtp.UseDefaultCredentials = true;
+            smtp.EnableSsl = true;
+            smtp.Credentials = new System.Net.NetworkCredential("jitendra.eglaf@gmail.com", "Jitendra@123");
+            smtp.Port = 587;
+            //Or your Smtp Email ID and Password
+            smtp.Send(mail);
+
+            return Ok(new APIResponse(true, Constant.Success, "", "Digital library send on email sucessfully, You can download from there."));
+        }
+
        
+
     }
 }

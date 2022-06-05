@@ -10,6 +10,8 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using SistabizApp.Authentication;
 using SistabizApp_New.Helper;
+using SistabizApp_New.Hubs;
+using SistabizApp_New.Interface;
 using SistabizApp_New.IServices;
 using SistabizApp_New.Models;
 using SistabizApp_New.Services;
@@ -53,6 +55,11 @@ namespace SistabizApp_New
             //services.AddTransient<IServiceRequestService, ServiceRequestService>();
 
             services.AddTransient<IBLLService, BLLService>();
+            services.AddSingleton<IUserConnectionManager, UserConnectionManager>();
+
+            // Configure strongly typed settings objects
+            var appSettingsSection = Configuration.GetSection("FcmNotification");
+            services.Configure<FcmNotificationSetting>(appSettingsSection);
 
             services.AddSwaggerGen(options =>
             {
@@ -67,7 +74,7 @@ namespace SistabizApp_New
 
             services.AddCors(options => options.AddPolicy("ApiCorsPolicy", build =>
             {
-                build.WithOrigins("http://20.89.157.180:8070", "http://20.89.157.180:8060", "http://localhost:3000", "https://f81a-103-241-226-208.in.ngrok.io", "http://www.sis-temp.eagletechsolutions.uk.servepreview.net")
+                build.WithOrigins( "http://localhost:3000", "https://f81a-103-241-226-208.in.ngrok.io", "http://www.sis-temp.eagletechsolutions.uk.servepreview.net", "http://localhost", "http://18.216.1.27")
                      .AllowAnyMethod()
                      .AllowAnyHeader();
             }));
@@ -137,21 +144,23 @@ namespace SistabizApp_New
 
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseSignalR(routes =>
-            {
-                routes.MapHub<NotifyHubService>("/notify");
-            });
+            //app.UseSignalR(routes =>
+            //{
+            //    routes.MapHub<NotifyHubService>("/notify");
+            //});
             app.UseSwagger();
             app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v2/swagger.json", "PlaceInfo Services"));
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
-           
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapControllerRoute(
-            //        name: "default",
-            //        pattern: "{controller=Home}/{action=Index}/{id?}");
-            //});
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapHub<NotificationHub>("/Hubs/NotificationHub");
+               // endpoints.MapHub<ChatHub>("/hubs/chat");
+                //endpoints.MapControllerRoute(
+                //    name: "default",
+                //    pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
         }
     }
 }

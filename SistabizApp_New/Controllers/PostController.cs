@@ -33,6 +33,22 @@ namespace SistabizApp_New.Controllers
             return Ok(new APIResponse(true, Constant.Success, "post list", postService.GetAllPost()));
         }
 
+        [HttpGet]
+        [Route("geallpostdetailsbyid")]
+        public async Task<IActionResult> GetAllPostByMember(int memberid)
+        {
+
+            return Ok(new APIResponse(true, Constant.Success, "post details by member", postService.GetAllPostByMember(memberid)));
+        }
+
+        [HttpGet]
+        [Route("geallsavedpost")]
+        public async Task<IActionResult> GetAllSavedPost(int memberid)
+        {
+
+            return Ok(new APIResponse(true, Constant.Success, "post list", postService.GetAllSavedPost(memberid)));
+        }
+
 
 
         [HttpPost]

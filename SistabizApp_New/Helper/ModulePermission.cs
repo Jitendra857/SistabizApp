@@ -30,13 +30,14 @@ namespace SistabizApp_New.Helper
                 
             
               //  rights.Add(_item[1].ToString());
-                string subscriptiontype = context.HttpContext.Request?.Headers["SubscriptionTypeId"].ToString();
+                //string subscriptiontype = context.HttpContext.Request?.Headers["SubscriptionTypeId"].ToString();
+               // int role =Convert.ToInt32(context.HttpContext.Request?.Headers["Role"].ToString());
 
                 var subscriptionList = SubscriptionTypeList();  // Need to get this list from DB as per user
                 var _right = _item[0].ToString();
-               // bool isUserPermission = subscriptionList.Where(w => w.SubscriptionTypeId == Convert.ToInt32(subscriptiontype) && rights.Contains(w.SubscriptionName)).Any();
+                // bool isUserPermission = subscriptionList.Where(w => w.SubscriptionTypeId == Convert.ToInt32(subscriptiontype) && rights.Contains(w.SubscriptionName)).Any();
 
-                bool isUserPermission = _entityDbContext.TblModulePermission.Where(w => w.ModuleId == Convert.ToInt32(_item[0]) && w.SubscriptionType== Convert.ToInt32(subscriptiontype)).Any();
+                bool isUserPermission = true;// _entityDbContext.TblModulePermission.Where(w => w.ModuleId == Convert.ToInt32(_item[0]) && w.SubscriptionType== Convert.ToInt32(subscriptiontype) && w.MemberRole==role).Any();
 
                 if (!isUserPermission)
                 {

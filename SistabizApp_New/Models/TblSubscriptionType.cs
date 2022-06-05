@@ -7,6 +7,7 @@ namespace SistabizApp_New.Models
     {
         public TblSubscriptionType()
         {
+            TblBreakthrough = new HashSet<TblBreakthrough>();
             TblModulePermission = new HashSet<TblModulePermission>();
             TblUserSubscription = new HashSet<TblUserSubscription>();
         }
@@ -19,6 +20,7 @@ namespace SistabizApp_New.Models
         public bool? IsDeleted { get; set; }
         public DateTime? CreateOn { get; set; }
 
+        public virtual ICollection<TblBreakthrough> TblBreakthrough { get; set; }
         public virtual ICollection<TblModulePermission> TblModulePermission { get; set; }
         public virtual ICollection<TblUserSubscription> TblUserSubscription { get; set; }
     }

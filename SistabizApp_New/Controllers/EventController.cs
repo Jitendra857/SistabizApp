@@ -29,19 +29,44 @@ namespace SistabizApp_New.Controllers
 
         [HttpGet]
         [Route("getevent")]
-        public async Task<IActionResult> GetAllEvent()
+        public async Task<IActionResult> GetAllEvent(int ordering = 0)
         {
-           
-            return Ok(new APIResponse(true, Constant.Success, "event list", eventService.GetEventList()));
+            var result = eventService.GetEventList();
+            return Ok(new APIResponse(true, Constant.Success, "event list", ordering == 2 ? result.OrderByDescending(r => r.EventId).ToList() : result));
         }
 
         [HttpGet]
-        [Route("geteventtest")]
-        public async Task<IActionResult> GetAllEventTes()
+        [Route("geteventbyid")]
+        public async Task<IActionResult> GetAllEventById(int eventid)
         {
 
-            return Ok(new APIResponse(true, Constant.Success, "event list", "Hello world!"));
+            return Ok(new APIResponse(true, Constant.Success, "event details by id", eventService.GetEventListById(eventid)));
         }
+        [HttpGet]
+        [Route("searchevent")]
+        public async Task<IActionResult> SearchGroup(string search)
+        {
+            var result = eventService.SearchEventList(search);
+            return Ok(new APIResponse(true, Constant.Success, "event list by search", result));
+
+        }
+        [HttpPost]
+        [Route("geteventlistbyfilter")]
+        public async Task<IActionResult> GetAllEventByFilter(EventFilterViewModel model)
+        {
+            var result = eventService.GetEventListByFilter(model);
+            return Ok(new APIResponse(true, Constant.Success, "event list by filter", model.Ordering == 2 ? result.OrderByDescending(r => r.EventId).ToList() : result));
+
+        }
+        [HttpPost]
+        [Route("eventbookmark")]
+        public async Task<IActionResult>EventBookmark(EventBookmarkViewModel model)
+        {
+            var result = eventService.EventBookmark(model);
+
+            return Ok(new APIResponse(true, Constant.Success, "", "Event " + result + " sucessfully"));
+        }
+
 
 
         [HttpPost]
@@ -113,6 +138,15 @@ namespace SistabizApp_New.Controllers
             var result = eventService.DeleteEvent(eventid);
 
             return Ok(new APIResponse(true, Constant.Success, "", "Event deleted sucessfully"));
+        }
+
+        [HttpGet]
+        [Route("deleteeventattachment")]
+        public async Task<IActionResult> DeleteEventAttachment(int eventid)
+        {
+            var result = eventService.DeleteEventAttachment(eventid);
+
+            return Ok(new APIResponse(true, Constant.Success, "", "Event attachment deleted sucessfully"));
         }
     }
 }

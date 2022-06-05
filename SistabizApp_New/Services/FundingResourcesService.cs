@@ -108,8 +108,11 @@ namespace SistabizApp_New.Services
         }
         public List<FundingViewModel> GetAllFundingResourceByDate(string date)
         {
-            var createdon = Convert.ToDateTime(date);
-            return _entityDbContext.TblFundingResources.Where(r => r.IsDeleted != true && r.CreateOn == createdon).Select(e => new FundingViewModel
+            var createdon = Convert.ToDateTime(date).Date;
+
+            var result = _entityDbContext.TblFundingResources.Where(r => r.IsDeleted != true).ToList();
+
+            return result.Where(r => Convert.ToDateTime(r.CreateOn).Date == createdon).Select(e => new FundingViewModel
             {
                 FundingId = e.FundingId,
                 Title = e.Title,

@@ -34,18 +34,24 @@ namespace SistabizApp_New.ViewModels
         public bool IsUpdateAttachment { get; set; }
         public List<GroupAttachmentViewModel> lstGroupAttachmentViewModel { get; set; } = new List<GroupAttachmentViewModel>();
 
-        //public GroupJoinMemberViewModel lstJoinMembers { get; set; }
+        
+        public List<GroupJoinMemberViewModel> lstGroupSavedMembers { get; set; } = new List<GroupJoinMemberViewModel>();
+
         public List<GroupJoinMemberViewModel> lstGroupJoinMembers { get; set; } = new List<GroupJoinMemberViewModel>();
         public List<IFormFile> Image { get; set; } = new List<IFormFile>();
         public IFormFile GroupIcon { get; set; }
         public string GroupIconPath { get; set; }
+      
 
         public string Title { get; set; }
         public string DocumentDescription { get; set; }
         public string DocumnetType { get; set; }
         public List<GroupmeetingViewModel> lstGroupMeeting { get; set; } = new List<GroupmeetingViewModel>();
         public List<GroupDiscussionViewModel> lstGroupDiscussion { get; set; } = new List<GroupDiscussionViewModel>();
-      
+
+        public List<int> lstjoinmembers { get; set; } = new List<int>();
+        public string GroupJoinMembers { get; set; }
+
 
     }
    
@@ -55,6 +61,7 @@ namespace SistabizApp_New.ViewModels
         public long AttachmentId { get; set; }
         public long? GroupId { get; set; }
         public string Attachment { get; set; }
+        public string FileName { get; set; }
         public string Title { get; set; }
         public string DocumentDescription { get; set; }
         public string DocumnetType { get; set; }
@@ -72,6 +79,13 @@ namespace SistabizApp_New.ViewModels
         public DateTime? JoinDate { get; set; }
         public DateTime? LeavingDate { get; set; }
         public string memberprofile { get; set; }
+    }
+
+    public class GroupJoinMembers
+    {
+      
+        public long? JoinMemberId { get; set; }
+      
     }
 
     public class GroupDiscussionViewModel

@@ -48,12 +48,125 @@ namespace SistabizApp_New.Services
                     Commets=r.Commets,
                     LikeCommentByName= r.Member != null ? r.Member.FirstName + " " + r.Member.LastName : null,
                     LikeCommentByProfile = r.Member != null ? Constant.livebaseurl + "Profiles/" + r.Member.ProfileImage : null,
-                   
+                    CreateOn = r.CreateOn,
                 }).ToList() : null,
             }).ToList();
             }
 
-       
+        public PostViewModel GetPostDetails()
+        {
+
+            var result = _entityDbContext.TblPost
+               .Include(s => s.CreatedByNavigation)
+            .Include(s => s.TblPostBookMark)
+             .Include(s => s.TblPostAttachment)
+              .Include(s => s.TblPostFeedback)
+              .OrderByDescending(t=>t.PostId)
+            .ToList();
+
+
+
+            return result.Select(e => new PostViewModel
+            {
+                PostId = e.PostId,
+                Post = e.Post,
+                CreateByName = e.CreatedByNavigation != null ? e.CreatedByNavigation.FirstName + " " + e.CreatedByNavigation.LastName : null,
+                CreateByProfile = e.CreatedByNavigation != null ? Constant.livebaseurl + "Profiles/" + e.CreatedByNavigation.ProfileImage : null,
+                CreateOn = e.CreateOn,
+                WebsiteLink = e.WebsiteLink,
+                IsBookmark = e.TblPostBookMark.Count > 0 ? true : false,
+                TotalLike = e.TblPostFeedback.Where(r => r.LikeUnlike == 1 && r.PostId == e.PostId).Count(),
+                TotalUnlike = e.TblPostFeedback.Where(r => r.LikeUnlike == 2 && r.PostId == e.PostId).Count(),
+                TotalComment = e.TblPostFeedback.Where(r => r.Commets != null && r.PostId == e.PostId).Count(),
+               
+            }).FirstOrDefault();
+        }
+
+
+        public List<PostViewModel> GetAllPostByMember(int memberid=0)
+        {
+
+            var result = _entityDbContext.TblPost.Where(r=>r.CreatedBy==memberid)
+               .Include(s => s.CreatedByNavigation)
+            .Include(s => s.TblPostBookMark)
+             .Include(s => s.TblPostAttachment)
+              .Include(s => s.TblPostFeedback)
+            .ToList();
+
+
+
+            return result.Select(e => new PostViewModel
+            {
+                PostId = e.PostId,
+                Post = e.Post,
+                CreateByName = e.CreatedByNavigation != null ? e.CreatedByNavigation.FirstName + " " + e.CreatedByNavigation.LastName : null,
+                CreateByProfile = e.CreatedByNavigation != null ? Constant.livebaseurl + "Profiles/" + e.CreatedByNavigation.ProfileImage : null,
+                CreateOn = e.CreateOn,
+                WebsiteLink = e.WebsiteLink,
+                IsBookmark = e.TblPostBookMark.Count > 0 ? true : false,
+                TotalLike = e.TblPostFeedback.Where(r => r.LikeUnlike == 1 && r.PostId == e.PostId).Count(),
+                TotalUnlike = e.TblPostFeedback.Where(r => r.LikeUnlike == 2 && r.PostId == e.PostId).Count(),
+                TotalComment = e.TblPostFeedback.Where(r => r.Commets != null && r.PostId == e.PostId).Count(),
+                lstPostAttachment = e.TblPostAttachment.Count > 0 ? e.TblPostAttachment.Select(r => new PostAttachmentViewModel
+                {
+                    PostAttachmentId = r.PostAttachmentId,
+                    FileName = Constant.livebaseurl + "Post/" + r.FileName
+                }).ToList() : null,
+                lstPostLikeComments = e.TblPostFeedback.Count > 0 ? e.TblPostFeedback.Where(r => r.PostId == e.PostId).Select(r => new PostLikeCommentsViewModel
+                {
+                    PostFeedId = r.PostFeedId,
+                    LikeUnlike = r.LikeUnlike,
+                    Commets = r.Commets,
+                    LikeCommentByName = r.Member != null ? r.Member.FirstName + " " + r.Member.LastName : null,
+                    LikeCommentByProfile = r.Member != null ? Constant.livebaseurl + "Profiles/" + r.Member.ProfileImage : null,
+                    CreateOn=r.CreateOn,
+                    
+
+                }).ToList() : null,
+            }).ToList();
+        }
+        public List<PostViewModel> GetAllSavedPost(int memberid=0)
+        {
+            var bookmarksdetails = _entityDbContext.TblPostBookMark.Where(e => e.MemberId == memberid ).Select(k => k.PostId).ToList();
+            var result = _entityDbContext.TblPost.Where(r=>r.IsDeleted!=true && bookmarksdetails.Contains(r.PostId))
+               .Include(s => s.CreatedByNavigation)
+            .Include(s => s.TblPostBookMark)
+             .Include(s => s.TblPostAttachment)
+              .Include(s => s.TblPostFeedback)
+            .ToList();
+
+
+
+            return result.Select(e => new PostViewModel
+            {
+                PostId = e.PostId,
+                Post = e.Post,
+                CreateByName = e.CreatedByNavigation != null ? e.CreatedByNavigation.FirstName + " " + e.CreatedByNavigation.LastName : null,
+                CreateByProfile = e.CreatedByNavigation != null ? Constant.livebaseurl + "Profiles/" + e.CreatedByNavigation.ProfileImage : null,
+                CreateOn = e.CreateOn,
+                WebsiteLink = e.WebsiteLink,
+                IsBookmark = e.TblPostBookMark.Count > 0 ? true : false,
+                TotalLike = e.TblPostFeedback.Where(r => r.LikeUnlike == 1 && r.PostId == e.PostId).Count(),
+                TotalUnlike = e.TblPostFeedback.Where(r => r.LikeUnlike == 2 && r.PostId == e.PostId).Count(),
+                TotalComment = e.TblPostFeedback.Where(r => r.Commets != null && r.PostId == e.PostId).Count(),
+                lstPostAttachment = e.TblPostAttachment.Count > 0 ? e.TblPostAttachment.Select(r => new PostAttachmentViewModel
+                {
+                    PostAttachmentId = r.PostAttachmentId,
+                    FileName = Constant.livebaseurl + "Post/" + r.FileName
+                }).ToList() : null,
+                lstPostLikeComments = e.TblPostFeedback.Count > 0 ? e.TblPostFeedback.Where(r => r.PostId == e.PostId).Select(r => new PostLikeCommentsViewModel
+                {
+                    PostFeedId = r.PostFeedId,
+                    LikeUnlike = r.LikeUnlike,
+                    Commets = r.Commets,
+                    LikeCommentByName = r.Member != null ? r.Member.FirstName + " " + r.Member.LastName : null,
+                    LikeCommentByProfile = r.Member != null ? Constant.livebaseurl + "Profiles/" + r.Member.ProfileImage : null,
+                    CreateOn = r.CreateOn,
+                }).ToList() : null,
+            }).ToList();
+        }
+
+
 
         public long ManagePost(PostViewModel model)
         {

@@ -17,6 +17,7 @@ namespace SistabizApp_New.IServices
         TblServiceRequest GetServiceRequestById(int RequestId);
 
         List<ServiceRequestViewModel> GetServiceRequestListByStatus(int Status);
+        string AcceptRejectServiceRequest(ServiceRequestChangeViewModel model);
         List<ServiceRequestViewModel> GetServiceRequestListByMember(int MemberId);
 
         //end service provider
@@ -30,24 +31,36 @@ namespace SistabizApp_New.IServices
         MemberProfileViewModel Updateprofile(MemberProfileViewModel model);
         string UploadMemberPostAttachment(List<TblMemberAttachment> attchment);
         List<RoleViewModel> GetMemberRoleDetails();
-
+        string RemoverMember(int memberid);
         MemberProfileViewModel GetEmployeeById(int memberid);
         List<MemberViewModel> SearchMember(string search);
         MemberLoginResponseViewModel GetMemberByEmail(string email);
+        string UpdateMemberPassword(string email = null, string password = null);
 
         TblUserSubscription AddSubscription(TblUserSubscription subscription);
+        TblBillingAddress AddBillingAddress(TblBillingAddress billingaddress);
+        string ManageBreakThrough(TblBreakthrough breakthrough);
+        List<BreathroughModel> GetAllBreakThroughList();
+        BreathroughModel GetAllBreakThroughListById(int id);
+        string UpdateBreakthrough(int id);
+        void CancelSubscription(int memberid = 0);
 
         List<MemberViewModel> GetMemberByRole(int roleid);
         string MemberBookmark(BookmrkViewModel model);
         List<MemberViewModel> GetGroupListByFilter(MemberFilterViewModel model);
         string PhotoVideoLikeComments(PhotoLikeCommentViewModel model);
+        List<MemberViewModel> GetCoachServiceProviderList();
+        TblMember GetMemberDetailsById(int memberid);
+
+        TblUserSubscription GetSubscriptionSubscription(int memberid = 0);
 
         //end employee
 
         //event 
 
         List<EventResponseViewModel> GetEventList();
-
+        List<EventResponseViewModel> SearchEventList(string search);
+        EventResponseViewModel GetEventListById(int eventid);
         long ManageEvent(EventViewModel model);
 
         string UploadEventAttachment(List<TblEventAttachment> attchment);
@@ -57,6 +70,9 @@ namespace SistabizApp_New.IServices
         string UpdateEventStatus(RegisterMemberEventViewModel model);
 
         string DeleteEvent(int eventid);
+        string DeleteEventAttachment(int eventid);
+        List<EventResponseViewModel> GetEventListByFilter(EventFilterViewModel model);
+        string EventBookmark(EventBookmarkViewModel model);
 
         //end event
 
@@ -96,6 +112,9 @@ namespace SistabizApp_New.IServices
 
         // post
         List<PostViewModel> GetAllPost();
+        PostViewModel GetPostDetails();
+        List<PostViewModel> GetAllPostByMember(int memberid = 0);
+        List<PostViewModel> GetAllSavedPost(int memberid = 0);
         long ManagePost(PostViewModel model);
         string DeletePost(int id);
         string UploadPostAttachment(List<TblPostAttachment> attchment);
@@ -121,6 +140,8 @@ namespace SistabizApp_New.IServices
         string GroupDiscussion(GroupDiscussionViewModel model);
 
         List<TblGroupJoinMember> AddGroupMembers(List<TblGroupJoinMember> model);
+        string DeleteGroupMeeting(int id);
+        GroupmeetingViewModel GetMeetingDetails(int id);
 
         //goal and activity
         List<GoalActivityViewModel> GetAllGoalAndActivity(int memberid, string year = null);
@@ -137,6 +158,7 @@ namespace SistabizApp_New.IServices
 
         // digital library
         List<DigitalLibraryViewModel> GetDigitalLibraryList(string search = null);
+        DigitalLibraryViewModel GetDigitalLibraryDetailsById(int id);
         List<DigitalLibraryViewModel> GetDigitalLibraryListByCategory(int category);
         long ManageDigitalLibrary(DigitalLibraryViewModel model);
         List<DigitalLibraryCategoryViewModel> GetCategoryList();
@@ -168,5 +190,16 @@ namespace SistabizApp_New.IServices
         List<ModuleViewModel> GetModuleList();
         string ManageModule(ModuleViewModel model);
         string DeleteModule(int id);
+
+        //Badges
+        List<BadgesViewModel> GetAllBadges();
+        string ManageBadges(BadgesViewModel model);
+        string RemoveBadges(int badgesid = 0);
+        string BadgesAssignMember(BadgesAssignViewMidel model);
+        List<BadgesViewModel> GetAllBadgesByMember(int memberid = 0);
+
+        //chat history
+        List<ChatViewModel> GetChatHistory();
+        string ManageChat(ChatViewModel model);
     }
 }

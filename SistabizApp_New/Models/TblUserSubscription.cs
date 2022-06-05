@@ -5,6 +5,11 @@ namespace SistabizApp_New.Models
 {
     public partial class TblUserSubscription
     {
+        public TblUserSubscription()
+        {
+            TblBillingAddress = new HashSet<TblBillingAddress>();
+        }
+
         public long SubscriptionId { get; set; }
         public long? SubscriptionTypeId { get; set; }
         public long? Userid { get; set; }
@@ -21,5 +26,6 @@ namespace SistabizApp_New.Models
 
         public virtual TblSubscriptionType SubscriptionType { get; set; }
         public virtual TblMember User { get; set; }
+        public virtual ICollection<TblBillingAddress> TblBillingAddress { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using SistabizApp_New.Helper;
+﻿using Microsoft.EntityFrameworkCore;
+using SistabizApp_New.Helper;
 using SistabizApp_New.IServices;
 using SistabizApp_New.Models;
 using SistabizApp_New.ViewModels;
@@ -49,6 +50,26 @@ namespace SistabizApp_New.Services
             return ConvertToViewModel(_entityDbContext.TblServiceRequest.Where(r => r.Status == Status).ToList());
         }
 
+        public string AcceptRejectServiceRequest(ServiceRequestChangeViewModel model)
+        {
+            var result = _entityDbContext.TblServiceRequest.Where(r => r.RequestId == model.RequestId )
+                .Include(s=>s.Member)
+                .FirstOrDefault();
+            if (result != null)
+            {
+                if(model.Status==3)
+                result.Member.RoleId = 1;
+                else
+                    result.Member.RoleId = result.RequestType;
+
+                result.Status = model.Status;
+                result.Description = model.Description;
+                _entityDbContext.SaveChanges();
+            }
+
+            return Constant.Success;
+        }
+
         public List<ServiceRequestViewModel> GetServiceRequestListByMember(int MemberId)
         {
             return ConvertToViewModel(_entityDbContext.TblServiceRequest.Where(r => r.MemberId == MemberId).ToList());
@@ -70,7 +91,7 @@ namespace SistabizApp_New.Services
                 Summary = model.Summary,
                 ResumeLink = model.ResumeLink,
                 MemberId = model.MemberId,
-                Status = model.Status,
+                Status = 1,
                 Description = model.Description,
 
             };

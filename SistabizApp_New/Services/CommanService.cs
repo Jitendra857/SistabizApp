@@ -55,6 +55,12 @@ namespace SistabizApp_New.Services
                         BookmarkId = e.BookmarkId,
                         TypeId = e.AttachmentId
                     }).ToList();
+                case (int)Categories.Events:
+                    return _entityDbContext.TblEventBookmark.Where(r => r.MemberId == memberid).Select(e => new CommanViewModel
+                    {
+                        BookmarkId = e.BookmarkId,
+                        TypeId = e.EventId
+                    }).ToList();
 
                 default:
                     return null;

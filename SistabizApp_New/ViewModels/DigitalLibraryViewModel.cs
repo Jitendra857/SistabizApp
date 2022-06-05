@@ -26,6 +26,7 @@ namespace SistabizApp_New.ViewModels
         public List<IFormFile> Image { get; set; } = new List<IFormFile>();
         public IFormFile GroupIcon { get; set; }
         public string GroupIconPath { get; set; }
+       
 
         public List<DigitalLibraryAttachmentViewModel> lstDigitalLibraryAttachment { get; set; } = new List<DigitalLibraryAttachmentViewModel>();
     }
@@ -43,8 +44,15 @@ namespace SistabizApp_New.ViewModels
         public long LibraryAttachmentId { get; set; }
         public long? DigitalLibaryId { get; set; }
         public string FileName { get; set; }
+        public string FileUrl { get; set; }
 
 
+    }
+    public class SendFileModel
+    {
+        public string FileName { get; set; }
+        public string Email { get; set; }
+        public int Type { get; set; } = 1;
     }
     public class DigitalLibraryBookmarkViewModel
     {

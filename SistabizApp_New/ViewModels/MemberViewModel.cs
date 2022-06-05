@@ -30,7 +30,7 @@ namespace SistabizApp_New.ViewModels
         public string Industry { get; set; }
         public int? CustomerType { get; set; }
         public int? YearsInBusiness { get; set; }
-        public int? Employess { get; set; }
+        public double? Experience { get; set; }
         public string GovernmentCertifications { get; set; }
         public int? EntityType { get; set; }
         public string BusinessState { get; set; }
@@ -71,7 +71,7 @@ namespace SistabizApp_New.ViewModels
         public string Industry { get; set; }
         public int? CustomerType { get; set; }
         public int? YearsInBusiness { get; set; }
-        public int? Employess { get; set; }
+        public double? Experience { get; set; }
         public string GovernmentCertifications { get; set; }
         public int? EntityType { get; set; }
         public string BusinessState { get; set; }
@@ -89,10 +89,15 @@ namespace SistabizApp_New.ViewModels
         public int Founded { get; set; }
         public string LookingFor { get; set; }
         public bool IsBookmark { get; set; }
+        public string SistaInMonth { get; set; }
+        public string EventAttendee { get; set; }
+        public string GroupAttende { get; set; }
         public List<MemberGoalViewModel> lstMemberGoal { get; set; } = new List<MemberGoalViewModel>();
-
+        public string Interest { get; set; }
         public List<MemberSkillsViewModel> lstMemberSkills { get; set; } = new List<MemberSkillsViewModel>();
         public List<MemberPostAttachmentViewModel> lstMemberPostAttachment { get; set; } = new List<MemberPostAttachmentViewModel>();
+        public List<BadgesViewModel> lstBadges { get; set; } = new List<BadgesViewModel>();
+        public List<SistaSoulMatchesMembersModel> lstSistaSoulMatches { get; set; } = new List<SistaSoulMatchesMembersModel>();
 
 
     }
@@ -137,6 +142,7 @@ namespace SistabizApp_New.ViewModels
     public class MemberLoginResponseViewModel
     {
         public long MemberId { get; set; }
+        public string UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string NickName { get; set; }
@@ -158,7 +164,7 @@ namespace SistabizApp_New.ViewModels
         public string Industry { get; set; }
         public int? CustomerType { get; set; }
         public int? YearsInBusiness { get; set; }
-        public int? Employess { get; set; }
+        public double? Experience { get; set; }
         public string GovernmentCertifications { get; set; }
         public int? EntityType { get; set; }
         public string BusinessState { get; set; }
@@ -193,6 +199,7 @@ namespace SistabizApp_New.ViewModels
         public long? CreatedBy { get; set; }
         public DateTime? CreatedOn { get; set; }
         public string GroupMeetingType { get; set; }
+        public string MeetingLink { get; set; }
     }
 
 
@@ -207,5 +214,17 @@ namespace SistabizApp_New.ViewModels
         public bool? IsDeleted { get; set; }
         public DateTime? CreatedOn { get; set; }
 
+    }
+
+    public class SistaSoulMatchesMembersModel
+    {
+        public string Name { get; set; }
+        public string ProfileUrl { get; set; }
+        public int? Type { get; set; } = 0;
+        public string Industry { get; set; }
+        public string Location { get; set; }
+        public string Business { get; set; }
+        public double? Experience { get; set; } = 0;
+        public DateTime? CreatedOn { get; set; }
     }
 }

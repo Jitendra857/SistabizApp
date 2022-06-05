@@ -8,12 +8,15 @@ namespace SistabizApp_New.Models
         public TblMember()
         {
             TblAttachmentBookmark = new HashSet<TblAttachmentBookmark>();
+            TblBadgesAssignMember = new HashSet<TblBadgesAssignMember>();
             TblBookMarkBookmarkByNavigation = new HashSet<TblBookMark>();
             TblBookMarkBookmarkToNavigation = new HashSet<TblBookMark>();
+            TblBreakthrough = new HashSet<TblBreakthrough>();
             TblConversationQuestionAnswer = new HashSet<TblConversationQuestionAnswer>();
             TblDigitalLibrary = new HashSet<TblDigitalLibrary>();
             TblDigitalLibraryBookmark = new HashSet<TblDigitalLibraryBookmark>();
             TblEvent = new HashSet<TblEvent>();
+            TblEventBookmark = new HashSet<TblEventBookmark>();
             TblEventRegisterMember = new HashSet<TblEventRegisterMember>();
             TblFaqQuestion = new HashSet<TblFaqQuestion>();
             TblFundingBookmark = new HashSet<TblFundingBookmark>();
@@ -28,6 +31,8 @@ namespace SistabizApp_New.Models
             TblMemberAttachment = new HashSet<TblMemberAttachment>();
             TblMemberDesignation = new HashSet<TblMemberDesignation>();
             TblMemberGoal = new HashSet<TblMemberGoal>();
+            TblMemberMatchesMatchesMember = new HashSet<TblMemberMatches>();
+            TblMemberMatchesMember = new HashSet<TblMemberMatches>();
             TblMemberPhotoLikeComment = new HashSet<TblMemberPhotoLikeComment>();
             TblMemberPostLikeComment = new HashSet<TblMemberPostLikeComment>();
             TblMemberSkills = new HashSet<TblMemberSkills>();
@@ -70,7 +75,7 @@ namespace SistabizApp_New.Models
         public string Industry { get; set; }
         public int? CustomerType { get; set; }
         public int? YearsInBusiness { get; set; }
-        public int? Employess { get; set; }
+        public double? Experience { get; set; }
         public string GovernmentCertifications { get; set; }
         public int? EntityType { get; set; }
         public string BusinessState { get; set; }
@@ -83,15 +88,19 @@ namespace SistabizApp_New.Models
         public DateTime? Founded { get; set; }
         public string LookingFor { get; set; }
         public string ReferralCode { get; set; }
+        public string Interest { get; set; }
 
         public virtual TblMemberRoles Role { get; set; }
         public virtual ICollection<TblAttachmentBookmark> TblAttachmentBookmark { get; set; }
+        public virtual ICollection<TblBadgesAssignMember> TblBadgesAssignMember { get; set; }
         public virtual ICollection<TblBookMark> TblBookMarkBookmarkByNavigation { get; set; }
         public virtual ICollection<TblBookMark> TblBookMarkBookmarkToNavigation { get; set; }
+        public virtual ICollection<TblBreakthrough> TblBreakthrough { get; set; }
         public virtual ICollection<TblConversationQuestionAnswer> TblConversationQuestionAnswer { get; set; }
         public virtual ICollection<TblDigitalLibrary> TblDigitalLibrary { get; set; }
         public virtual ICollection<TblDigitalLibraryBookmark> TblDigitalLibraryBookmark { get; set; }
         public virtual ICollection<TblEvent> TblEvent { get; set; }
+        public virtual ICollection<TblEventBookmark> TblEventBookmark { get; set; }
         public virtual ICollection<TblEventRegisterMember> TblEventRegisterMember { get; set; }
         public virtual ICollection<TblFaqQuestion> TblFaqQuestion { get; set; }
         public virtual ICollection<TblFundingBookmark> TblFundingBookmark { get; set; }
@@ -106,6 +115,8 @@ namespace SistabizApp_New.Models
         public virtual ICollection<TblMemberAttachment> TblMemberAttachment { get; set; }
         public virtual ICollection<TblMemberDesignation> TblMemberDesignation { get; set; }
         public virtual ICollection<TblMemberGoal> TblMemberGoal { get; set; }
+        public virtual ICollection<TblMemberMatches> TblMemberMatchesMatchesMember { get; set; }
+        public virtual ICollection<TblMemberMatches> TblMemberMatchesMember { get; set; }
         public virtual ICollection<TblMemberPhotoLikeComment> TblMemberPhotoLikeComment { get; set; }
         public virtual ICollection<TblMemberPostLikeComment> TblMemberPostLikeComment { get; set; }
         public virtual ICollection<TblMemberSkills> TblMemberSkills { get; set; }

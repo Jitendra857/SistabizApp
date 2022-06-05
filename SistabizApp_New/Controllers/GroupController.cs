@@ -16,7 +16,7 @@ namespace SistabizApp_New.Controllers
     [Route("api/[controller]")]
     [ApiController]
    // [ModulePermission(new[] { PermissionEnum.Rights.BASIC, PermissionEnum.Rights.BOOST, PermissionEnum.Rights.BREAKTHROUGH })] //Check Permission for method
-    [ModulePermission(new[] { PermissionEnum.Modules.GROUP })] //Check Permission for method
+   // [ModulePermission(new[] { PermissionEnum.Modules.GROUP })] //Check Permission for method
     public class GroupController : ControllerBase
     {
 
@@ -92,9 +92,27 @@ namespace SistabizApp_New.Controllers
         public async Task<IActionResult> ManageGroup([FromForm] GroupViewModel model)
         {
 
+            //var re = Request;
+            //var headers = re.Headers;
+
+            //var joinmember1 = headers.FirstOrDefault();
+
+            //if (headers.Contains("Custom"))
+            //{
+            //    string token = headers.GetValues("Custom").First();
+            //}
+
+
+           // var joinmember = HttpContext.Request?.Headers["GroupJoinMember"].ToString();
             List<TblGroupAttachment> groupattachment = new List<TblGroupAttachment>();
-           
-                if (model.GroupIcon.Length > 0)
+
+            // return Ok(new APIResponse(true, Constant.Success, "", "Group Added successfully"));
+
+          
+
+            //  return Ok(new APIResponse(true, Constant.Success, "", "Group Added successfully"));
+
+            if (model.GroupIcon.Length > 0)
                 {
                     var eventfilename = Path.GetFileName(Guid.NewGuid() + "_" + model.GroupIcon.FileName);
                     var filePath = Path.Combine(Directory.GetCurrentDirectory(), Constant.GroupIcon, eventfilename);
@@ -140,18 +158,26 @@ namespace SistabizApp_New.Controllers
             {
                 groupService.UploadGroupAttachment(groupattachment);
             }
-            //if (model.lstJoinMembers.Count > 0)
-            //{
-            //    List<TblGroupJoinMember> lstgroupjoinmembers = new List<TblGroupJoinMember>();
-            //    foreach (var item in model.lstJoinMembers)
-            //    {
-            //        lstgroupjoinmembers.Add(new TblGroupJoinMember { GroupId = groupid, JoinMemberId = item.JoinMemberId, JoinDate = Convert.ToDateTime(item.JoinDate),IsActive=true});
+            List<TblGroupJoinMember> lstgroupjoinmembers = new List<TblGroupJoinMember>();
+            if (!string.IsNullOrEmpty(model.GroupJoinMembers))
+            {
+                var splitgroupmember = model.GroupJoinMembers.Split(",");
+                foreach (var item in splitgroupmember)
+                {
+                    lstgroupjoinmembers.Add(new TblGroupJoinMember { GroupId = groupid, JoinMemberId =Convert.ToInt32(item), JoinDate = DateTime.Now, IsActive = true });
 
-            //    }
+                }
+            }
 
-            //    groupService.AddGroupMembers(lstgroupjoinmembers);
-            //}
+           
+                //foreach (var item in model.lstjoinmembers)
+                //{
+                //    lstgroupjoinmembers.Add(new TblGroupJoinMember { GroupId = groupid, JoinMemberId = item, JoinDate = DateTime.Now, IsActive = true });
 
+                //}
+                if(lstgroupjoinmembers.Count>0)
+                groupService.AddGroupMembers(lstgroupjoinmembers);
+           
 
 
             return Ok(new APIResponse(true, Constant.Success, "", "Group Added successfully"));
@@ -199,6 +225,22 @@ namespace SistabizApp_New.Controllers
         {
 
             return Ok(new APIResponse(true, Constant.Success, "group meeting added successfully.", groupService.ManageGroupMeeting(model)));
+        }
+        [HttpGet]
+        [Route("getgroupmeetingdetails")]
+        public async Task<IActionResult> GetGroupMeetingDetails(int meetingid)
+        {
+            var result = groupService.GetMeetingDetails(meetingid);
+
+            return Ok(new APIResponse(true, Constant.Success, "Group meeting details", result));
+        }
+        [HttpGet]
+        [Route("deletegroupmeeting")]
+        public async Task<IActionResult> RemoveGroupMeeting(int meetingid)
+        {
+            var result = groupService.DeleteGroupMeeting(meetingid);
+
+            return Ok(new APIResponse(true, Constant.Success, "", "Group meeting delete sucessfully"));
         }
 
         [HttpPost]

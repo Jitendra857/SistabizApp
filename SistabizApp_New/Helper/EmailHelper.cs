@@ -1,7 +1,10 @@
-﻿using System;
+﻿using SistabizApp_New.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Mail;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace SistabizApp_New.Helper
@@ -13,36 +16,23 @@ namespace SistabizApp_New.Helper
 
             MailMessage mail = new MailMessage();
 
-            mail.To.Add("joshijitu9587@gmail.com");
-            mail.From = new MailAddress("developer2514122@gmail.com");
-            mail.Subject = "Confirmation of Registration on Job Junction.";
-            string Body = "Hi, this mail is to test sending mail using Gmail in ASP.NET";
+            mail.To.Add(userEmail);
+            mail.From = new MailAddress("jitendra.eglaf@gmail.com");
+            mail.Subject = "Upgrade Breakthrough User.";
+           // string Body = "Hi, this mail is to test sending mail using Gmail in ASP.NET";
             mail.Body = confirmationLink;
             mail.IsBodyHtml = true;
             SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
             // smtp.Host = "smtp.gmail.com"; //Or Your SMTP Server Address
-            smtp.UseDefaultCredentials = false;
+            smtp.UseDefaultCredentials = true;
             smtp.EnableSsl = true;
-            smtp.Credentials = new System.Net.NetworkCredential("developer2514122@gmail.com", "xjz8XF4@10");
+            smtp.Credentials = new System.Net.NetworkCredential("jitendra.eglaf@gmail.com", "Jitendra@123");
             smtp.Port = 587;
             //Or your Smtp Email ID and Password
             smtp.Send(mail);
 
 
-            //MailMessage mailMessage = new MailMessage();
-            //mailMessage.From = new MailAddress("developer2514122@gmail.com");
-            //mailMessage.To.Add(new MailAddress("joshijitu9587@gmail.com"));
-
-            //mailMessage.Subject = "Confirm your email";
-            //mailMessage.IsBodyHtml = true;
-            //mailMessage.Body = confirmationLink;
-
-            //SmtpClient client = new SmtpClient();
-            //client.Credentials = new System.Net.NetworkCredential("developer2514122@gmail.com", "xjz8XF4@10");
-            //client.Host = "smtp.gmail.com";
-            //client.Port = 587;
-            //client.UseDefaultCredentials = false;
-            //client.EnableSsl = true;
+           
 
             try
             {
@@ -56,5 +46,48 @@ namespace SistabizApp_New.Helper
             }
             return false;
         }
+
+        public static bool SendResources(SendFileModel model)
+        {
+            string BaseUrl = string.Empty;
+            if (model.Type == 2)
+            {
+                BaseUrl = Constant.Group;
+            }
+            else
+            {
+                BaseUrl = Constant.DigitalLibrary;
+            }
+            var filename = model.FileName;
+            MailMessage mail = new MailMessage();
+
+            mail.BodyEncoding = Encoding.UTF8;
+            mail.Subject = "Resources";
+            mail.Body = "File Name:-" + model.FileName;
+
+            Attachment at = new Attachment(Path.Combine(Directory.GetCurrentDirectory(), BaseUrl, filename));
+            mail.Attachments.Add(at);
+            mail.Priority = MailPriority.High;
+            mail.IsBodyHtml = true;
+
+            mail.To.Add(model.Email);
+            mail.From = new MailAddress("jitendra.eglaf@gmail.com");
+
+            mail.IsBodyHtml = true;
+            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+            // smtp.Host = "smtp.gmail.com"; //Or Your SMTP Server Address
+            smtp.UseDefaultCredentials = true;
+            smtp.EnableSsl = true;
+            smtp.Credentials = new System.Net.NetworkCredential("jitendra.eglaf@gmail.com", "Jitendra@123");
+            smtp.Port = 587;
+            //Or your Smtp Email ID and Password
+            smtp.Send(mail);
+            return true;
+        }
     }
 }
+
+
+
+
+

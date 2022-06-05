@@ -16,6 +16,7 @@ namespace SistabizApp_New.Models
         public long? GroupId { get; set; }
         public long? CreatedBy { get; set; }
         public DateTime? CreatedOn { get; set; }
+        public string MeetingLink { get; set; }
 
         public virtual TblMember CreatedByNavigation { get; set; }
         public virtual TblGroup Group { get; set; }

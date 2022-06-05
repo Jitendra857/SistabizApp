@@ -14,6 +14,12 @@ namespace SistabizApp_New.Services
 
         public List<GroupViewModel> GetGroupList()
         {
+            //var grouplist = _entityDbContext.TblGroup.Where(r => r.IsDeleted != true)
+            //    .Include(s=>s.TblGroupAttachment)
+            //    .Include(s => s.TblGroupAttachment)
+            //    .Include(s => s.TblGroupAttachment)
+            //    .ToList();
+
             var eventdetails = _entityDbContext.TblGroup.Where(r => r.IsDeleted != true).Select(e => new GroupViewModel
             {
                 GroupId = e.GroupId,
@@ -37,18 +43,26 @@ namespace SistabizApp_New.Services
                 {
                     AttachmentId = r.AttachmentId,
                     Attachment = Constant.livebaseurl + "Groups/" + r.Attachment,
-                    Title=r.Title,
+                    FileName =  r.Attachment,
+                    Title =r.Title,
                     DocumentDescription=r.Description,
                     IsBookmark=r.TblAttachmentBookmark.Count>0?true:false
                     
 
 
                 }).ToList() : null,
-                lstGroupJoinMembers = e.TblGroupBookmarks.Count > 0 ? e.TblGroupJoinMember.Select(t => new GroupJoinMemberViewModel
+                lstGroupSavedMembers = e.TblGroupBookmarks.Count > 0 ? e.TblGroupJoinMember.Select(t => new GroupJoinMemberViewModel
                 {
                     memberprofile = t.JoinMember != null ? Constant.livebaseurl + "Profiles/" + t.JoinMember.ProfileImage : null,
                     MemberName = t.JoinMember != null ? t.JoinMember.FirstName + " " + t.JoinMember.LastName : null
                 }).ToList() : null,
+                lstGroupJoinMembers = e.TblGroupJoinMember.Count > 0 ? e.TblGroupJoinMember.Select(t => new GroupJoinMemberViewModel
+                {
+                    JoinMemberId= t.JoinMember != null ? t.JoinMember.MemberId:0,
+                    memberprofile = t.JoinMember != null ? Constant.livebaseurl + "Profiles/" + t.JoinMember.ProfileImage : null,
+                    MemberName = t.JoinMember != null ? t.JoinMember.FirstName + " " + t.JoinMember.LastName : null
+                }).ToList() : null,
+
                 JoiningTotalMembers = e.TblGroupJoinMember.Count,
                 // CreatedByMember=e.TblEventRegisterMember!=null?e.t
 
@@ -82,14 +96,21 @@ namespace SistabizApp_New.Services
                 {
                     AttachmentId = r.AttachmentId,
                     Attachment = Constant.livebaseurl + "Groups/" + r.Attachment,
+                    FileName = r.Attachment,
                     Title = r.Title,
                     DocumentDescription = r.Description,
                     IsBookmark = r.TblAttachmentBookmark.Count > 0 ? true : false
 
 
                 }).ToList() : null,
-                lstGroupJoinMembers = e.TblGroupBookmarks.Count > 0 ? e.TblGroupJoinMember.Select(t => new GroupJoinMemberViewModel
+                lstGroupSavedMembers = e.TblGroupBookmarks.Count > 0 ? e.TblGroupJoinMember.Select(t => new GroupJoinMemberViewModel
                 {
+                    memberprofile = t.JoinMember != null ? Constant.livebaseurl + "Profiles/" + t.JoinMember.ProfileImage : null,
+                    MemberName = t.JoinMember != null ? t.JoinMember.FirstName + " " + t.JoinMember.LastName : null
+                }).ToList() : null,
+                lstGroupJoinMembers = e.TblGroupJoinMember.Count > 0 ? e.TblGroupJoinMember.Select(t => new GroupJoinMemberViewModel
+                {
+                    JoinMemberId = t.JoinMember != null ? t.JoinMember.MemberId : 0,
                     memberprofile = t.JoinMember != null ? Constant.livebaseurl + "Profiles/" + t.JoinMember.ProfileImage : null,
                     MemberName = t.JoinMember != null ? t.JoinMember.FirstName + " " + t.JoinMember.LastName : null
                 }).ToList() : null,
@@ -126,6 +147,7 @@ namespace SistabizApp_New.Services
                 {
                     AttachmentId = r.AttachmentId,
                     Attachment = Constant.livebaseurl + "Groups/" + r.Attachment,
+                    FileName = r.Attachment,
                     Title = r.Title,
                     DocumentDescription = r.Description,
                     IsBookmark = r.TblAttachmentBookmark.Count > 0 ? true : false
@@ -150,6 +172,7 @@ namespace SistabizApp_New.Services
                     Description=r.Description,
                     CreatedOn=r.CreatedOn,
                     GroupMeetingType = CommanHelper.GetmeetingTypes(r.MeetingType),
+                    MeetingLink=r.MeetingLink,
                 }).ToList():null,
                 lstGroupDiscussion = e.TblGroupDiscussion.Count > 0 ? e.TblGroupDiscussion.Select(t => new GroupDiscussionViewModel
                 {
@@ -212,18 +235,25 @@ namespace SistabizApp_New.Services
                 {
                     AttachmentId = r.AttachmentId,
                     Attachment = Constant.livebaseurl + "Groups/" + r.Attachment,
+                    FileName = r.Attachment,
                     Title = r.Title,
                     DocumentDescription = r.Description,
                     IsBookmark = r.TblAttachmentBookmark.Count > 0 ? true : false
 
 
                 }).ToList() : null,
-                lstGroupJoinMembers = e.TblGroupBookmarks.Count > 0 ? e.TblGroupJoinMember.Select(t => new GroupJoinMemberViewModel
-                {
-                    memberprofile = t.JoinMember != null ? Constant.livebaseurl + "Profiles/" + t.JoinMember.ProfileImage : null,
-                    MemberName = t.JoinMember != null ? t.JoinMember.FirstName + " " + t.JoinMember.LastName : null
-                }).ToList() : null,
-                JoiningTotalMembers = e.TblGroupJoinMember.Count,
+               lstGroupSavedMembers = e.TblGroupBookmarks.Count > 0 ? e.TblGroupJoinMember.Select(t => new GroupJoinMemberViewModel
+               {
+                   memberprofile = t.JoinMember != null ? Constant.livebaseurl + "Profiles/" + t.JoinMember.ProfileImage : null,
+                   MemberName = t.JoinMember != null ? t.JoinMember.FirstName + " " + t.JoinMember.LastName : null
+               }).ToList() : null,
+               lstGroupJoinMembers = e.TblGroupJoinMember.Count > 0 ? e.TblGroupJoinMember.Select(t => new GroupJoinMemberViewModel
+               {
+                   JoinMemberId = t.JoinMember != null ? t.JoinMember.MemberId : 0,
+                   memberprofile = t.JoinMember != null ? Constant.livebaseurl + "Profiles/" + t.JoinMember.ProfileImage : null,
+                   MemberName = t.JoinMember != null ? t.JoinMember.FirstName + " " + t.JoinMember.LastName : null
+               }).ToList() : null,
+               JoiningTotalMembers = e.TblGroupJoinMember.Count,
                 // CreatedByMember=e.TblEventRegisterMember!=null?e.t
 
             }).ToList();
@@ -297,14 +327,21 @@ namespace SistabizApp_New.Services
                     {
                         AttachmentId = r.AttachmentId,
                         Attachment = Constant.livebaseurl + "Groups/" + r.Attachment,
+                        FileName = r.Attachment,
                         Title = r.Title,
                         DocumentDescription = r.Description,
                         IsBookmark = r.TblAttachmentBookmark.Count > 0 ? true : false
 
 
                     }).ToList() : null,
-                    lstGroupJoinMembers = e.TblGroupBookmarks.Count > 0 ? e.TblGroupJoinMember.Select(t => new GroupJoinMemberViewModel
+                    lstGroupSavedMembers = e.TblGroupBookmarks.Count > 0 ? e.TblGroupJoinMember.Select(t => new GroupJoinMemberViewModel
                     {
+                        memberprofile = t.JoinMember != null ? Constant.livebaseurl + "Profiles/" + t.JoinMember.ProfileImage : null,
+                        MemberName = t.JoinMember != null ? t.JoinMember.FirstName + " " + t.JoinMember.LastName : null
+                    }).ToList() : null,
+                    lstGroupJoinMembers = e.TblGroupJoinMember.Count > 0 ? e.TblGroupJoinMember.Select(t => new GroupJoinMemberViewModel
+                    {
+                        JoinMemberId = t.JoinMember != null ? t.JoinMember.MemberId : 0,
                         memberprofile = t.JoinMember != null ? Constant.livebaseurl + "Profiles/" + t.JoinMember.ProfileImage : null,
                         MemberName = t.JoinMember != null ? t.JoinMember.FirstName + " " + t.JoinMember.LastName : null
                     }).ToList() : null,
@@ -343,14 +380,21 @@ namespace SistabizApp_New.Services
                     {
                         AttachmentId = r.AttachmentId,
                         Attachment = Constant.livebaseurl + "Groups/" + r.Attachment,
+                        FileName = r.Attachment,
                         Title = r.Title,
                         DocumentDescription = r.Description,
                         IsBookmark = r.TblAttachmentBookmark.Count > 0 ? true : false
 
 
                     }).ToList() : null,
-                    lstGroupJoinMembers = e.TblGroupBookmarks.Count > 0 ? e.TblGroupJoinMember.Select(t => new GroupJoinMemberViewModel
+                    lstGroupSavedMembers = e.TblGroupBookmarks.Count > 0 ? e.TblGroupJoinMember.Select(t => new GroupJoinMemberViewModel
                     {
+                        memberprofile = t.JoinMember != null ? Constant.livebaseurl + "Profiles/" + t.JoinMember.ProfileImage : null,
+                        MemberName = t.JoinMember != null ? t.JoinMember.FirstName + " " + t.JoinMember.LastName : null
+                    }).ToList() : null,
+                    lstGroupJoinMembers = e.TblGroupJoinMember.Count > 0 ? e.TblGroupJoinMember.Select(t => new GroupJoinMemberViewModel
+                    {
+                        JoinMemberId = t.JoinMember != null ? t.JoinMember.MemberId : 0,
                         memberprofile = t.JoinMember != null ? Constant.livebaseurl + "Profiles/" + t.JoinMember.ProfileImage : null,
                         MemberName = t.JoinMember != null ? t.JoinMember.FirstName + " " + t.JoinMember.LastName : null
                     }).ToList() : null,
@@ -406,12 +450,43 @@ namespace SistabizApp_New.Services
             groupmeeting.GroupId = model.GroupId;
             groupmeeting.CreatedBy = model.CreatedBy;
             groupmeeting.CreatedOn = DateTime.Now;
+            groupmeeting.MeetingLink =model.MeetingLink;
 
             if (model.MeetingId == 0)
                 _entityDbContext.TblGroupMeeting.Add(groupmeeting);
 
             _entityDbContext.SaveChanges();
             return Constant.Success;
+        }
+
+        public string DeleteGroupMeeting(int id)
+        {
+            var groupmeeting = _entityDbContext.TblGroupMeeting.Where(r => r.MeetingId == id).FirstOrDefault();
+            if (groupmeeting != null)
+            {
+                _entityDbContext.TblGroupMeeting.Remove(groupmeeting);
+                _entityDbContext.SaveChanges();
+            }
+
+            _entityDbContext.SaveChanges();
+            return Constant.Success;
+        }
+
+        public GroupmeetingViewModel GetMeetingDetails(int id)
+        {
+            return _entityDbContext.TblGroupMeeting.Where(r => r.MeetingId == id).Select(r => new GroupmeetingViewModel
+            {
+                MeetingId = r.MeetingId,
+                StartDateTime = r.StartDateTime,
+                EndDateTime = r.EndDateTime,
+                MeetingType = r.MeetingType,
+                MeetingPlace = r.MeetingPlace,
+                Agenda = r.Agenda,
+                Title = r.Title,
+                Description = r.Description,
+                CreatedOn = r.CreatedOn,
+                GroupMeetingType = CommanHelper.GetmeetingTypes(r.MeetingType),
+            }).FirstOrDefault();
         }
 
         public string GroupDiscussion(GroupDiscussionViewModel model)

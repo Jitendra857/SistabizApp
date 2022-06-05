@@ -17,5 +17,6 @@ namespace SistabizApp_New.Helper
         FundingResource = 4,
         PinkTable = 5,
         GroupAttachment = 6,
+        Events = 7,
     }
 }

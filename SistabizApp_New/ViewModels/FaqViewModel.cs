@@ -27,7 +27,7 @@ namespace SistabizApp_New.ViewModels
 
     public class FaqQuestionViewModel
     {
-        public long FaqQuestionId { get; set; }
+        public long FaqQuestionId { get; set; } = 0;
         public string Name { get; set; }
         public string Email { get; set; }
         public string Message { get; set; }

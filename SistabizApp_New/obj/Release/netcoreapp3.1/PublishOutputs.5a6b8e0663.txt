@@ -1,4 +1,13 @@
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\SistabizApp_New.exe
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Badges\12f85caf-a80e-4527-b8b3-235b1ef874e1_badges3.png
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Badges\32088700-f667-4222-a6fb-eee183d28c04_badges4.png
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Badges\35974b6a-e196-487b-8db6-2578acc55862_badges1.png
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Badges\40bd5970-f0b3-4c09-88fb-8cbea3731842_badges1.png
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Badges\5e73356c-7610-40e1-97d5-571d794b0b80_badges7.png
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Badges\7bd4f84d-efad-48b7-9396-e7cf61312456_badges1.png
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Badges\95e2dcca-f597-415c-815c-304b9989903b_badges5.png
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Badges\96e29070-fa2e-4c08-bf98-c18aa0115126_badges6.png
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Badges\98e042f7-e0aa-4633-bfec-656904f68117_badges2.png
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\css\site.css
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\DigitalLibrary\0d9c03e7-a0ee-453d-9c2c-51dd43106917_images1.jpg
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\DigitalLibrary\0db35a99-b16c-4675-b42f-f161e6b8c47d_images1.jpg
@@ -24,16 +33,20 @@ F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Releas
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\GroupIcon\1ae261c4-eb79-4bf7-b6d9-f8d37401a4e0_group2.jpg
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\GroupIcon\24aeaa52-766b-488c-946c-c6a1b9e2bb85_group4.jpg
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\GroupIcon\37aa243b-2d8a-41ef-88f8-43b6570103df_image 102 (1).png
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\GroupIcon\39063677-ecb8-4742-baac-928cc661cd7b_group5.jpg
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\GroupIcon\59b87216-ebb7-4791-9e44-20527fed499c_group3.jpg
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\GroupIcon\8a7ccd97-2fa6-4c91-b7c3-1cd35cc5ad36_group1.jpg
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\GroupIcon\9f3e081b-bd7f-48f7-985c-391a40845e3c_group5.jpg
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\GroupIcon\a59d86b2-04f6-42a5-8754-6e37f55e4d7c_images.jpg
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Groups\1ed40109-d19b-4682-87b6-74a6180ad3c5_logo3.jpg
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Groups\26bd0ba3-964b-4587-a3d7-ff28a3f04e32_logo3.jpg
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Groups\3dcf312e-843b-4a5a-8619-d33098bcbd0b_logo3.jpg
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Groups\401a41b7-2b46-4a85-adfa-7faac0e10bc1_logo3.jpg
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Groups\4265d774-a27f-4ecf-aac9-9058dc516188_images1.jpg
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Groups\479bb65f-d5a0-40f6-8011-ba8795cf5f95_logo3.jpg
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Groups\5351af57-7433-47cc-98c6-dee8513915e5_logo3.jpg
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Groups\561d243a-1957-4f94-8911-cf1b92d5cdb6_images2.jpg
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Groups\66e5bbbb-0b15-452f-82d8-5ec5fce89273_logo3.jpg
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Groups\6bc11ba5-6386-4c68-98a9-23afaa1ca934_logo3.jpg
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Groups\7903d2a4-1903-4d58-a37c-c818318c0911_images2.jpg
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Groups\85578526-66c9-4c52-a127-ea25c54f16de_logo3.jpg
@@ -91,6 +104,7 @@ F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Releas
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\MemberPost\fd59207c-8b73-4881-88c0-083a9787ef56_group3.jpg
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Profiles\5dbd7c47-78b4-4439-93ea-711d69bf5956_group2.jpg
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Profiles\5fbad463-7f19-4a79-8724-b4d89c3b3221_group2.jpg
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Profiles\669be73a-1334-4d66-967e-d4a33e6a0681_image 102 (1).png
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Profiles\7.jpg
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Profiles\b3869343-4e4a-4996-9de1-ecf8df9b1c77_images2.jpg
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Profiles\d8282202-fd4a-4403-b81c-839c78111d91_group2.jpg
@@ -100,6 +114,7 @@ F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Releas
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\SistabizApp_New.dll
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\SistabizApp_New.runtimeconfig.json
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\SistabizApp_New.pdb
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\CorePush.dll
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.AspNetCore.Cryptography.Internal.dll
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
@@ -135,6 +150,7 @@ F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Releas
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.OpenApi.dll
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\Newtonsoft.Json.dll
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\Newtonsoft.Json.Bson.dll
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\BouncyCastle.Crypto.dll
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\Swashbuckle.AspNetCore.Swagger.dll
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerGen.dll
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -142,7 +158,6 @@ F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Releas
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\System.Configuration.ConfigurationManager.dll
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\System.Diagnostics.DiagnosticSource.dll
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\System.IdentityModel.Tokens.Jwt.dll
-F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\System.Net.WebSockets.WebSocketProtocol.dll
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\System.Runtime.Caching.dll
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\System.Security.Cryptography.ProtectedData.dll
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Release\netcoreapp3.1\PubTmp\Out\runtimes\unix\lib\netcoreapp2.1\Microsoft.Data.SqlClient.dll

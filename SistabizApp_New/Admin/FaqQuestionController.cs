@@ -23,28 +23,28 @@ namespace SistabizApp_New.Admin
 
 
         [HttpGet]
-        [Route("geallfundingdetails")]
-        public async Task<IActionResult> GetAllFundingList()
+        [Route("geallfaqquestiondetails")]
+        public async Task<IActionResult> GetAllFaqUestionList()
         {
 
-            return Ok(new APIResponse(true, Constant.Success, "funding list", faqQuestionService.GetFaqQuestionList()));
+            return Ok(new APIResponse(true, Constant.Success, "faq question list", faqQuestionService.GetFaqQuestionList()));
         }
 
         [HttpPost]
-        [Route("addupdatefunding")]
-        public async Task<IActionResult> ManageFundingResource(FaqQuestionViewModel model)
+        [Route("addupdatefaqquestion")]
+        public async Task<IActionResult> ManageFaqQuestion(FaqQuestionViewModel model)
         {
 
-            return Ok(new APIResponse(true, Constant.Success, "funding resources updated successfully", faqQuestionService.ManageFaqQuestion(model)));
+            return Ok(new APIResponse(true, Constant.Success, "faq question updated successfully", faqQuestionService.ManageFaqQuestion(model)));
         }
 
 
         [HttpGet]
-        [Route("deletefunding")]
-        public async Task<IActionResult> DeleteFunding(int id)
+        [Route("deletefaqquestion")]
+        public async Task<IActionResult> DeleteFaqQuestion(int id)
         {
 
-            return Ok(new APIResponse(true, Constant.Success, "funding resources deleted", faqQuestionService.DeleteFaq(id)));
+            return Ok(new APIResponse(true, Constant.Success, "faq question deleted", faqQuestionService.DeleteFaq(id)));
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using SistabizApp_New.Helper;
+﻿using Microsoft.EntityFrameworkCore;
+using SistabizApp_New.Helper;
 using SistabizApp_New.Models;
 using SistabizApp_New.ViewModels;
 using System;
@@ -13,7 +14,15 @@ namespace SistabizApp_New.Services
 
         public List<EventResponseViewModel> GetEventList()
         {
-            var eventdetails = _entityDbContext.TblEvent.OrderByDescending(r=>r.EventId).Select(e => new EventResponseViewModel
+            var eventdetails = new List<TblEvent>();
+
+            eventdetails = _entityDbContext.TblEvent.Where(e => e.IsDeleted != true)
+                .Include(s=>s.TblEventAttachment)
+                 .Include(s => s.TblEventBookmark)
+                  .Include(s => s.TblEventRegisterMember)
+                   .ThenInclude(s => s.RegisterMember)
+                .ToList();
+            return eventdetails.OrderByDescending(r=>r.EventId).Select(e => new EventResponseViewModel
             {
                 EventId=e.EventId,
                 Title = e.Title,
@@ -22,7 +31,114 @@ namespace SistabizApp_New.Services
                 Address = e.Address,
                 City = e.City,
                 Country = e.Country,
-                State = 0,
+                State = e.State,
+                PostalCode = e.PostalCode,
+                Phone = e.Phone,
+                Website = e.Website,
+                OrganizerName = e.OrganizerName,
+                OrganizerPhone = e.OrganizerPhone,
+                OrganizerWebsite = e.OrganizerWebsite,
+                OrganizerEmail = e.OrganizerEmail,
+                EventWebsite = e.EventWebsite,
+                EventCost = e.EventCost,
+                EventStatus = e.EventStatus,
+                //EventStatusTrack = CommanHelper.GetEventStatus((int)e.EventStatus),
+                EventDate = e.EventDate,
+               StartTime=e.StartTime,
+                EventEndDate = e.EventEndDate,
+                EndTime=e.EndTime,
+                Description = e.Description,
+                CreatedOn = e.CreatedOn,
+                CreatedBy = e.CreatedBy,
+                IsBookmark = e.TblEventBookmark.Count > 0 ? true : false,
+                lstEventAttachment = e.TblEventAttachment.Count > 0 ? e.TblEventAttachment.Select(r => new EventAttachment
+                {
+                    EventAttachmentId = r.EventAttachmentId,
+                    EventId = r.EventId,
+                    FileName = Constant.livebaseurl + "Events/" + r.FileName,
+                }).ToList() : null,
+                 lstEventJoinMembers = e.TblEventRegisterMember.Count > 0 ? e.TblEventRegisterMember.Select(t => new EventJoinMemberViewModel
+                {
+                    MemberProfile = t.RegisterMember != null ? Constant.livebaseurl + "Profiles/" + t.RegisterMember.ProfileImage : null,
+                    MemberName = t.RegisterMember != null ? t.RegisterMember.FirstName + " " + t.RegisterMember.LastName : null
+                }).ToList() : null,
+                Attendee =e.TblEventRegisterMember.Count,
+               // CreatedByMember=e.TblEventRegisterMember!=null?e.t
+
+            }).ToList();
+
+           
+        }
+
+        public List<EventResponseViewModel> SearchEventList(string search)
+        {
+            var eventdetails = new List<TblEvent>();
+            eventdetails = _entityDbContext.TblEvent.Where(r => r.IsDeleted != true && r.EventName.Contains(search))
+                .Include(s => s.TblEventAttachment)
+                 .Include(s => s.TblEventBookmark)
+                  .Include(s => s.TblEventRegisterMember)
+                   .ThenInclude(s => s.RegisterMember)
+                .ToList();
+
+           return eventdetails.Select(e => new EventResponseViewModel
+            {
+                EventId = e.EventId,
+                Title = e.Title,
+                EventName = e.EventName,
+                VenueName = e.VenueName,
+                Address = e.Address,
+                City = e.City,
+                Country = e.Country,
+               State = e.State,
+               PostalCode = e.PostalCode,
+                Phone = e.Phone,
+                Website = e.Website,
+                OrganizerName = e.OrganizerName,
+                OrganizerPhone = e.OrganizerPhone,
+                OrganizerWebsite = e.OrganizerWebsite,
+                OrganizerEmail = e.OrganizerEmail,
+                EventWebsite = e.EventWebsite,
+                EventCost = e.EventCost,
+                EventStatus = e.EventStatus,
+               // EventStatusTrack = CommanHelper.GetEventStatus((int)e.EventStatus),
+                EventDate = e.EventDate,
+                StartTime = e.StartTime,
+                EventEndDate = e.EventEndDate,
+                EndTime = e.EndTime,
+                Description = e.Description,
+                CreatedOn = e.CreatedOn,
+                CreatedBy = e.CreatedBy,
+                IsBookmark = e.TblEventBookmark.Count > 0 ? true : false,
+                lstEventAttachment = e.TblEventAttachment.Count > 0 ? e.TblEventAttachment.Select(r => new EventAttachment
+                {
+                    EventAttachmentId = r.EventAttachmentId,
+                    EventId = r.EventId,
+                    FileName = Constant.livebaseurl + "Events/" + r.FileName,
+                }).ToList() : null,
+               lstEventJoinMembers = e.TblEventRegisterMember.Count > 0 ? e.TblEventRegisterMember.Select(t => new EventJoinMemberViewModel
+               {
+                   MemberProfile = t.RegisterMember != null ? Constant.livebaseurl + "Profiles/" + t.RegisterMember.ProfileImage : null,
+                   MemberName = t.RegisterMember != null ? t.RegisterMember.FirstName + " " + t.RegisterMember.LastName : null
+               }).ToList() : null,
+               Attendee = e.TblEventRegisterMember.Count,
+                // CreatedByMember=e.TblEventRegisterMember!=null?e.t
+
+            }).ToList();
+
+           
+        }
+        public EventResponseViewModel GetEventListById(int eventid)
+        {
+            var eventdetails = _entityDbContext.TblEvent.Where(r => r.EventId== eventid).Select(e => new EventResponseViewModel
+            {
+                EventId = e.EventId,
+                Title = e.Title,
+                EventName = e.EventName,
+                VenueName = e.VenueName,
+                Address = e.Address,
+                City = e.City,
+                Country = e.Country,
+                State = e.State,
                 PostalCode = e.PostalCode,
                 Phone = e.Phone,
                 Website = e.Website,
@@ -35,9 +151,9 @@ namespace SistabizApp_New.Services
                 EventStatus = e.EventStatus,
                 EventStatusTrack = CommanHelper.GetEventStatus((int)e.EventStatus),
                 EventDate = e.EventDate,
-               StartTime=e.StartTime,
+                StartTime = e.StartTime,
                 EventEndDate = e.EventEndDate,
-                EndTime=e.EndTime,
+                EndTime = e.EndTime,
                 Description = e.Description,
                 CreatedOn = e.CreatedOn,
                 CreatedBy = e.CreatedBy,
@@ -47,15 +163,134 @@ namespace SistabizApp_New.Services
                     EventId = r.EventId,
                     FileName = Constant.livebaseurl + "Events/" + r.FileName,
                 }).ToList() : null,
-                Attendee =e.TblEventRegisterMember.Count,
-               // CreatedByMember=e.TblEventRegisterMember!=null?e.t
+                Attendee = e.TblEventRegisterMember.Count,
+                // CreatedByMember=e.TblEventRegisterMember!=null?e.t
 
-            }).ToList();
+            }).FirstOrDefault();
 
             return eventdetails;
         }
 
+        public List<EventResponseViewModel> GetEventListByFilter(EventFilterViewModel model)
+        {
+            var eventdetails = new List<TblEvent>();
+           
 
+                if (model.Type == 0)
+                {
+                    eventdetails = _entityDbContext.TblEvent.Where(e => e.IsDeleted != true)
+                         .Include(s => s.TblEventAttachment)
+                          .Include(s => s.TblEventBookmark)
+                          .Include(s => s.TblEventRegisterMember)
+                           .ThenInclude(s => s.RegisterMember)
+                        .ToList();
+                }
+                if (model.Type == 1)
+                {
+                    eventdetails = _entityDbContext.TblEvent.Where(e => e.IsDeleted != true && e.EventDate >= DateTime.Now)
+                         .Include(s => s.TblEventAttachment)
+                          .Include(s => s.TblEventBookmark)
+                          .Include(s => s.TblEventRegisterMember)
+                           .ThenInclude(s => s.RegisterMember)
+                        .ToList();
+                }
+                if (model.Type == 2 || model.Type == 3)
+                {
+                    eventdetails = _entityDbContext.TblEvent.Where(e => e.IsDeleted != true && e.EventType == model.Type)
+                         .Include(s => s.TblEventAttachment)
+                          .Include(s => s.TblEventBookmark)
+                          .Include(s => s.TblEventRegisterMember)
+                           .ThenInclude(s => s.RegisterMember)
+                        .ToList();
+                }
+                if (model.Type == 4)
+                {
+
+                    var bookmarksdetails = _entityDbContext.TblEventBookmark.Where(e => e.MemberId == model.MemberiD).Select(k => k.EventId).ToList();
+
+                    eventdetails = _entityDbContext.TblEvent.Where(e => e.IsDeleted != true && bookmarksdetails.Contains(e.EventId))
+                        .Include(s => s.TblEventAttachment)
+                         .Include(s => s.TblEventBookmark)
+                          .Include(s => s.TblEventRegisterMember)
+                           .ThenInclude(s => s.RegisterMember)
+                       .ToList();
+                   
+               
+            }
+
+            return eventdetails.Select(e => new EventResponseViewModel
+            {
+                EventId = e.EventId,
+                Title = e.Title,
+                EventName = e.EventName,
+                VenueName = e.VenueName,
+                Address = e.Address,
+                City = e.City,
+                Country = e.Country,
+                State = e.State,
+                PostalCode = e.PostalCode,
+                Phone = e.Phone,
+                Website = e.Website,
+                OrganizerName = e.OrganizerName,
+                OrganizerPhone = e.OrganizerPhone,
+                OrganizerWebsite = e.OrganizerWebsite,
+                OrganizerEmail = e.OrganizerEmail,
+                EventWebsite = e.EventWebsite,
+                EventCost = e.EventCost,
+                EventStatus = e.EventStatus,
+               // EventStatusTrack = CommanHelper.GetEventStatus((int)e.EventStatus),
+                EventDate = e.EventDate,
+                StartTime = e.StartTime,
+                EventEndDate = e.EventEndDate,
+                EndTime = e.EndTime,
+                Description = e.Description,
+                CreatedOn = e.CreatedOn,
+                CreatedBy = e.CreatedBy,
+                IsBookmark = e.TblEventBookmark.Count > 0 ? true : false,
+                lstEventAttachment = e.TblEventAttachment.Count > 0 ? e.TblEventAttachment.Select(r => new EventAttachment
+                {
+                    EventAttachmentId = r.EventAttachmentId,
+                    EventId = r.EventId,
+                    FileName = Constant.livebaseurl + "Events/" + r.FileName,
+                }).ToList() : null,
+                lstEventJoinMembers = e.TblEventRegisterMember.Count > 0 ? e.TblEventRegisterMember.Select(t => new EventJoinMemberViewModel
+                {
+                    MemberProfile = t.RegisterMember != null ? Constant.livebaseurl + "Profiles/" + t.RegisterMember.ProfileImage : null,
+                    MemberName = t.RegisterMember != null ? t.RegisterMember.FirstName + " " + t.RegisterMember.LastName : null
+                }).ToList() : null,
+                Attendee = e.TblEventRegisterMember.Count,
+                // CreatedByMember=e.TblEventRegisterMember!=null?e.t
+
+            }).ToList();
+
+           
+        }
+        public string EventBookmark(EventBookmarkViewModel model)
+        {
+            TblEventBookmark bookmark = new TblEventBookmark();
+
+            if (model.BookmarkId > 0)
+            {
+                var result = _entityDbContext.TblEventBookmark.Where(e => e.BookmarkId == model.BookmarkId).FirstOrDefault();
+
+                if (result != null)
+                {
+                    _entityDbContext.TblEventBookmark.Remove(result);
+                    _entityDbContext.SaveChanges();
+                    return "Unbookmark";
+                }
+            }
+            else
+            {
+                bookmark.MemberId = model.MemberId;
+                bookmark.EventId = model.EventId;
+               
+                _entityDbContext.TblEventBookmark.Add(bookmark);
+                _entityDbContext.SaveChanges();
+                return "bookmark";
+            }
+            return "bookmark";
+        }
         public long ManageEvent(EventViewModel model)
         {
             TblEvent evnt = new TblEvent();
@@ -68,7 +303,7 @@ namespace SistabizApp_New.Services
             evnt.Address = model.Address;
             evnt.City = model.City;
             evnt.Country = model.Country;
-            evnt.State = 0;
+            evnt.State = model.State;
             evnt.PostalCode = model.PostalCode;
             evnt.Phone = model.Phone;
             evnt.Website = model.Website;
@@ -86,6 +321,8 @@ namespace SistabizApp_New.Services
             evnt.Description = model.Description;
             evnt.CreatedOn = DateTime.Now;
             evnt.CreatedBy = model.CreatedBy;
+            evnt.EventType = model.EventType;
+            evnt.EventLink = model.EventLink;
             if (model.EventId == 0)
                 _entityDbContext.TblEvent.Add(evnt);
 
@@ -134,6 +371,18 @@ namespace SistabizApp_New.Services
             if (checkevent != null)
             {
                 checkevent.IsDeleted = true;
+                _entityDbContext.SaveChanges();
+            }
+            return Constant.Success;
+        }
+
+        public string DeleteEventAttachment(int eventid)
+        {
+
+            var checkevent = _entityDbContext.TblEventAttachment.Where(r => r.EventAttachmentId == eventid).FirstOrDefault();
+            if (checkevent != null)
+            {
+                _entityDbContext.TblEventAttachment.Remove(checkevent);
                 _entityDbContext.SaveChanges();
             }
             return Constant.Success;

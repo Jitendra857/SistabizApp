@@ -38,9 +38,9 @@ namespace SistabizApp_New.Controllers
         public async Task<IActionResult> Searchmember(string search)
         {
             var result = memberService.SearchMember(search);
-            return Ok(new APIResponse(true, Constant.Success, "search member list.",result));
+            return Ok(new APIResponse(true, Constant.Success, "search member list.", result));
 
-           
+
         }
         [HttpGet]
         [Route("getmemberrolelist")]
@@ -54,7 +54,7 @@ namespace SistabizApp_New.Controllers
         public async Task<IActionResult> GetMemberByRole(int roleid)
         {
             var result = memberService.GetMemberByRole(roleid);
-            return Ok(new APIResponse(true, Constant.Success, "Meber list by role.",result));
+            return Ok(new APIResponse(true, Constant.Success, "Meber list by role.", result));
 
         }
 
@@ -64,15 +64,20 @@ namespace SistabizApp_New.Controllers
         {
 
             List<TblMemberAttachment> postattachment = new List<TblMemberAttachment>();
-            var getfilename=  Path.GetFileName(Guid.NewGuid() + "_" + model.Image.FileName);
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), Constant.ProfilePath, getfilename);
-            if (model.Image.Length > 0)
+            if (model.Image != null)
             {
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
 
-                    model.Image.CopyTo(fileStream);
-                    model.ProfileImage = getfilename;
+
+                var getfilename = Path.GetFileName(Guid.NewGuid() + "_" + model.Image.FileName);
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), Constant.ProfilePath, getfilename);
+                if (model.Image.Length > 0)
+                {
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+
+                        model.Image.CopyTo(fileStream);
+                        model.ProfileImage = getfilename;
+                    }
                 }
             }
             var result = memberService.Updateprofile(model);
@@ -118,10 +123,10 @@ namespace SistabizApp_New.Controllers
         [Route("bookmark")]
         public async Task<IActionResult> BookMark(BookmrkViewModel model)
         {
-         
+
             var result = memberService.MemberBookmark(model);
 
-            return Ok(new APIResponse(true, Constant.Success, "member "+ result + " sucessfully", ""));
+            return Ok(new APIResponse(true, Constant.Success, "member " + result + " sucessfully", ""));
         }
 
         [HttpPost]
@@ -138,14 +143,22 @@ namespace SistabizApp_New.Controllers
         [Route("deletemember")]
         public async Task<IActionResult> DeleteMember(int memberid)
         {
-            return Ok(new APIResponse(true, Constant.Success, "Member delete successfully", memberService.GetEmployeeById(memberid)));
+            return Ok(new APIResponse(true, Constant.Success, "Member delete successfully", memberService.RemoverMember(memberid)));
         }
         [HttpGet]
         [Route("getmemberlist")]
-        public async Task<IActionResult> GetMemberList(int ordering=0)
+        public async Task<IActionResult> GetMemberList(int ordering = 0)
         {
             var result = memberService.MemberList();
             return Ok(new APIResponse(true, Constant.Success, "member list.", ordering == 2 ? result.OrderByDescending(r => r.MemberId).ToList() : result));
+
+        }
+
+        [HttpGet]
+        [Route("getcoachserviceprovider")]
+        public async Task<IActionResult> GetCoachServiceProvider()
+        {
+            return Ok(new APIResponse(true, Constant.Success, "member list.", memberService.GetCoachServiceProviderList()));
 
         }
 

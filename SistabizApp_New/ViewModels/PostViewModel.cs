@@ -49,6 +49,7 @@ namespace SistabizApp_New.ViewModels
         public long? PostId { get; set; }
         public string LikeCommentByName { get; set; }
         public string LikeCommentByProfile { get; set; }
+        public DateTime? CreateOn { get; set; }
 
     }
 }

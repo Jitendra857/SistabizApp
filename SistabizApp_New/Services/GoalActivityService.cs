@@ -149,7 +149,7 @@ namespace SistabizApp_New.Services
             goal.How = model.How;
             goal.StartDate = model.StartDate;
             goal.EndDate = model.EndDate;
-            goal.PostponeDate = model.PostponeDate;
+            goal.PostponeDate = model.EndDate;
             goal.Status = 1;
             goal.IsActive = true;
             goal.IsDeleted = false;
@@ -183,6 +183,7 @@ namespace SistabizApp_New.Services
             TblGoal goal = new TblGoal();
             if (model.GoalId > 0)
                 goal = GetGoalById((int)model.GoalId);
+            goal.EndDate = goal.PostponeDate;
             goal.PostponeDate = model.PostponeDate;
             _entityDbContext.SaveChanges();
             return "Success";

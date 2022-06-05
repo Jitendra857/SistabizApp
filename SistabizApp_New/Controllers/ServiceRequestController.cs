@@ -41,6 +41,13 @@ namespace SistabizApp_New.Controllers
             return Ok(new APIResponse(true, Constant.Success, "", serviceRequestService.GetServiceRequestListByStatus(Status)));
         }
 
+        [HttpPost]
+        [Route("acceptrejectservicerequest")]
+        public async Task<IActionResult> AcceptRejectServiceRequest(ServiceRequestChangeViewModel model)
+        {
+            return Ok(new APIResponse(true, Constant.Success, "service request updated successfully.", serviceRequestService.AcceptRejectServiceRequest(model)));
+        }
+
         [HttpGet]
         [Route("getservicerequestbymember")]
         public async Task<IActionResult> GetServiceRequestByMember(int MemberId)

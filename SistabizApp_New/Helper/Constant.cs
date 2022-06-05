@@ -27,14 +27,22 @@ namespace SistabizApp_New.Helper
         public const string Event = @"wwwroot\Events";
         public const string Group = @"wwwroot\Groups";
         public const string GroupIcon = @"wwwroot\GroupIcon";
+        public const string Badges = @"wwwroot\Badges";
+        
 
         public const string DigitalLibrary = @"wwwroot\DigitalLibrary";
         //DigitalLibrary
         public const string Post = @"wwwroot\Post";
-        public const string livebaseurl = "http://34.228.199.228:8070/";
-        public const string MemberIcon = "http://34.228.199.228:8070/images/member.png";
-        public const string CoachIcon = "http://34.228.199.228:8070/images/coach.svg";
-        public const string ServiceProviderIcon = "http://34.228.199.228:8070/images/coach.svg";
+        //public const string livebaseurl = "http://34.228.199.228:8070/";
+        //public const string MemberIcon = "http://34.228.199.228:8070/images/member.png";
+        //public const string CoachIcon = "http://34.228.199.228:8070/images/coach.svg";
+        //public const string ServiceProviderIcon = "http://34.228.199.228:8070/images/coach.svg";
+        //public const string localbaseUrl = "http://localhost:58870/";
+
+        public const string livebaseurl = "http://54.242.36.43:8070/";
+        public const string MemberIcon = "http://54.242.36.43:8070/images/member.png";
+        public const string CoachIcon = "http://54.242.36.43:8070/images/coach.svg";
+        public const string ServiceProviderIcon = "http://54.242.36.43:8070/images/coach.svg";
         public const string localbaseUrl = "http://localhost:58870/";
         public const string Virtual = "Virtual";
         public const string Physical = "Physical";

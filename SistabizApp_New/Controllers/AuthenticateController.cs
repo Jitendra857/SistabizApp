@@ -73,6 +73,7 @@ namespace SistabizApp_New.Controllers
                     );
 
                 response = memberService.GetMemberByEmail(user.Email);
+                response.UserId = user.Id;
                 response.Token = new JwtSecurityTokenHandler().WriteToken(token);
                 response.TokenExpiration = token.ValidTo;
 
@@ -82,8 +83,83 @@ namespace SistabizApp_New.Controllers
             return Ok(new APIResponse(false, "Invalid username and password!", null, null));
             //return Unauthorized();
         }
+        [HttpPost]
+        [Route("changepassword")]
+        public async Task<IActionResult> changePassword(ChangePasswordModel usermodel)
+        {
+            ApplicationUser user = await userManager.FindByIdAsync(usermodel.Id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            //user.PasswordHash = userManager.PasswordHasher.HashPassword(usermodel.Password);
+            var result = await userManager.ChangePasswordAsync(user, usermodel.OldPassword, usermodel.NewPassword);
+            // var result1 = await userManager.UpdateAsync(user);
+            if (!result.Succeeded)
+            {
+                return Ok(new APIResponse(false, "Incorrect Password!", null, "Incorrect Password!"));
+                //throw exception......
+            }
+            var response = memberService.UpdateMemberPassword(user.Email, usermodel.NewPassword);
+            return Ok(new APIResponse(true, "Password Changed Successfully.", "", ""));
+        }
+
+        [HttpGet]
+        [Route("forgotpassword")]
+        public async Task<IActionResult> ForgotPassword(string email)
+        {
+            try
+            {
+                var user = await userManager.FindByEmailAsync(email);
+                var token = await userManager.GeneratePasswordResetTokenAsync(user);
+                var link = "http://localhost:58870/api/authenticate/resetpassword?";
+                var buillink = link + "&Id=" + user.Id + "&token=" + token;
+
+                var confirmationLink = Url.Action("ConfirmEmail", "Email", new { token, email = user.Email }, Request.Scheme);
+                EmailHelper emailHelper = new EmailHelper();
+                bool emailResponse = emailHelper.SendEmail(user.Email, buillink);
 
 
+                //var emailtemplate = new EmailTemplate();
+                //emailtemplate.Link = buillink;
+                //emailtemplate.UserId = user.Id;
+                //emailtemplate.EmailType = EmailType.ResetPassword;
+                //var emailsent = _emailService.SendSmtpMail(emailtemplate);
+                if (emailResponse != true)
+                    return Ok(new APIResponse(false, "Email not sent.", "", System.Net.HttpStatusCode.InternalServerError));
+
+                return Ok(new APIResponse(true, "Link Sent Succesfully.", System.Net.HttpStatusCode.OK.ToString(), buillink));
+
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+        [HttpGet]
+        [Route("resetpassword")]
+        public async Task<IActionResult> ConfirmPwdLink(Guid id, string token, string newpassword)
+        {
+            //newpassword = "Jeet@12345";
+
+            string uid = id.ToString();
+            ApplicationUser user = await userManager.FindByIdAsync(uid);
+
+
+
+            //  var user = await userManager.FindByIdAsync(id);
+            var result = await userManager.ResetPasswordAsync(user, token, newpassword);
+            if (!result.Succeeded)
+            {
+                return Ok(new APIResponse(false, "Invalid Request.", "", System.Net.HttpStatusCode.UnprocessableEntity.ToString()));
+
+            }
+            else
+            {
+                return Ok(new APIResponse(true, "Your Password has been succesfully updated.", "", System.Net.HttpStatusCode.OK.ToString()));
+
+            }
+        }
 
         [HttpPost]
         [Route("register")]
@@ -96,13 +172,16 @@ namespace SistabizApp_New.Controllers
             if (userExists != null)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
 
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\Profiles", model.Image.FileName); ;
-            if (model.Image.Length > 0)
+            if (model.Image != null)
             {
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\Profiles", model.Image.FileName); ;
+                if (model.Image.Length > 0)
                 {
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
 
-                    model.Image.CopyTo(fileStream);
+                        model.Image.CopyTo(fileStream);
+                    }
                 }
             }
             ApplicationUser user = new ApplicationUser()
@@ -112,7 +191,7 @@ namespace SistabizApp_New.Controllers
                 UserName = model.Username,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                ProfileName = model.Image.FileName
+                ProfileName = model.Image!=null? model.Image.FileName:""
 
             };
             TblMember member = new TblMember()
@@ -121,14 +200,14 @@ namespace SistabizApp_New.Controllers
                 Password = model.Password,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                ProfileImage = model.Image.FileName,
+                ProfileImage = model.Image != null ? model.Image.FileName : "",
                 Mobile = model.Mobile,
                 StateId = model.StateId,
                 City = model.City,
                 Address = model.Address,
                 ZipCode = model.ZipCode,
                 CreatedOn = DateTime.Now,
-                IsActive = true,
+                IsActive = model.SubscriptionTypeId == 3 ? false : true,
                 IsDelete = false,
                 RoleId = Role.Member,
 
@@ -151,13 +230,43 @@ namespace SistabizApp_New.Controllers
                         SubscriptionEndDate = model.SubscriptionType == 1 ? DateTime.Now.AddMonths(1) : DateTime.Now.AddMonths(12),
                         SubscriptionDuration = model.SubscriptionType,
                         PaymentStatus = 1,
-                        IsPayment = true,
+                        IsPayment = model.SubscriptionTypeId == 3 ? false : true,
                         IsUpgrade = false,
-                        IsActive = true,
+                        IsActive = model.SubscriptionTypeId == 3 ? false : true,
                         IsDeleted = false,
                         CreateOn = DateTime.Now,
                     };
                     var usersubscription = memberService.AddSubscription(subscription);
+
+                    if (usersubscription != null)
+                    {
+                        if (model.SubscriptionTypeId != 3)
+                        {
+                            TblBillingAddress billingaddress = new TblBillingAddress();
+                            billingaddress.Country = model.BillingCountry;
+                            billingaddress.State = model.BillingState;
+                            billingaddress.City = model.BillingCity;
+                            billingaddress.Address = model.BillingAddress;
+                            billingaddress.ZipCode = model.BillingZipCode;
+                            billingaddress.PaymentId = usersubscription.SubscriptionId;
+
+                            var billingaddressresult = memberService.AddBillingAddress(billingaddress);
+                        }
+                        else
+                        {
+                            TblBreakthrough breakthrough = new TblBreakthrough();
+                            breakthrough.ConsultingDate = model.ConsultingDate;
+                            breakthrough.MemberId = data.MemberId;
+                            breakthrough.Status = 1;
+                            breakthrough.SubscriptionType = model.SubscriptionType;
+                            breakthrough.CreatedOn = DateTime.Now;
+                            breakthrough.IsDeleted = false;
+
+                            var breakthroughresult = memberService.ManageBreakThrough(breakthrough);
+
+                        }
+                    }
+
                 }
 
                 return Ok(new APIResponse(true, Constant.Success, "", "User created successfully!"));
@@ -181,22 +290,72 @@ namespace SistabizApp_New.Controllers
             }
         }
 
-        //[HttpPost("revoke-token")]
-        //public IActionResult RevokeToken([FromBody] RevokeTokenRequest model)
-        //{
-        //    // accept token from request body or cookie
-        //    var token = model.Token ?? Request.Cookies["refreshToken"];
+        [HttpPost("upgradesubscription")]
+        public IActionResult UpgradeSubscription(UpgradeSubscriptionModel model)
+        {
+            if (model.UserId > 0)
+            {
+                memberService.CancelSubscription((int)model.UserId);
+            }
+            TblUserSubscription subscription = new TblUserSubscription()
+            {
+                SubscriptionTypeId = model.SubscriptionTypeId,
+                Userid = model.UserId,
+                TransactionId = Guid.NewGuid().ToString(),
+                SubscriptionStartDate = DateTime.Now,
+                SubscriptionEndDate = model.SubscriptionType == 1 ? DateTime.Now.AddMonths(1) : DateTime.Now.AddMonths(12),
+                SubscriptionDuration = model.SubscriptionType,
+                PaymentStatus = 1,
+                IsPayment = true,
+                IsUpgrade = true,
+                IsActive = true,
+                IsDeleted = false,
+                CreateOn = DateTime.Now,
+            };
+            var usersubscription = memberService.AddSubscription(subscription);
 
-        //    if (string.IsNullOrEmpty(token))
-        //        return BadRequest(new { message = "Token is required" });
 
-        //    var response = _userService.RevokeToken(token, ipAddress());
+            return Ok(new APIResponse(true, Constant.Success, "", "User subscription upgrade successfully!"));
+        }
 
-        //    if (!response)
-        //        return NotFound(new { message = "Token not found" });
 
-        //    return Ok(new { message = "Token revoked" });
-        //}
+        [HttpPost("upgradebreakthroughsubscription")]
+        public IActionResult UpgradeBreathroughSubscription(UpgradeBreakthroughSubscriptionModel model)
+        {
+            TblUserSubscription subscription = new TblUserSubscription();
+            if (model.UserId > 0)
+            {
+                memberService.GetSubscriptionSubscription((int)model.UserId);
+            }
+
+
+            subscription.SubscriptionTypeId = model.SubscriptionTypeId;
+            subscription.Userid = model.UserId;
+            subscription.TransactionId = Guid.NewGuid().ToString();
+            //subscription.SubscriptionStartDate = DateTime.Now;
+            //subscription.SubscriptionEndDate = model.SubscriptionType == 1 ? DateTime.Now.AddMonths(1) : DateTime.Now.AddMonths(12);
+            subscription.SubscriptionDuration = model.SubscriptionType;
+            subscription.PaymentStatus = 1;
+            subscription.IsPayment = true;
+            subscription.IsUpgrade = true;
+            subscription.IsActive = true;
+            subscription.IsDeleted = false;
+            subscription.CreateOn = DateTime.Now;
+
+            var usersubscription = memberService.AddSubscription(subscription);
+
+            TblBillingAddress billingaddress = new TblBillingAddress();
+            billingaddress.Country = model.BillingCountry;
+            billingaddress.State = model.BillingState;
+            billingaddress.City = model.BillingCity;
+            billingaddress.Address = model.BillingAddress;
+            billingaddress.ZipCode = model.BillingZipCode;
+            billingaddress.PaymentId = usersubscription.SubscriptionId;
+
+            var billingaddressresult = memberService.AddBillingAddress(billingaddress);
+
+            return Ok(new APIResponse(true, Constant.Success, "", "User breakthrough subscription successfully!"));
+        }
 
 
 

@@ -8,6 +8,7 @@ namespace SistabizApp_New.Models
         public TblEvent()
         {
             TblEventAttachment = new HashSet<TblEventAttachment>();
+            TblEventBookmark = new HashSet<TblEventBookmark>();
             TblEventRegisterMember = new HashSet<TblEventRegisterMember>();
         }
 
@@ -37,9 +38,12 @@ namespace SistabizApp_New.Models
         public long? CreatedBy { get; set; }
         public DateTime? CreatedOn { get; set; }
         public bool? IsDeleted { get; set; }
+        public int? EventType { get; set; }
+        public string EventLink { get; set; }
 
         public virtual TblMember CreatedByNavigation { get; set; }
         public virtual ICollection<TblEventAttachment> TblEventAttachment { get; set; }
+        public virtual ICollection<TblEventBookmark> TblEventBookmark { get; set; }
         public virtual ICollection<TblEventRegisterMember> TblEventRegisterMember { get; set; }
     }
 }

@@ -104,9 +104,6 @@ F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Debug\
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.SqlServer.dll
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Abstractions.dll
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Memory.dll
-F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.dll
-F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Abstractions.dll
-F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Binder.dll
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.dll
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Core.dll
@@ -169,4 +166,9 @@ F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Debug\
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
-F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Debug\netcoreapp3.1\System.Net.WebSockets.WebSocketProtocol.dll
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.dll
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Abstractions.dll
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Binder.dll
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Debug\netcoreapp3.1\CorePush.dll
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\obj\Debug\netcoreapp3.1\SistabizApp_New.csproj.AssemblyReference.cache
