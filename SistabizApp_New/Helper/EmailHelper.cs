@@ -81,7 +81,15 @@ namespace SistabizApp_New.Helper
             smtp.Credentials = new System.Net.NetworkCredential("jitendra.eglaf@gmail.com", "Jitendra@123");
             smtp.Port = 587;
             //Or your Smtp Email ID and Password
-            smtp.Send(mail);
+            try
+            {
+                smtp.Send(mail);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
             return true;
         }
     }

@@ -1151,6 +1151,8 @@ namespace SistabizApp_New.Models
 
                 entity.ToTable("tblReddemPoints");
 
+                entity.Property(e => e.CreateOn).HasColumnType("datetime");
+
                 entity.HasOne(d => d.Member)
                     .WithMany(p => p.TblReddemPointsMember)
                     .HasForeignKey(d => d.MemberId)
@@ -1160,6 +1162,11 @@ namespace SistabizApp_New.Models
                     .WithMany(p => p.TblReddemPointsReddemByNavigation)
                     .HasForeignKey(d => d.ReddemBy)
                     .HasConstraintName("FK_tblReddemPoints_tblReddemBy");
+
+                entity.HasOne(d => d.ReferToNavigation)
+                    .WithMany(p => p.TblReddemPointsReferToNavigation)
+                    .HasForeignKey(d => d.ReferTo)
+                    .HasConstraintName("FK_tblReddemPoints_tblReferToMember");
             });
 
             modelBuilder.Entity<TblReferralCode>(entity =>

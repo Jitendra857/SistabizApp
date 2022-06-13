@@ -62,22 +62,24 @@ namespace SistabizApp_New.Controllers
             long postid = postService.ManagePost(model);
 
             // upload document
-
-            if (model.PostId == 0 || model.IsUpdateAttachment == true)
+            if (model.Image.Count>0)
             {
-                foreach (var item in model.Image)
+                if (model.PostId == 0 || model.IsUpdateAttachment == true)
                 {
-                    if (item.Length > 0)
+                    foreach (var item in model.Image)
                     {
-                        var postfilename = Path.GetFileName(Guid.NewGuid() + "_" + item.FileName);
-                        var filePath = Path.Combine(Directory.GetCurrentDirectory(), Constant.Post, postfilename);
-
-
-                        using (var fileStream = new FileStream(filePath, FileMode.Create))
+                        if (item.Length > 0)
                         {
+                            var postfilename = Path.GetFileName(Guid.NewGuid() + "_" + item.FileName);
+                            var filePath = Path.Combine(Directory.GetCurrentDirectory(), Constant.Post, postfilename);
 
-                            item.CopyTo(fileStream);
-                            postattachment.Add(new TblPostAttachment { PostId = postid, FileName = postfilename });
+
+                            using (var fileStream = new FileStream(filePath, FileMode.Create))
+                            {
+
+                                item.CopyTo(fileStream);
+                                postattachment.Add(new TblPostAttachment { PostId = postid, FileName = postfilename });
+                            }
                         }
                     }
                 }

@@ -201,5 +201,12 @@ namespace SistabizApp_New.IServices
         //chat history
         List<ChatViewModel> GetChatHistory();
         string ManageChat(ChatViewModel model);
+
+        //redeem points
+        List<RedeemPointsDetailsViewModel> GetAllRedeemPoint();
+        MemberErnsPointModel GetAllRedeemPointByMember(int memberid = 0);
+        string RedeemEarnPointRequest(RedeemPointsViewModel model);
+
+        string AcceptReferRedeemRequest(RedeemPointsViewModel model);
     }
 }

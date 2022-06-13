@@ -43,6 +43,7 @@ namespace SistabizApp_New.Models
             TblPostFeedback = new HashSet<TblPostFeedback>();
             TblReddemPointsMember = new HashSet<TblReddemPoints>();
             TblReddemPointsReddemByNavigation = new HashSet<TblReddemPoints>();
+            TblReddemPointsReferToNavigation = new HashSet<TblReddemPoints>();
             TblServiceRequest = new HashSet<TblServiceRequest>();
             TblTeckHelpAssignByNavigation = new HashSet<TblTeckHelp>();
             TblTeckHelpAssignToNavigation = new HashSet<TblTeckHelp>();
@@ -127,6 +128,7 @@ namespace SistabizApp_New.Models
         public virtual ICollection<TblPostFeedback> TblPostFeedback { get; set; }
         public virtual ICollection<TblReddemPoints> TblReddemPointsMember { get; set; }
         public virtual ICollection<TblReddemPoints> TblReddemPointsReddemByNavigation { get; set; }
+        public virtual ICollection<TblReddemPoints> TblReddemPointsReferToNavigation { get; set; }
         public virtual ICollection<TblServiceRequest> TblServiceRequest { get; set; }
         public virtual ICollection<TblTeckHelp> TblTeckHelpAssignByNavigation { get; set; }
         public virtual ICollection<TblTeckHelp> TblTeckHelpAssignToNavigation { get; set; }
