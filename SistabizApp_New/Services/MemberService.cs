@@ -447,7 +447,7 @@ namespace SistabizApp_New.Services
 
          }).FirstOrDefault();
 
-            var SistaInMonth = memberdetails.lstSistaSoulMatches.Where(r => Convert.ToDateTime(r.CreatedOn).Date.Month == DateTime.Now.Month).FirstOrDefault();
+            var SistaInMonth = memberdetails.lstSistaSoulMatches!=null? memberdetails.lstSistaSoulMatches.Where(r => Convert.ToDateTime(r.CreatedOn).Date.Month == DateTime.Now.Month).FirstOrDefault():null;
             if (SistaInMonth != null)
             {
                 memberdetails.SistaInMonth=SistaInMonth.Name+ " is your " + GetSistaById((int)SistaInMonth.Type) + " this month";

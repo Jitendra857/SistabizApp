@@ -187,6 +187,13 @@ namespace SistabizApp_New.Services
 
             _entityDbContext.SaveChanges();
 
+            //member earn point
+            RedeemPointsViewModel reddem = new RedeemPointsViewModel();
+            reddem.MemberId = model.CreatedBy;
+            reddem.Description ="Earn Point By Added new Post";
+            reddem.ReddemPoint = 10;
+            RedeemEarnPointOtherActivity(reddem);
+
             return post.PostId;
         }
         public string UploadPostAttachment(List<TblPostAttachment> attchment)
@@ -213,6 +220,13 @@ namespace SistabizApp_New.Services
                 _entityDbContext.TblPostFeedback.Add(postfeed);
             }
             _entityDbContext.SaveChanges();
+
+            //member earn point
+            RedeemPointsViewModel reddem = new RedeemPointsViewModel();
+            reddem.MemberId = model.MemberId;
+            reddem.Description = "Earn Point By Post Comment";
+            reddem.ReddemPoint = 10;
+            RedeemEarnPointOtherActivity(reddem);
             return Constant.Success;
 
         }
@@ -222,7 +236,15 @@ namespace SistabizApp_New.Services
             TblPostBookMark bookmark = new TblPostBookMark();
             if (model.BookmarkId > 0)
                 bookmark = _entityDbContext.TblPostBookMark.Where(r => r.BookmarkId == model.BookmarkId).FirstOrDefault();
-            if(bookmark!=null && model.BookmarkId > 0)
+
+            //member earn point
+            RedeemPointsViewModel reddem = new RedeemPointsViewModel();
+            reddem.MemberId = model.MemberId;
+            reddem.Description = "Earn Point By Post Bookmark";
+            reddem.ReddemPoint = 10;
+            RedeemEarnPointOtherActivity(reddem);
+          
+            if (bookmark!=null && model.BookmarkId > 0)
             {
                 _entityDbContext.TblPostBookMark.Remove(bookmark);
                 _entityDbContext.SaveChanges();

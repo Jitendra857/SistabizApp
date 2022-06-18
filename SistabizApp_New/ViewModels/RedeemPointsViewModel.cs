@@ -50,5 +50,13 @@ namespace SistabizApp_New.ViewModels
         public DateTime? CreateOn { get; set; }
     }
 
+    public class RedeemReferViewModel
+    {
+        public long ReddemId { get; set; }
+        public long? ReferBy { get; set; }
+        public int? ReferTo { get; set; }
+        public DateTime? CreateOn { get; set; }
+    }
+
 
 }

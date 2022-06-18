@@ -37,8 +37,9 @@ namespace SistabizApp_New.Controllers
         public async Task<IActionResult> DownloadDigitalLibrary(SendFileModel model)
         {
 
-            EmailHelper.SendResources(model);
-           
+           // EmailHelper.SendResources(model);
+            EmailHelper.SendResourcesTest(model);
+
             return Ok(new APIResponse(true, Constant.Success, "", "Resources send on email sucessfully, You can download from there."));
         }
 

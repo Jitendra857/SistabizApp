@@ -92,6 +92,54 @@ namespace SistabizApp_New.Helper
             }
             return true;
         }
+
+        public static bool SendResourcesTest(SendFileModel model)
+        {
+            string BaseUrl = string.Empty;
+            //if (model.Type == 2)
+            //{
+            //    BaseUrl = Constant.Group;
+            //}
+            //else
+            //{
+            //    BaseUrl = Constant.DigitalLibrary;
+            //}
+            //var filename = model.FileName;
+            MailMessage mail = new MailMessage();
+
+            mail.BodyEncoding = Encoding.UTF8;
+            mail.Subject = "Resources";
+            mail.Body = "Testing";
+
+            //Attachment at = new Attachment(Path.Combine(Directory.GetCurrentDirectory(), BaseUrl, filename));
+            //mail.Attachments.Add(at);
+            //mail.Priority = MailPriority.High;
+            //mail.IsBodyHtml = true;
+
+            mail.To.Add("dev.jhavivek@gmil.com");
+            // mail.To.Add(model.Email);
+            mail.From = new MailAddress("jhavivek260@gmail.com");
+           
+
+            mail.IsBodyHtml = true;
+            SmtpClient smtp = new SmtpClient("smtp-mail.outlook.com", 587);
+            // smtp.Host = "smtp.gmail.com"; //Or Your SMTP Server Address
+            smtp.UseDefaultCredentials = true;
+            smtp.EnableSsl = true;
+            smtp.Credentials = new System.Net.NetworkCredential("jhavivek260@gmail.com", "Cloud@Vivek1996");
+            smtp.Port = 587;
+            //Or your Smtp Email ID and Password
+            try
+            {
+                smtp.Send(mail);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            return true;
+        }
     }
 }
 

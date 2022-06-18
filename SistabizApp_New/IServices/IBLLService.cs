@@ -206,6 +206,8 @@ namespace SistabizApp_New.IServices
         List<RedeemPointsDetailsViewModel> GetAllRedeemPoint();
         MemberErnsPointModel GetAllRedeemPointByMember(int memberid = 0);
         string RedeemEarnPointRequest(RedeemPointsViewModel model);
+        string RedeemRefer(RedeemReferViewModel model);
+        string RedeemEarnPointOtherActivity(RedeemPointsViewModel model);
 
         string AcceptReferRedeemRequest(RedeemPointsViewModel model);
     }

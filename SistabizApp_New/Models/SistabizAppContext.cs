@@ -76,6 +76,7 @@ namespace SistabizApp_New.Models
         public virtual DbSet<TblPostBookMark> TblPostBookMark { get; set; }
         public virtual DbSet<TblPostFeedback> TblPostFeedback { get; set; }
         public virtual DbSet<TblReddemPoints> TblReddemPoints { get; set; }
+        public virtual DbSet<TblRedeemRefer> TblRedeemRefer { get; set; }
         public virtual DbSet<TblReferralCode> TblReferralCode { get; set; }
         public virtual DbSet<TblServiceRequest> TblServiceRequest { get; set; }
         public virtual DbSet<TblState> TblState { get; set; }
@@ -1167,6 +1168,18 @@ namespace SistabizApp_New.Models
                     .WithMany(p => p.TblReddemPointsReferToNavigation)
                     .HasForeignKey(d => d.ReferTo)
                     .HasConstraintName("FK_tblReddemPoints_tblReferToMember");
+            });
+
+            modelBuilder.Entity<TblRedeemRefer>(entity =>
+            {
+                entity.ToTable("tblRedeemRefer");
+
+                entity.Property(e => e.CreatedOn).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Redeem)
+                    .WithMany(p => p.TblRedeemRefer)
+                    .HasForeignKey(d => d.RedeemId)
+                    .HasConstraintName("FK_tblRedeemRefer_tblRedeem");
             });
 
             modelBuilder.Entity<TblReferralCode>(entity =>

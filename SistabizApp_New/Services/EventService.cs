@@ -347,6 +347,15 @@ namespace SistabizApp_New.Services
             _entityDbContext.TblEventRegisterMember.Add(evntmember);
 
             _entityDbContext.SaveChanges();
+
+            _entityDbContext.SaveChanges();
+
+            //member earn point
+            RedeemPointsViewModel reddem = new RedeemPointsViewModel();
+            reddem.MemberId = model.RegisterMemberId;
+            reddem.Description = "Earn Point By Join A Event";
+            reddem.ReddemPoint = 25;
+
             return model;
         }
 

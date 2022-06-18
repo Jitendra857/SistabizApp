@@ -532,6 +532,14 @@ namespace SistabizApp_New.Services
             _entityDbContext.TblGroupJoinMember.Add(joinmember);
 
             _entityDbContext.SaveChanges();
+
+            //member earn point
+            RedeemPointsViewModel reddem = new RedeemPointsViewModel();
+            reddem.MemberId = model.JoinMemberId;
+            reddem.Description = "Earn Point By Join A Group";
+            reddem.ReddemPoint = 25;
+            RedeemEarnPointOtherActivity(reddem);
+
             return model;
         }
 

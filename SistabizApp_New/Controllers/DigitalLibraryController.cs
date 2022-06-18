@@ -101,17 +101,19 @@ namespace SistabizApp_New.Controllers
         {
 
             List<TblDigitalLibaryAttachment> digitallibraryattachment = new List<TblDigitalLibaryAttachment>();
-            if (model.GroupIcon.Length > 0)
-            {
-                var eventfilename = Path.GetFileName(Guid.NewGuid() + "_" + model.GroupIcon.FileName);
-                var filePath = Path.Combine(Directory.GetCurrentDirectory(), Constant.GroupIcon, eventfilename);
-
-
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
+            if (model.GroupIcon != null){
+                if (model.GroupIcon.Length > 0)
                 {
+                    var eventfilename = Path.GetFileName(Guid.NewGuid() + "_" + model.GroupIcon.FileName);
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), Constant.GroupIcon, eventfilename);
 
-                    model.GroupIcon.CopyTo(fileStream);
-                    model.GroupIconPath = eventfilename;
+
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+
+                        model.GroupIcon.CopyTo(fileStream);
+                        model.GroupIconPath = eventfilename;
+                    }
                 }
             }
 

@@ -84,6 +84,32 @@ namespace SistabizApp_New.Services
             return Constant.Success;
         }
 
+        public string RedeemRefer(RedeemReferViewModel model)
+        {
+            TblRedeemRefer redeem = new TblRedeemRefer();
+            redeem.RedeemId = model.ReddemId;
+            redeem.ReferBy = model.ReferBy;
+            redeem.ReferTo = model.ReferTo;
+           
+            redeem.CreatedOn = DateTime.Now;
+            _entityDbContext.TblRedeemRefer.Add(redeem);
+            _entityDbContext.SaveChanges();
+            return Constant.Success;
+        }
+
+        public string RedeemEarnPointOtherActivity(RedeemPointsViewModel model)
+        {
+            TblReddemPoints redeem = new TblReddemPoints();
+            redeem.MemberId = model.MemberId;
+            redeem.ReddemPoint = model.ReddemPoint;
+            redeem.Status = 3;
+            redeem.Description = model.Description;
+            redeem.CreateOn = DateTime.Now;
+            _entityDbContext.TblReddemPoints.Add(redeem);
+            _entityDbContext.SaveChanges();
+            return Constant.Success;
+        }
+
         public string AcceptReferRedeemRequest(RedeemPointsViewModel model)
         {
             TblReddemPoints redeem = new TblReddemPoints();
@@ -107,6 +133,17 @@ namespace SistabizApp_New.Services
                 }
 
                 var getredeem = _entityDbContext.TblReddemPoints.Where(t => t.ReddemId == model.ReddemId).FirstOrDefault();
+
+                //var getredeemreferlist = _entityDbContext.TblRedeemRefer.Where(t => t.RedeemId == model.ReddemId).ToList();
+                //List<int> refferids = new List<int>();
+
+                //if (getredeemreferlist.Count > 0)
+                //{
+                //    foreach(var item in getredeemreferlist)
+                //    {
+
+                //    }
+                //}
 
                 redeem = new TblReddemPoints();
                 redeem.MemberId = getredeem.ReddemBy;

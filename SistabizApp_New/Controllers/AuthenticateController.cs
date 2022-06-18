@@ -45,7 +45,7 @@ namespace SistabizApp_New.Controllers
         {
 
             MemberLoginResponseViewModel response = new MemberLoginResponseViewModel();
-            var user = await userManager.FindByNameAsync(model.Username);
+            var user = await userManager.FindByEmailAsync(model.Username);
             if (user != null && await userManager.CheckPasswordAsync(user, model.Password))
             {
                 var userRoles = await userManager.GetRolesAsync(user);
@@ -161,6 +161,18 @@ namespace SistabizApp_New.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("checkuser")]
+        public async Task<IActionResult> Checkuser(string email)
+        {
+            var userExists = await userManager.FindByEmailAsync(email);
+            if (userExists != null)
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Email already exists!" });
+
+            return Ok(new APIResponse(true, Constant.Success, "", "User allow to register"));
+
+        }
+
         [HttpPost]
         [Route("register")]
         public async Task<IActionResult> Register([FromForm] RegisterModel model)
@@ -191,7 +203,7 @@ namespace SistabizApp_New.Controllers
                 UserName = model.Username,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                ProfileName = model.Image!=null? model.Image.FileName:""
+                ProfileName = model.Image != null ? model.Image.FileName : ""
 
             };
             TblMember member = new TblMember()

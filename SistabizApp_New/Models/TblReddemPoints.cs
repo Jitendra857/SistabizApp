@@ -5,6 +5,11 @@ namespace SistabizApp_New.Models
 {
     public partial class TblReddemPoints
     {
+        public TblReddemPoints()
+        {
+            TblRedeemRefer = new HashSet<TblRedeemRefer>();
+        }
+
         public long ReddemId { get; set; }
         public long? MemberId { get; set; }
         public int? ReddemPoint { get; set; }
@@ -17,5 +22,6 @@ namespace SistabizApp_New.Models
         public virtual TblMember Member { get; set; }
         public virtual TblMember ReddemByNavigation { get; set; }
         public virtual TblMember ReferToNavigation { get; set; }
+        public virtual ICollection<TblRedeemRefer> TblRedeemRefer { get; set; }
     }
 }

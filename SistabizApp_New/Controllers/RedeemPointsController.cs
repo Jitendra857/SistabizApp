@@ -38,6 +38,7 @@ namespace SistabizApp_New.Controllers
             return Ok(new APIResponse(true, Constant.Success, "Redeem points listing By Member", redeemService.GetAllRedeemPointByMember(memberid)));
         }
 
+
         [HttpPost]
         [Route("requestearnpoint")]
         public async Task<IActionResult> RequestEarnPoints(RedeemPointsViewModel model)
@@ -45,6 +46,15 @@ namespace SistabizApp_New.Controllers
             var redeempoint = redeemService.RedeemEarnPointRequest(model);
             return Ok(new APIResponse(true, Constant.Success, "Redeem points earn request submitted successfully", ""));
         }
+
+        [HttpPost]
+        [Route("redeemrefer")]
+        public async Task<IActionResult> RedeemRefer(RedeemReferViewModel model)
+        {
+            var redeempoint = redeemService.RedeemRefer(model);
+            return Ok(new APIResponse(true, Constant.Success, "Redeem points refer request submitted successfully", ""));
+        }
+
         [HttpPost]
         [Route("acceptreferredeemrequest")]
         public async Task<IActionResult> AcceptReferRedeemRequest(RedeemPointsViewModel model)

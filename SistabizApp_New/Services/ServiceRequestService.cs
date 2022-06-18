@@ -19,6 +19,14 @@ namespace SistabizApp_New.Services
             {
                 _entityDbContext.TblServiceRequest.Add(Convertor(serviceRequest));
                 _entityDbContext.SaveChanges();
+
+                //member earn point
+                RedeemPointsViewModel reddem = new RedeemPointsViewModel();
+                reddem.MemberId = serviceRequest.MemberId;
+                reddem.Description = "Earn Point By Consult A Coach";
+                reddem.ReddemPoint = 15;
+                RedeemEarnPointOtherActivity(reddem);
+               
                 return serviceRequest;
             }
             return null;
