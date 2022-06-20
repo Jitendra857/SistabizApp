@@ -723,7 +723,7 @@ namespace SistabizApp_New.Services
 
             var gellallmembers = _entityDbContext.TblMember.Where(r=>r.IsDelete!=true && r.MemberId!=memberid).ToList();
             //Big Sistah 
-            var bigsistamatchesmember = gellallmembers.Where(e => (e.Address==location || e.Industry==indusrty || e.Interest==intrest) && e.Experience > experience).Select(r=>r.MemberId).ToList();
+            var bigsistamatchesmember = gellallmembers.Where(e => (e.City==location || e.Industry==indusrty || e.Interest==intrest) && e.Experience > experience).Select(r=>r.MemberId).ToList();
             if (bigsistamatchesmember.Count > 0)
             {
                 foreach(var item in bigsistamatchesmember)
@@ -743,7 +743,7 @@ namespace SistabizApp_New.Services
             
 
             //Lil Sistah
-            var lilsistamatchesmember = gellallmembers.Where(e => (e.Address == location || e.Industry == indusrty || e.Interest == intrest) && e.Experience < experience).Select(r => r.MemberId).ToList();
+            var lilsistamatchesmember = gellallmembers.Where(e => (e.City == location || e.Industry == indusrty || e.Interest == intrest) && e.Experience < experience).Select(r => r.MemberId).ToList();
             if (lilsistamatchesmember.Count > 0)
             {
                 foreach (var item in lilsistamatchesmember)
@@ -762,7 +762,7 @@ namespace SistabizApp_New.Services
             }
             
             // Wild Card
-             var wildcardmatchesmember = gellallmembers.Where(e => e.Address==location && (e.Industry!=indusrty && e.Interest!=intrest && e.Experience==null)).Select(r => r.MemberId).ToList();
+             var wildcardmatchesmember = gellallmembers.Where(e => e.City==location && (e.Industry!=indusrty && e.Interest!=intrest && e.Experience==null)).Select(r => r.MemberId).ToList();
             if (wildcardmatchesmember.Count > 0)
             {
                 foreach (var item in wildcardmatchesmember)
@@ -782,7 +782,7 @@ namespace SistabizApp_New.Services
            
 
             // Soul Sistah
-            var soulsistahmatchesmember = gellallmembers.Where(e => e.Address==location && e.Industry==indusrty && e.Interest==intrest && e.Experience ==experience).Select(r => r.MemberId).ToList();
+            var soulsistahmatchesmember = gellallmembers.Where(e => e.City ==location && e.Industry==indusrty && e.Interest==intrest && e.Experience ==experience).Select(r => r.MemberId).ToList();
             if (soulsistahmatchesmember.Count > 0)
             {
                 foreach (var item in soulsistahmatchesmember)
@@ -838,7 +838,21 @@ namespace SistabizApp_New.Services
                 RoleIcon = e.RoleId == 1 ? Constant.MemberIcon : Constant.MemberIcon,
                 IsBookmark = e.TblBookMarkBookmarkByNavigation.Count > 0 ? true : e.TblBookMarkBookmarkToNavigation.Count > 0 ? true : false
             }).FirstOrDefault();
+
+
             return employee;
+        }
+        public  bool UpdateDeviceToken(int memberid,string devicetoken)
+        {
+            var member = GetMemberDetailsById(memberid);
+            var checkonbording = GetMemberOnboardingCount(memberid);
+            if (member != null)
+            {
+                member.IsOnboarding = checkonbording==0? false:true;
+                member.DeviceToken = devicetoken;
+                _entityDbContext.SaveChanges();
+            }
+            return (bool)member.IsOnboarding;
         }
 
         public TblMemberPhotoLikeComment GetPhotoLikeCommentById(int id)
@@ -859,6 +873,7 @@ namespace SistabizApp_New.Services
 
         public TblMember GetMemberDetailsById(int memberid)
         {
+
             return _entityDbContext.TblMember.Where(e => e.MemberId == memberid && e.IsDelete!=true).FirstOrDefault();
         }
 

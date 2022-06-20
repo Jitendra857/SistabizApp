@@ -71,12 +71,13 @@ namespace SistabizApp_New.Controllers
                     claims: authClaims,
                     signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                     );
-
+                
                 response = memberService.GetMemberByEmail(user.Email);
+                
                 response.UserId = user.Id;
                 response.Token = new JwtSecurityTokenHandler().WriteToken(token);
                 response.TokenExpiration = token.ValidTo;
-
+                response.IsOnboarding = memberService.UpdateDeviceToken((int)response.MemberId, model.DeviceToken);
 
                 return Ok(new APIResponse(true, "Login Successfully.", "", response));
             }
@@ -180,9 +181,9 @@ namespace SistabizApp_New.Controllers
 
 
             // var CurrentRequestOfHttp = HttpContext.Current.Request;
-            var userExists = await userManager.FindByNameAsync(model.Username);
-            if (userExists != null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
+            //var userExists = await userManager.FindByNameAsync(model.Username);
+            //if (userExists != null)
+            //    return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
 
             if (model.Image != null)
             {
@@ -200,10 +201,10 @@ namespace SistabizApp_New.Controllers
             {
                 Email = model.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = model.Username,
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                ProfileName = model.Image != null ? model.Image.FileName : ""
+               // UserName = model.Username,
+                //FirstName = model.FirstName,
+               // LastName = model.LastName,
+                //ProfileName = model.Image != null ? model.Image.FileName : ""
 
             };
             TblMember member = new TblMember()

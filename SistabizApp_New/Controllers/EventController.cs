@@ -29,9 +29,11 @@ namespace SistabizApp_New.Controllers
 
         [HttpGet]
         [Route("getevent")]
-        public async Task<IActionResult> GetAllEvent(int ordering = 0)
+        public async Task<IActionResult> GetAllEvent(int ordering = 0, int memberid =0)
         {
             var result = eventService.GetEventList();
+            if (memberid > 0)
+                result = result.Where(t => t.CreatedBy == memberid).ToList();
             return Ok(new APIResponse(true, Constant.Success, "event list", ordering == 2 ? result.OrderByDescending(r => r.EventId).ToList() : result));
         }
 
@@ -44,9 +46,11 @@ namespace SistabizApp_New.Controllers
         }
         [HttpGet]
         [Route("searchevent")]
-        public async Task<IActionResult> SearchGroup(string search)
+        public async Task<IActionResult> SearchGroup(string search, int memberid = 0)
         {
             var result = eventService.SearchEventList(search);
+            if (memberid > 0)
+                result = result.Where(t => t.CreatedBy == memberid).ToList();
             return Ok(new APIResponse(true, Constant.Success, "event list by search", result));
 
         }

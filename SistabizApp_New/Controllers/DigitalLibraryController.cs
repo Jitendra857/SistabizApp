@@ -36,9 +36,12 @@ namespace SistabizApp_New.Controllers
 
         [HttpGet]
         [Route("getalldigitallibrary")]
-        public async Task<IActionResult> GetAllDigitalLibrary(int ordering = 0)
+        public async Task<IActionResult> GetAllDigitalLibrary(int ordering = 0,int memberid=0)
         {
             var result = digitallibraryService.GetDigitalLibraryList();
+
+            if (memberid > 0)
+                result = result.Where(t => t.CreatedBy == memberid).ToList();
             return Ok(new APIResponse(true, Constant.Success, "digital library list", ordering == 2 ? result.OrderByDescending(r => r.DigitalLibraryId).ToList() : result));
         }
 
@@ -52,9 +55,11 @@ namespace SistabizApp_New.Controllers
 
         [HttpGet]
         [Route("searchdigitallibrary")]
-        public async Task<IActionResult> SearchDigitalLibrary(string search)
+        public async Task<IActionResult> SearchDigitalLibrary(string search, int memberid =0)
         {
             var result = digitallibraryService.GetDigitalLibraryList(search);
+            if (memberid > 0)
+                result = result.Where(t => t.CreatedBy == memberid).ToList();
             return Ok(new APIResponse(true, Constant.Success, "digital library list", result));
             
         }

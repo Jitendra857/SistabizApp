@@ -43,6 +43,17 @@ namespace SistabizApp_New.Controllers
             return Ok(new APIResponse(true, Constant.Success, "", "Resources send on email sucessfully, You can download from there."));
         }
 
+        [HttpPost]
+        [Route("sendnotification")]
+        public async Task<IActionResult> SendNotification(SendFileModel model)
+        {
+
+            // EmailHelper.SendResources(model);
+            EmailHelper.SendResourcesTest(model);
+
+            return Ok(new APIResponse(true, Constant.Success, "", "Resources send on email sucessfully, You can download from there."));
+        }
+
 
     }
 }

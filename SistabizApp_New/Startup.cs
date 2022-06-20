@@ -1,3 +1,5 @@
+using CorePush.Apple;
+using CorePush.Google;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -58,6 +60,11 @@ namespace SistabizApp_New
             services.AddSingleton<IUserConnectionManager, UserConnectionManager>();
 
             // Configure strongly typed settings objects
+
+            services.AddTransient<INotificationService, NotificationService>();
+            services.AddHttpClient<FcmSender>();
+            services.AddHttpClient<ApnSender>();
+
             var appSettingsSection = Configuration.GetSection("FcmNotification");
             services.Configure<FcmNotificationSetting>(appSettingsSection);
 

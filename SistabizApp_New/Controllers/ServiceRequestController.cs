@@ -31,41 +31,88 @@ namespace SistabizApp_New.Controllers
         [Route("getservicerequest")]
         public async Task<IActionResult> GetServiceRequest()
         {
-            return Ok(new APIResponse(true, Constant.Success, "", serviceRequestService.GetServiceRequestList()));
+            try
+            {
+                return Ok(new APIResponse(true, Constant.Success, "", serviceRequestService.GetServiceRequestList()));
+            }
+            catch (Exception ex)
+            {
+
+                return Ok(new APIResponse(false, Constant.Error, "", ex));
+            }
         }
 
         [HttpGet]
         [Route("getservicerequestbystatus")]
         public async Task<IActionResult> GetServiceRequestByStatus(int Status)
         {
-            return Ok(new APIResponse(true, Constant.Success, "", serviceRequestService.GetServiceRequestListByStatus(Status)));
+            try
+            {
+                return Ok(new APIResponse(true, Constant.Success, "", serviceRequestService.GetServiceRequestListByStatus(Status)));
+            }
+            catch (Exception ex)
+            {
+
+                return Ok(new APIResponse(false, Constant.Error, "", ex));
+            }
+           
         }
 
         [HttpPost]
         [Route("acceptrejectservicerequest")]
         public async Task<IActionResult> AcceptRejectServiceRequest(ServiceRequestChangeViewModel model)
         {
-            return Ok(new APIResponse(true, Constant.Success, "service request updated successfully.", serviceRequestService.AcceptRejectServiceRequest(model)));
+            try
+            {
+                return Ok(new APIResponse(true, Constant.Success, "service request updated successfully.", serviceRequestService.AcceptRejectServiceRequest(model)));
+
+            }
+            catch (Exception ex)
+            {
+
+                return Ok(new APIResponse(false, Constant.Error, "", ex));
+            }
         }
 
         [HttpGet]
         [Route("getservicerequestbymember")]
         public async Task<IActionResult> GetServiceRequestByMember(int MemberId)
         {
-            return Ok(new APIResponse(true, Constant.Success, "", serviceRequestService.GetServiceRequestListByMember(MemberId)));
+            try
+            {
+                return Ok(new APIResponse(true, Constant.Success, "", serviceRequestService.GetServiceRequestListByMember(MemberId)));
+
+
+            }
+            catch (Exception ex)
+            {
+
+                return Ok(new APIResponse(false, Constant.Error, "", ex));
+            }
         }
 
         [HttpPost]
         [Route("addservicerequest")]
         public async Task<IActionResult> ManageServiceRequest(ServiceRequestViewModel model)
         {
-            if (model != null)
+           
+            try
             {
-                serviceRequestService.AddServiceRequest(model);
-                return Ok(new APIResponse(true, Constant.Success, "", "Service request created successfully!"));
+                if (model != null)
+                {
+                    serviceRequestService.AddServiceRequest(model);
+                    return Ok(new APIResponse(true, Constant.Success, "", "Service request created successfully!"));
+                }
+                else
+                    return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Service request creation failed! Please check request details and try again." });
+
+
             }
-            else
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Service request creation failed! Please check request details and try again." });
+            catch (Exception ex)
+            {
+
+                return Ok(new APIResponse(false, Constant.Error, "", ex));
+            }
         }
 
         [HttpPost]

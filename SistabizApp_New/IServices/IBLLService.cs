@@ -35,6 +35,7 @@ namespace SistabizApp_New.IServices
         MemberProfileViewModel GetEmployeeById(int memberid);
         List<MemberViewModel> SearchMember(string search);
         MemberLoginResponseViewModel GetMemberByEmail(string email);
+        bool UpdateDeviceToken(int memberid, string devicetoken);
         string UpdateMemberPassword(string email = null, string password = null);
 
         TblUserSubscription AddSubscription(TblUserSubscription subscription);
@@ -172,6 +173,7 @@ namespace SistabizApp_New.IServices
         List<QuestionViewModel> GetAllConversationQuestion();
         List<QuestionViewModel> GetAllQuestionAnswer();
         string ManageQuestionAnswer(List<QuestionAnswerViewModel> model);
+        int GetMemberOnboardingCount(int memberid = 0);
 
         //comman
         List<CommanViewModel> GetBookmarkList(int typeid, int memberid);
@@ -195,7 +197,8 @@ namespace SistabizApp_New.IServices
         List<BadgesViewModel> GetAllBadges();
         string ManageBadges(BadgesViewModel model);
         string RemoveBadges(int badgesid = 0);
-        string BadgesAssignMember(BadgesAssignViewMidel model);
+        string ReassignBadges(int badgesid = 0, int memberid = 0);
+        bool BadgesAssignMember(BadgesAssignViewMidel model);
         List<BadgesViewModel> GetAllBadgesByMember(int memberid = 0);
 
         //chat history

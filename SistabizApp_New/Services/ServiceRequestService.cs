@@ -46,7 +46,8 @@ namespace SistabizApp_New.Services
                 Status = e.Status,
                 Description = e.Description,
                 RequestStatusTrack = CommanHelper.GetServiceRequestStatus((int)e.Status),
-                RequestedFor = CommanHelper.GetServiceRequestFor((int)e.RequestType)
+                RequestedFor = CommanHelper.GetServiceRequestFor((int)e.RequestType),
+                MemberName=e.Member!=null?e.Member.FirstName+" "+e.Member.LastName:""
 
             }).ToList();
 
@@ -119,7 +120,7 @@ namespace SistabizApp_New.Services
                 MemberId = e.MemberId,
                 Status = e.Status,
                 Description = e.Description,
-                //MemberName = e.Member.FirstName + " " + e.Member.LastName
+                MemberName = e.Member.FirstName + " " + e.Member.LastName
 
             }).ToList();
 

@@ -56,9 +56,12 @@ namespace SistabizApp_New.Services
             return Constant.Success;
         }
 
-        public string BadgesAssignMember(BadgesAssignViewMidel model)
+        public bool BadgesAssignMember(BadgesAssignViewMidel model)
         {
             TblBadgesAssignMember badges = new TblBadgesAssignMember();
+            var checkbadgesexitsornot = _entityDbContext.TblBadgesAssignMember.Where(r => r.BadgesId == model.BadgesId && r.MemberId == model.MemberId).FirstOrDefault();
+            if (checkbadgesexitsornot != null)
+                return false;
             if (model.BadgesAssignId > 0)
                 badges = GetbadgesassignById((int)model.BadgesAssignId);
             badges.BadgesId = model.BadgesId;
@@ -70,7 +73,7 @@ namespace SistabizApp_New.Services
                 _entityDbContext.TblBadgesAssignMember.Add(badges);
             _entityDbContext.SaveChanges();
 
-            return Constant.Success;
+            return true;
         }
 
         public string RemoveBadges(int badgesid = 0)
@@ -83,6 +86,18 @@ namespace SistabizApp_New.Services
                     _entityDbContext.TblBadges.Remove(result);
                     _entityDbContext.SaveChanges();
                 }
+            }
+            return Constant.Success;
+        }
+
+        public string ReassignBadges(int badgesid = 0,int memberid=0)
+        {
+            var checkbadgesexitsornot = _entityDbContext.TblBadgesAssignMember.Where(r => r.BadgesId == badgesid && r.MemberId == memberid).FirstOrDefault();
+            if (checkbadgesexitsornot != null)
+            {
+                    _entityDbContext.TblBadgesAssignMember.Remove(checkbadgesexitsornot);
+                    _entityDbContext.SaveChanges();
+              
             }
             return Constant.Success;
         }

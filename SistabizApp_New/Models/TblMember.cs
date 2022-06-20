@@ -90,6 +90,8 @@ namespace SistabizApp_New.Models
         public string LookingFor { get; set; }
         public string ReferralCode { get; set; }
         public string Interest { get; set; }
+        public bool? IsOnboarding { get; set; }
+        public string DeviceToken { get; set; }
 
         public virtual TblMemberRoles Role { get; set; }
         public virtual ICollection<TblAttachmentBookmark> TblAttachmentBookmark { get; set; }

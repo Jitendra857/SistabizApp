@@ -29,9 +29,11 @@ namespace SistabizApp_New.Controllers
 
         [HttpGet]
         [Route("getallgroup")]
-        public async Task<IActionResult> GetAllGroup(int ordering=0)
+        public async Task<IActionResult> GetAllGroup(int ordering=0,int memberid=0)
         {
             var result = groupService.GetGroupList();
+            if (memberid > 0)
+                result = result.Where(t => t.CreatedBy == memberid).ToList();
             return Ok(new APIResponse(true, Constant.Success, "group list", ordering==2?result.OrderByDescending(r=>r.GroupId).ToList():result));
         }
 
@@ -79,9 +81,11 @@ namespace SistabizApp_New.Controllers
         }
         [HttpGet]
         [Route("searchgroup")]
-        public async Task<IActionResult> SearchGroup(string search)
+        public async Task<IActionResult> SearchGroup(string search,int memberid=0)
         {
             var result = groupService.GetGroupListBySearch(search);
+            if (memberid > 0)
+                result = result.Where(t => t.CreatedBy == memberid).ToList();
             return Ok(new APIResponse(true, Constant.Success, "group list by search", result));
            
         }

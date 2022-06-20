@@ -177,6 +177,8 @@ namespace SistabizApp_New.ViewModels
         public string RoleName { get; set; }
         public string RoleIcon { get; set; }
         public bool IsBookmark { get; set; }
+        public bool IsOnboarding { get; set; }
+        
     }
 
     public class RoleViewModel

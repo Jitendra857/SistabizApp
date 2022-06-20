@@ -29,7 +29,9 @@ namespace SistabizApp_New.Services
                     Question = e.Question,
                     Answer = e.Answer,
                     FaqCategoryId = e.FaqCategoryId,
-                    CategoryName = e.FaqCategory.CategoryName
+                    CategoryName = e.FaqCategory.CategoryName,
+                    CreatedBy=e.CreatedBy
+
 
 
                 }).ToList();

@@ -46,5 +46,10 @@ namespace SistabizApp_New.Services
 
             return Constant.Success;
         }
+
+        public int GetMemberOnboardingCount(int memberid=0)
+        {
+            return _entityDbContext.TblConversationQuestionAnswer.Where(t => t.MemberId == memberid).Count();
+        }
     }
 }

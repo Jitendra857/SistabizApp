@@ -27,6 +27,8 @@ namespace SistabizApp_New.Services
         public async Task<ResponseModel> SendNotification(NotificationModel notificationModel)
         {
             ResponseModel response = new ResponseModel();
+
+            string token = "dSLst0SrR4uLZG5YUTpWwE:APA91bGTzrhIwftQGeZXfrmV6dqehkOmqW0DanzYRLyB1u9Y-03-rf6GaXArrThAOl-10rNjKx8g6nSwOY5lQjyBUe7EGFCmEVsl7B7RCmebjrS8UMoW6wicEp0desZ686-s8no_Lj-1";
             try
             {
                 if (notificationModel.IsAndroiodDevice)
@@ -55,20 +57,30 @@ namespace SistabizApp_New.Services
                     notification.Notification = dataPayload;
 
                     var fcm = new FcmSender(settings, httpClient);
-                    var fcmSendResponse = await fcm.SendAsync(deviceToken, notification);
+                    try
+                    {
+                        var fcmSendResponse = await fcm.SendAsync(token, notification);
 
-                    if (fcmSendResponse.IsSuccess())
-                    {
-                        response.IsSuccess = true;
-                        response.Message = "Notification sent successfully";
-                        return response;
+                        if (fcmSendResponse.IsSuccess())
+                        {
+                            response.IsSuccess = true;
+                            response.Message = "Notification sent successfully";
+                            return response;
+                        }
+                        else
+                        {
+                            response.IsSuccess = false;
+                            response.Message = fcmSendResponse.Results[0].Error;
+                            return response;
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        response.IsSuccess = false;
-                        response.Message = fcmSendResponse.Results[0].Error;
-                        return response;
+
+                        throw;
                     }
+
+                    
                 }
                 else
                 {

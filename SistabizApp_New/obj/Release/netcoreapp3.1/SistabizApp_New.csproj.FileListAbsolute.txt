@@ -90,3 +90,17 @@ F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Releas
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Release\netcoreapp3.1\Microsoft.Extensions.Configuration.Binder.dll
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Release\netcoreapp3.1\CorePush.dll
 F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Release\netcoreapp3.1\BouncyCastle.Crypto.dll
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Release\netcoreapp3.1\BCrypt.Net-Core.dll
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Release\netcoreapp3.1\CoreFtp.dll
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Release\netcoreapp3.1\Flurl.dll
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Release\netcoreapp3.1\Flurl.Http.dll
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Release\netcoreapp3.1\MailKit.dll
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Release\netcoreapp3.1\MimeKit.dll
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Release\netcoreapp3.1\RevStackCore.Cryptography.dll
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Release\netcoreapp3.1\RevStackCore.Extensions.GeoLocation.dll
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Release\netcoreapp3.1\RevStackCore.Extensions.Serialization.SnakeCase.dll
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Release\netcoreapp3.1\RevStackCore.Extensions.WebPush.dll
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Release\netcoreapp3.1\RevStackCore.Extensions.WebPush.Entity.dll
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Release\netcoreapp3.1\RevStackCore.Net.dll
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Release\netcoreapp3.1\RevStackCore.Pattern.dll
+F:\Freelancer Work\UpWork\Vivek+Panday Ji\Git-Project\SistabizApp_New\bin\Release\netcoreapp3.1\RevStackCore.Serialization.dll

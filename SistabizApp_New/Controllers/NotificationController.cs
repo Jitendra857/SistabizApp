@@ -23,8 +23,10 @@ namespace SistabizApp_New.Controllers
         [HttpPost]
         public async Task<IActionResult> SendNotification(NotificationModel notificationModel)
         {
-            var result = await _notificationService.SendNotification(notificationModel);
-            return Ok(result);
+            //var result = await _notificationService.SendNotification(notificationModel);
+
+            var notifie = PushNotification.SendNotificationAsync("","Test","tesssss");
+            return Ok(notifie);
         }
     }
 }

@@ -28,6 +28,7 @@ namespace SistabizApp_New.Controllers
         public async Task<IActionResult> GetAllFaqList(string search)
         {
 
+
             return Ok(new APIResponse(true, Constant.Success, "faq list", faqService.GetAllFaq(search)));
         }
         [HttpGet]

@@ -25,8 +25,16 @@ namespace SistabizApp_New.Admin
         [Route("getallbadges")]
         public async Task<IActionResult> GetAllBadges()
         {
-            var result = badgesService.GetAllBadges();
-            return Ok(new APIResponse(true, Constant.Success, "badges list", result));
+            try
+            {
+                var result = badgesService.GetAllBadges();
+                return Ok(new APIResponse(true, Constant.Success, "badges list", result));
+            }
+            catch (Exception ex)
+            {
+
+                return Ok(new APIResponse(false, Constant.Error, "", ex));
+            }
         }
 
         [HttpPost]
@@ -34,43 +42,71 @@ namespace SistabizApp_New.Admin
         public async Task<IActionResult> ManageBadges([FromForm] BadgesViewModel model)
         {
 
-            if (model.Image != null)
+            try
             {
-                if (model.Image.Length > 0)
+                if (model.Image != null)
                 {
-                    var eventfilename = Path.GetFileName(Guid.NewGuid() + "_" + model.Image.FileName);
-                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), Constant.Badges, eventfilename);
-
-
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    if (model.Image.Length > 0)
                     {
+                        var eventfilename = Path.GetFileName(Guid.NewGuid() + "_" + model.Image.FileName);
+                        var filePath = Path.Combine(Directory.GetCurrentDirectory(), Constant.Badges, eventfilename);
 
-                        model.Image.CopyTo(fileStream);
-                        model.ImgaeUrl = eventfilename;
+
+                        using (var fileStream = new FileStream(filePath, FileMode.Create))
+                        {
+
+                            model.Image.CopyTo(fileStream);
+                            model.ImgaeUrl = eventfilename;
+                        }
                     }
                 }
+
+                badgesService.ManageBadges(model);
+
+
+                return Ok(new APIResponse(true, Constant.Success, "", "Badges Added successfully"));
             }
+            catch (Exception ex)
+            {
 
-           badgesService.ManageBadges(model);
-
-          
-            return Ok(new APIResponse(true, Constant.Success, "", "Badges Added successfully"));
+                return Ok(new APIResponse(false, Constant.Error, "", ex));
+            }
         }
 
         [HttpPost]
         [Route("assignbadgestomember")]
         public async Task<IActionResult> BadgesAssignToMember( BadgesAssignViewMidel model)
         {
-            badgesService.BadgesAssignMember(model);
-            return Ok(new APIResponse(true, Constant.Success, "", "Badges assign to member successfully"));
+          var result=  badgesService.BadgesAssignMember(model);
+            try
+            {
+                if (result == false)
+                    return Ok(new APIResponse(false, Constant.Error, "", "Same badges already assign to this member"));
+                else
+                    return Ok(new APIResponse(true, Constant.Success, "", "Badges assign to member successfully"));
+            }
+            catch (Exception ex)
+            {
+
+                return Ok(new APIResponse(false, Constant.Error, "", ex));
+            }
+
         }
 
         [HttpGet]
         [Route("getallbadgesbymember")]
         public async Task<IActionResult> GetAllBadgesByMember(int memberid=0)
         {
-            var result = badgesService.GetAllBadgesByMember(memberid);
-            return Ok(new APIResponse(true, Constant.Success, "badges assign member list", result));
+            try
+            {
+                var result = badgesService.GetAllBadgesByMember(memberid);
+                return Ok(new APIResponse(true, Constant.Success, "badges assign member list", result));
+            }
+            catch (Exception ex)
+            {
+
+                return Ok(new APIResponse(false, Constant.Error, "", ex));
+            }
         }
 
 
@@ -78,9 +114,34 @@ namespace SistabizApp_New.Admin
         [Route("deletebadges")]
         public async Task<IActionResult> RemoveBadges(int id)
         {
-            var result = badgesService.RemoveBadges(id);
+            try
+            {
+                var result = badgesService.RemoveBadges(id);
 
-            return Ok(new APIResponse(true, Constant.Success, "", "Badges delete sucessfully"));
+                return Ok(new APIResponse(true, Constant.Success, "", "Badges delete sucessfully"));
+            }
+            catch (Exception ex)
+            {
+
+                return Ok(new APIResponse(false, Constant.Error, "", ex));
+            }
+        }
+
+        [HttpGet]
+        [Route("reassignbadges")]
+        public async Task<IActionResult> Reassignbadges(int badgesid,int memberid)
+        {
+            try
+            {
+                var result = badgesService.ReassignBadges(badgesid, memberid);
+
+                return Ok(new APIResponse(true, Constant.Success, "", "Badges reassign sucessfully"));
+            }
+            catch (Exception ex)
+            {
+
+                return Ok(new APIResponse(false, Constant.Error, "", ex));
+            }
         }
 
     }

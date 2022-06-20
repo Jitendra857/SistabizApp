@@ -13,7 +13,7 @@ namespace SistabizApp_New.Services
 
         public List<DigitalLibraryViewModel> GetDigitalLibraryList(string search = null)
         {
-            
+
             if (!string.IsNullOrEmpty(search))
             {
                 return _entityDbContext.TblDigitalLibrary.Where(a => a.IsDeleted != true && a.Title.Contains(search)).Select(e => new DigitalLibraryViewModel
@@ -26,11 +26,12 @@ namespace SistabizApp_New.Services
                     PaymentType = CommanHelper.GetDigitalLibraryPaymentType((int)e.Type),
                     CategoryType = e.CategoryId,
                     CategoryName = e.Category != null ? e.Category.CategoryName : null,
+                   CreatedBy=e.CreatedBy,
                     CreateByName = e.CreatedByNavigation != null ? e.CreatedByNavigation.FirstName + " " + e.CreatedByNavigation.LastName : null,
                     CreateByProfile = e.CreatedByNavigation != null ? Constant.livebaseurl + "Profiles/" + e.CreatedByNavigation.ProfileImage : null,
-                    IsBookmark = e.TblDigitalLibraryBookmark.Count>0 ? true : false,
+                    IsBookmark = e.TblDigitalLibraryBookmark.Count > 0 ? true : false,
                     GroupIconPath = Constant.livebaseurl + "GroupIcon/" + e.ProfileIcon,
-                   CreatedOn=e.CreatedOn,
+                    CreatedOn = e.CreatedOn,
                     lstDigitalLibraryAttachment = e.TblDigitalLibaryAttachment.Count > 0 ? e.TblDigitalLibaryAttachment.Select(r => new DigitalLibraryAttachmentViewModel
                     {
                         LibraryAttachmentId = r.LibraryAttachmentId,
@@ -71,40 +72,40 @@ namespace SistabizApp_New.Services
             }
         }
 
-        public DigitalLibraryViewModel GetDigitalLibraryDetailsById(int id )
+        public DigitalLibraryViewModel GetDigitalLibraryDetailsById(int id)
         {
 
-           
-                return _entityDbContext.TblDigitalLibrary.Where(a => a.IsDeleted != true && a.DigitalLibraryId==id).Select(e => new DigitalLibraryViewModel
+
+            return _entityDbContext.TblDigitalLibrary.Where(a => a.IsDeleted != true && a.DigitalLibraryId == id).Select(e => new DigitalLibraryViewModel
+            {
+                DigitalLibraryId = e.DigitalLibraryId,
+                Title = e.Title,
+                Description = e.Description,
+                Type = e.Type,
+                Price = e.Price,
+                PaymentType = CommanHelper.GetDigitalLibraryPaymentType((int)e.Type),
+                CategoryType = e.CategoryId,
+                CategoryName = e.Category != null ? e.Category.CategoryName : null,
+                CreateByName = e.CreatedByNavigation != null ? e.CreatedByNavigation.FirstName + " " + e.CreatedByNavigation.LastName : null,
+                CreateByProfile = e.CreatedByNavigation != null ? Constant.livebaseurl + "Profiles/" + e.CreatedByNavigation.ProfileImage : null,
+                IsBookmark = e.TblDigitalLibraryBookmark.Count > 0 ? true : false,
+                GroupIconPath = Constant.livebaseurl + "GroupIcon/" + e.ProfileIcon,
+                CreatedOn = e.CreatedOn,
+
+                lstDigitalLibraryAttachment = e.TblDigitalLibaryAttachment.Count > 0 ? e.TblDigitalLibaryAttachment.Select(r => new DigitalLibraryAttachmentViewModel
                 {
-                    DigitalLibraryId = e.DigitalLibraryId,
-                    Title = e.Title,
-                    Description = e.Description,
-                    Type = e.Type,
-                    Price = e.Price,
-                    PaymentType = CommanHelper.GetDigitalLibraryPaymentType((int)e.Type),
-                    CategoryType = e.CategoryId,
-                    CategoryName = e.Category != null ? e.Category.CategoryName : null,
-                    CreateByName = e.CreatedByNavigation != null ? e.CreatedByNavigation.FirstName + " " + e.CreatedByNavigation.LastName : null,
-                    CreateByProfile = e.CreatedByNavigation != null ? Constant.livebaseurl + "Profiles/" + e.CreatedByNavigation.ProfileImage : null,
-                    IsBookmark = e.TblDigitalLibraryBookmark.Count > 0 ? true : false,
-                    GroupIconPath = Constant.livebaseurl + "GroupIcon/" + e.ProfileIcon,
-                    CreatedOn = e.CreatedOn,
-                  
-                    lstDigitalLibraryAttachment = e.TblDigitalLibaryAttachment.Count > 0 ? e.TblDigitalLibaryAttachment.Select(r => new DigitalLibraryAttachmentViewModel
-                    {
-                        LibraryAttachmentId = r.LibraryAttachmentId,
-                        FileName = Constant.livebaseurl + "DigitalLibrary/" + r.FileName,
-                        FileUrl=r.FileName
+                    LibraryAttachmentId = r.LibraryAttachmentId,
+                    FileName = Constant.livebaseurl + "DigitalLibrary/" + r.FileName,
+                    FileUrl = r.FileName
 
 
-                    }).ToList() : null,
+                }).ToList() : null,
 
-                }).FirstOrDefault();
-           
-          
+            }).FirstOrDefault();
 
-          
+
+
+
         }
         public string DigitalLibraryBookmark(DigitalLibraryBookmarkViewModel model)
         {
@@ -136,7 +137,7 @@ namespace SistabizApp_New.Services
 
         public List<DigitalLibraryViewModel> GetDigitalLibraryListByCategory(int category)
         {
-           
+
             return _entityDbContext.TblDigitalLibrary.Where(a => a.IsDeleted != true && a.CategoryId == category).Select(e => new DigitalLibraryViewModel
             {
                 DigitalLibraryId = e.DigitalLibraryId,
@@ -207,7 +208,7 @@ namespace SistabizApp_New.Services
             {
                 var bookmarksdetails = _entityDbContext.TblDigitalLibraryBookmark.Where(e => e.MemberId == model.MemberId && e.CategoryId == model.CategoryId).Select(k => k.DigitalLibrryId).ToList();
 
-               
+
 
                 return _entityDbContext.TblDigitalLibrary.Where(a => a.IsDeleted != true && bookmarksdetails.Contains(a.DigitalLibraryId)).Select(e => new DigitalLibraryViewModel
                 {

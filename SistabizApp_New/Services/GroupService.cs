@@ -156,6 +156,7 @@ namespace SistabizApp_New.Services
                 }).ToList() : null,
                 lstGroupJoinMembers = e.TblGroupBookmarks.Count > 0 ? e.TblGroupJoinMember.Select(t => new GroupJoinMemberViewModel
                 {
+                    JoinMemberId=t.JoinMemberId,
                     memberprofile = t.JoinMember != null ? Constant.livebaseurl + "Profiles/" + t.JoinMember.ProfileImage : null,
                     MemberName = t.JoinMember != null ? t.JoinMember.FirstName + " " + t.JoinMember.LastName : null
                 }).ToList() : null,
@@ -411,8 +412,15 @@ namespace SistabizApp_New.Services
         public long ManageGroup(GroupViewModel model)
         {
             TblGroup group = new TblGroup();
+
+
+
             if (model.GroupId > 0)
+            {
+                
                 group = GetById((int)model.GroupId);
+                RemoveGroupJoinMember((int)model.GroupId);
+            }
 
             group.GroupName = model.GroupName;
             group.Description = model.Description;
@@ -625,6 +633,17 @@ namespace SistabizApp_New.Services
             if (group != null)
             {
                 group.IsDeleted = true;
+                _entityDbContext.SaveChanges();
+            }
+            return "Success";
+        }
+
+        public string RemoveGroupJoinMember(int groupid)
+        {
+            var group = _entityDbContext.TblGroupJoinMember.Where(r => r.GroupId == groupid).ToList();// (groupid);
+            if (group.Count>0)
+            {
+                _entityDbContext.TblGroupJoinMember.RemoveRange(group);
                 _entityDbContext.SaveChanges();
             }
             return "Success";
